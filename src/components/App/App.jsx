@@ -39,7 +39,7 @@ function App() {
       <div>
         <Nav />
         <Switch>
-          {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+          {/* Visiting localhost:3000 will redirect to localhost:3000/home, UNLESS LOGGED IN */}
           <Redirect exact from="/" to="/home" />
 
           {/* Visiting localhost:3000/about will show the about page. */}
@@ -60,16 +60,17 @@ function App() {
             exact
             path="/search"
           >
-            <UserPage />
+            <Search />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+          {/* <ProtectedRoute
+            logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/search"
           >
             <InfoPage />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
+{/* NOT SURE IF I NEED THIS ABOVE STUFF */}
 
           <Route
             exact

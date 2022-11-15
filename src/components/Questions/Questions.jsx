@@ -7,6 +7,26 @@
 // THERE WILL PROBABLY BE NO NEED FOR A SUBMIT BUTTON AT THE END
 // THEN, I'LL JUST STATE 'YOUR DATA IS AUTOMATICALLY SAVED.' 
 // INCLUDE THE NOTE TO ENSURE ANONYMITY.
+
+// HOW TO: At some point, use GET to get the questions DB data.
+// Maybe can use an axios.get to get the data from the db too on useEffect();
+// useSelector((store) => {store.questions}) to grab that data from redux store.
+// Loop through the questions using .map() down in the return.
+// probably. Will look like questions.map(question => ()) or so...
+// Don't forget key={i} or key={key}
+// Will also be looping the ANSWERS, which are empty to start and
+// will be entered in as inputs with placeholders, so I will need
+// the placeholder values looped thru.
+// I think at first I will loop through the answers table "answers" column,
+// and display those as inputs. Basically I think I'll need to use
+// axios here to 'GET' the joined tables of "answers" and "questions".
+// I think I need to do that because I think I need to map through the
+// "answers", "questions"."question", and the "questions"."placeholder_hint".
+// Then, the user will input their answer and when the targeted input field
+// loses focuse (blur), it will send that data as a 'POST' to the user's
+// "answers" values. 
+
+// const questions = useSelector((store) => {store.questions}); //Something like this, map thru it
 function handleChange(event){
     event.preventDefault();
     console.log('handleChange, event.target.value is', event.target.value);
@@ -24,16 +44,17 @@ function Questions() {
             <table className="questionsTableContainer">
                 <thead>
                     <tr>
-                        <th>Questions:</th><th>Answers</th>
+                        <th>questions</th><th>Answers</th>
                     </tr>  
                     <tr>
-                        <td>Ever heard of updog?</td>
+                        <td>questions.map: questions</td>
                         <td>
                             <input 
                                 type='text'
-                                // placeholder={questions.placeholder_hint}
-                                value='remember put placeholder here'
+                                // placeholder={questions.map: questions.placeholder}
+                                value='answers.map:answers'
                                 onChange={handleChange}
+                                
                             />
                         </td>
                     </tr>

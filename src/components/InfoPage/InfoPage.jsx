@@ -1,5 +1,7 @@
 import React from 'react';
 
+//I DON'T THINK I NEED THIS PAGE YO
+
 // This is one of our simplest components
 // It doesn't have local state
 // It doesn't dispatch any redux actions or display any part of redux state

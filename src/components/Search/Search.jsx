@@ -13,6 +13,10 @@ function Search() {
             {/* <h2>Welcome, {user.username}!</h2> */}
             <h1>Search Page</h1>
             <div className="container">
+      <h2>Welcome, {user.username}!</h2>
+      {/* <p>Your ID is: {user.id}</p> */}
+      </div>
+            <div className="container">
                 {/* <p>Your ID is: {user.id}</p> */}
                 <LogOutButton className="btn" />
             </div>
