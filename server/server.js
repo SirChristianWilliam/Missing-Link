@@ -9,6 +9,8 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router');
+//auth-shelf has a shelf router as well, shelf is a component where
+// the information is displayed
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -23,6 +25,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
+// auth-shelf has app.use('/api/shelf',shelfRouter)
 
 // Serve static files
 app.use(express.static('build'));

@@ -5,7 +5,7 @@ body,
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Roboto', 'sans-serif';
   margin: 0px;
 }
 
@@ -110,3 +110,4 @@ input {
   margin: 5px;
   margin-bottom: 10px;
 }
+.registerPageContainer {margin:auto}

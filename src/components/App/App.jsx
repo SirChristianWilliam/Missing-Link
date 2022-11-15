@@ -19,8 +19,11 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import Search from '../Search/Search';
+import Results from '../Results/Results';
+import Questions from '../Questions/Questions';
 import './App.css';
+import Profile from '../Profile/Profile';
 
 function App() {
   const dispatch = useDispatch();
@@ -109,6 +112,23 @@ function App() {
               <LandingPage />
             }
           </Route>
+{/* Newly added components (monday nov 14th) */}
+          <Route path="/search">
+            <Search/>
+          </Route>
+
+          <Route path="/results">
+            <Results/>
+          </Route>
+
+          <Route path="/profile">
+            <Profile/>
+          </Route>
+
+          <Route path="/questions">
+            <Questions/>
+          </Route>
+{/* Newly added components (monday nov 14th) */}
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

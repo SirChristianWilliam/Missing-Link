@@ -46,7 +46,7 @@ function LoginForm() {
       </div>
       <div>
         <label htmlFor="password">
-          Password:
+          Password: 
           <input
             type="password"
             name="password"
@@ -56,6 +56,8 @@ function LoginForm() {
           />
         </label>
       </div>
+     
+
       <div>
         <input className="btn" type="submit" name="submit" value="Log In" />
       </div>
