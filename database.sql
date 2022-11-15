@@ -412,20 +412,18 @@ CREATE TABLE "user" (
 	"password" VARCHAR(255),
 	"firstName" VARCHAR(255),
 	"lastName" VARCHAR(255),
+	"email" VARCHAR(255),
 	"key" VARCHAR(255)
 );
 
 DROP TABLE "user";
-INSERT INTO "user" ("username","password","firstName","lastName")
+INSERT INTO "user" ("username","password","firstName","lastName","email")
 VALUES 
-	('xx_coolguy_xx', 'fIodl27D','Bill','Billerson'),
-	('yungGravy', 'b83ldksi','Carol','Baskins'),
-	('righteousLizard', 'kdilaob!','Samantha','Carlson'),
-	('wiggly_woogely', '849dksjYid','Jim','Jameson'),
-	('studMuff', '7dj3Lhs','Brad','Bonkly'),
-	('f','f','f','f'),
-	('g','g','g','g'),
-	('h','h','h','h');
+	('xx_coolguy_xx', 'fIodl27D','Bill','Billerson','bingbong@gmail.com'),
+	('yungGravy', 'b83ldksi','Carol','Baskins','wwwwuuuu@gmail.com'),
+	('righteousLizard', 'kdilaob!','Samantha','Carlson','harrylarry@gmail.com'),
+	('wiggly_woogely', '849dksjYid','Jim','Jameson','woohoo@yahoo.com'),
+	('studMuff', '7dj3Lhs','Brad','Bonkly','olduser123@aol.com');
 	
 
 

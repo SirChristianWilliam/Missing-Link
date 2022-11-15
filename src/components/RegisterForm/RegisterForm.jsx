@@ -5,6 +5,9 @@ function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -16,6 +19,9 @@ function RegisterForm() {
       payload: {
         username: username,
         password: password,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
       },
     });
   }; // end registerUser
@@ -53,6 +59,30 @@ function RegisterForm() {
         </label>
       </div>
       <div>
+        <label htmlFor="firstName">
+          First Name:
+          <input
+            type="text"
+            name="firstName"
+            value={firstName}
+            required
+            onChange={(event) => setFirstName(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="lastName">
+          Last Name:
+          <input
+            type="text"
+            name="lastName"
+            value={lastName}
+            required
+            onChange={(event) => setLastName(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
         <label htmlFor="email">
           Email:
           <input
@@ -63,7 +93,7 @@ function RegisterForm() {
             onChange={(event) => setEmail(event.target.value)}
           />
         </label>
-      </div> 
+      </div>
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />
       </div>

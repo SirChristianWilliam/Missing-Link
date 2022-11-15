@@ -13,6 +13,8 @@
 // TO UPLOAD(YOU SAW THIS IN CLASS FROM STUDENT PRESENTATION),
 // OR JUST A BIG LETTER, GRABBED FROM THE FIRST LETTER
 // OF THE USER'S NAME.
+
+//HOW TO: THE USERNAME ALREADY SHOWS. I NEED TO 
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
