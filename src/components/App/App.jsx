@@ -58,7 +58,7 @@ function App() {
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
-            path="/user"
+            path="/search"
           >
             <UserPage />
           </ProtectedRoute>
@@ -78,7 +78,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/search" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -92,7 +92,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/search" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -106,15 +106,15 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/search" />
               :
               // Otherwise, show the Landing page
               <LandingPage />
             }
           </Route>
 {/* Newly added components (monday nov 14th) */}
-          <Route path="/search">
-            <Search/>
+          <Route path="/profile">
+            <Profile/>
           </Route>
 
           <Route path="/results">
