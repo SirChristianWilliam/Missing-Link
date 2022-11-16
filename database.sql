@@ -9,6 +9,7 @@ DROP TABLE "questions";
 INSERT INTO "questions" ("question","answer","placeholder")
 VALUES 
 	('Hair color?', '','black/brown/red/white/blonde/etc'),
+	('Eye color?','', 'black/hazel/brown/red/blue/green/etc'),
 	('Height', '','5''9'),
 	('Weight', '', '165lbs'),
 	('Race', '', 'caucasian/white/black/african american/asian/hawaiian/etc.'),
@@ -141,6 +142,16 @@ VALUES
 	('Are you a morning or night person?', '', 'morning/night'),
 	('What age, if any, did you have you first cup of coffee?', '', '2'),
 	('Please list anything else you would like to add that you think may be relevant','', 'Please try to keep this as short as possible');
+
+CREATE TABLE "answers" (
+	"id" SERIAL PRIMARY KEY,
+	"questions_id" INT REFERENCES questions(id),
+	"answers" VARCHAR(255),
+	"user_id" INT REFERENCES "user"("id")
+);
+
+
+DROP TABLE "answers";
 
 CREATE TABLE "conditions" (
 	"id" SERIAL PRIMARY KEY,
@@ -405,6 +416,15 @@ VALUES
 	('personality disorder', '9n9n9' ),
 	('plantar warts', '9m9m9' );
 	
+	CREATE TABLE "user_conditions" (
+	"id" SERIAL PRIMARY KEY,
+	"condition_id" INT REFERENCES conditions(id),
+	"user_id" INT REFERENCES "user"("id"),
+	"verified" BOOLEAN DEFAULT 'false'
+	);
+
+DROP TABLE "user_conditions";
+
 
 CREATE TABLE "user" (
 	"id" SERIAL PRIMARY KEY,
@@ -424,25 +444,7 @@ VALUES
 	('righteousLizard', 'kdilaob!','Samantha','Carlson','harrylarry@gmail.com'),
 	('wiggly_woogely', '849dksjYid','Jim','Jameson','woohoo@yahoo.com'),
 	('studMuff', '7dj3Lhs','Brad','Bonkly','olduser123@aol.com');
-	
-
-
-CREATE TABLE "answers" (
-	"id" SERIAL PRIMARY KEY,
-	"questions_id" INT,
-	"answers" VARCHAR(255),
-	"user_id" INT
-);
-
-
-DROP TABLE "answers";	
-
-CREATE TABLE "user_conditions" (
-	"id" SERIAL PRIMARY KEY,
-	"condition_id" INT,
-	"user_id" INT,
-	"verified" BOOLEAN
-);
+		
 
 SELECT * FROM "user";
 SELECT * FROM "questions";

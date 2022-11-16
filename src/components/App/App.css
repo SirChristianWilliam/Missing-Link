@@ -117,3 +117,15 @@ input {
   border:1px solid black;
   border-radius:50%;
 }
+
+.codePopupContainer {
+  border:1px solid black;
+  width:50%;
+}
+.codeInput {
+  border-top:none;
+  border-bottom:1px solid black;
+  border-left:none;
+  border-right:none;
+  outline:none;
+}

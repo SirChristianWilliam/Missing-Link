@@ -7,6 +7,11 @@
 // THERE WILL PROBABLY BE NO NEED FOR A SUBMIT BUTTON AT THE END
 // THEN, I'LL JUST STATE 'YOUR DATA IS AUTOMATICALLY SAVED.' 
 // INCLUDE THE NOTE TO ENSURE ANONYMITY.
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {useSelector} from 'react-redux';
+
+import { useHistory } from "react-router-dom";
 
 // HOW TO: At some point, use GET to get the questions DB data.
 // Maybe can use an axios.get to get the data from the db too on useEffect();
@@ -27,13 +32,19 @@
 // "answers" values. 
 
 // const questions = useSelector((store) => {store.questions}); //Something like this, map thru it
-function handleChange(event){
-    event.preventDefault();
-    console.log('handleChange, event.target.value is', event.target.value);
-};
+
+
 function Questions() {
+    const history = useHistory();
+
+    function handleChange(event){
+        event.preventDefault();
+        console.log('handleChange, event.target.value is', event.target.value);
+    };
+   
     return(
         <>
+        <button onClick={() => {history.go(-1)}}>Go Back</button>
             <h1>Questions Page</h1>
             <p>Please note: In order to receive honest responses,
                 answers are uploaded anonymously. No one will be
