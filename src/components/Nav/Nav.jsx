@@ -11,7 +11,7 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <h1 className="nav-title">Mising Link</h1>
+        <h1 className="nav-title">Missing Link</h1>
       </Link>
       <div>
         {/* If no user is logged in, show these links */}
@@ -32,8 +32,6 @@ function Nav() {
             <Link className="navLink" to="/profile">
               Profile
             </Link>
-
-           
           </>
         )}
 

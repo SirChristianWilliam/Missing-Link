@@ -70,7 +70,7 @@ function App() {
           >
             <InfoPage />
           </ProtectedRoute> */}
-{/* NOT SURE IF I NEED THIS ABOVE STUFF */}
+          {/* NOT SURE IF I NEED THIS ABOVE STUFF */}
 
           <Route
             exact
@@ -113,23 +113,23 @@ function App() {
               <LandingPage />
             }
           </Route>
-{/* Newly added components (monday nov 14th) */}
+          {/* Newly added components (monday nov 14th) */}
           <Route path="/profile">
-            <Profile/>
+            <Profile />
           </Route>
 
           <Route path="/results">
-            <Results/>
+            <Results />
           </Route>
 
           <Route path="/profile">
-            <Profile/>
+            <Profile />
           </Route>
 
           <Route path="/questions">
-            <Questions/>
+            <Questions />
           </Route>
-{/* Newly added components (monday nov 14th) */}
+          {/* Newly added components (monday nov 14th) */}
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

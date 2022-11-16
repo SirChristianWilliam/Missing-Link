@@ -53,7 +53,7 @@ function Results() {
                 - Add Access Code -
             </button>
 
-{/* HIDE THIS UNTIL */}
+            {/* HIDE THIS UNTIL */}
             <div className="codePopupContainer">
                 <button onClick={closePopup}>
                     X
@@ -68,7 +68,7 @@ function Results() {
                             onChange={handleCodeChange}
                         >
                         </input>
-                        <button 
+                        <button
                             type="submit"
                         >
                             Submit Code

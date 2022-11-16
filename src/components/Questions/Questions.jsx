@@ -7,11 +7,11 @@
 // THERE WILL PROBABLY BE NO NEED FOR A SUBMIT BUTTON AT THE END
 // THEN, I'LL JUST STATE 'YOUR DATA IS AUTOMATICALLY SAVED.' 
 // INCLUDE THE NOTE TO ENSURE ANONYMITY.
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
-
+import React, { useEffect, useState } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
+ 
 import { useHistory } from "react-router-dom";
+import { useParams } from 'react-router-dom'
 
 // HOW TO: At some point, use GET to get the questions DB data.
 // Maybe can use an axios.get to get the data from the db too on useEffect();
@@ -33,18 +33,32 @@ import { useHistory } from "react-router-dom";
 
 // const questions = useSelector((store) => {store.questions}); //Something like this, map thru it
 
-
 function Questions() {
+    const dispatch = useDispatch();
     const history = useHistory();
+    const questions = useSelector(store => store.questions);
+    const answers = useSelector(store => store.answers);
+    console.log('question items are', questions);
+    console.log('answer items are', answers);
 
-    function handleChange(event){
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_QUESTIONS',
+            
+        })
+        dispatch({
+            type:'FETCH_ANSWERS',
+        })
+    }, []);
+
+    function handleChange(event) {
         event.preventDefault();
         console.log('handleChange, event.target.value is', event.target.value);
     };
-   
-    return(
+
+    return (
         <>
-        <button onClick={() => {history.go(-1)}}>Go Back</button>
+            <button onClick={() => { history.go(-1) }}>Go Back</button>
             <h1>Questions Page</h1>
             <p>Please note: In order to receive honest responses,
                 answers are uploaded anonymously. No one will be
@@ -56,17 +70,21 @@ function Questions() {
                 <thead>
                     <tr>
                         <th>questions</th><th>Answers</th>
-                    </tr>  
+                    </tr>
                     <tr>
-                        <td>questions.map: questions</td>
                         <td>
-                            <input 
+                            questions.map: questions</td>
+                        <td>
+                            {/* {answers.map(answer => (  
+                            <input
                                 type='text'
-                                // placeholder={questions.map: questions.placeholder}
+                                key={answer}
+                                placeholder={answer}
                                 value='answers.map:answers'
                                 onChange={handleChange}
-                                
                             />
+                        ))} */}
+                            
                         </td>
                     </tr>
                 </thead>

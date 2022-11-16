@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
 // import Drawer from '@mui/material/Drawer';
 
- 
+
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
 // import { Button } from '@mui/material';
@@ -49,7 +49,7 @@ function LandingPage() {
       </Button> */}
       <div className="grid">
         <div>
-          
+
           {/* <Button variant='contained'>Button here</Button> */}
         </div>
         <div className='registerPageContainer'>

@@ -29,23 +29,23 @@ function Profile() {
     const history = useHistory();
     const user = useSelector((store) => store.user);
 
-function editUsername(event) {
-    event.preventDefault();
-    console.log('edit username button clicked',event.target.value)
-};
+    function editUsername(event) {
+        event.preventDefault();
+        console.log('edit username button clicked', event.target.value)
+    };
 
-function editEmail(event)  {
-    event.preventDefault();
-    console.log('edit email button clicked',event.target.value)
-};
-function deleteRow(event) {
-    event.preventDefault();
-    console.log('Profile delete clicked',event.target.value)
-}
+    function editEmail(event) {
+        event.preventDefault();
+        console.log('edit email button clicked', event.target.value)
+    };
+    function deleteRow(event) {
+        event.preventDefault();
+        console.log('Profile delete clicked', event.target.value)
+    }
     return (
         <>
-            <h1>Profile Page</h1> 
-{/* LEFT SIDE OF PROFILE PAGE */}
+            <h1>Profile Page</h1>
+            {/* LEFT SIDE OF PROFILE PAGE */}
             <div className='profileLeftContainer'>
                 <img
                     onClick={changePic}
@@ -59,7 +59,7 @@ function deleteRow(event) {
                         <button
                             onClick={editUsername}
                         >
-                        Edit
+                            Edit
                         </button>
                     </span>
                 </div>
@@ -77,40 +77,40 @@ function deleteRow(event) {
 
                 <div>
                     <p>
-                    ⬇ Click button to fill out your own personal questionnaire.
+                        ⬇ Click button to fill out your own personal questionnaire.
                     </p>
                     <button
-                        onClick={()=>{history.push('/questions')}}
+                        onClick={() => { history.push('/questions') }}
                     >
-                    Let's answer some questions!
+                        Let's answer some questions!
                     </button>
                 </div>
             </div>
-{/* END */}
-{/* RIGHT SIDE OF PROFILE PAGE */}
+            {/* END */}
+            {/* RIGHT SIDE OF PROFILE PAGE */}
 
-    <div className='profileRightContainer'>
-        <h2>Your personal condtions list:</h2>
-        <table className='profileTableContainer'>
-            <tr>
-                <th>Condition</th><th>Key Access?</th><th>Delete</th>
-            </tr>
-            <tr>
-                <td>- map saved condition -</td>
-                <td>- map boolean value for that condition, show checkmark -</td>
-                <td><button
-                    onClick={deleteRow}
-                >Delete
-                </button>
-                </td>
-            </tr>
+            <div className='profileRightContainer'>
+                <h2>Your personal condtions list:</h2>
+                <table className='profileTableContainer'>
+                    <tr>
+                        <th>Condition</th><th>Key Access?</th><th>Delete</th>
+                    </tr>
+                    <tr>
+                        <td>- map saved condition -</td>
+                        <td>- map boolean value for that condition, show checkmark -</td>
+                        <td><button
+                            onClick={deleteRow}
+                        >Delete
+                        </button>
+                        </td>
+                    </tr>
 
-        </table>
+                </table>
 
-    </div>
+            </div>
 
-{/* END */}
-    </>
+            {/* END */}
+        </>
 
     )
 };
