@@ -451,4 +451,14 @@ SELECT * FROM "questions";
 SELECT * FROM "conditions";
 SELECT * FROM "user_conditions";
 SELECT * FROM "answers";
-	
+
+
+--METHODS TO GET STUFF
+
+--This selects the question list for each individual user
+SELECT "questions"."question" FROM "answers"
+JOIN "user"
+ON "user"."id" = "answers"."user_id"
+JOIN "questions" 
+ON "questions"."id" = "answers"."id"
+;
