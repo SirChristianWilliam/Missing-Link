@@ -15,7 +15,7 @@ router.get('/',  (req, res) => {
     // GET route code here
     console.log('QUEEEEEEEESTIONS ROUTER' );
 
-    const sqlText = `SELECT "questions"."question" FROM "answers"
+    const sqlText = `SELECT "questions"."question","questions"."placeholder" FROM "answers"
         JOIN "user"
         ON "user"."id" = "answers"."user_id"
         JOIN "questions"

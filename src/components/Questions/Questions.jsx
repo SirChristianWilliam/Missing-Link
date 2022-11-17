@@ -8,11 +8,18 @@
 // THEN, I'LL JUST STATE 'YOUR DATA IS AUTOMATICALLY SAVED.' 
 // INCLUDE THE NOTE TO ENSURE ANONYMITY.
 import React, { useEffect, useState } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
- 
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  HashRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
+
+
 import { useHistory } from "react-router-dom";
 import { useParams } from 'react-router-dom'
-
+import Answers from '../Answers/Answers';
 // HOW TO: At some point, use GET to get the questions DB data.
 // Maybe can use an axios.get to get the data from the db too on useEffect();
 // useSelector((store) => {store.questions}) to grab that data from redux store.
@@ -45,7 +52,7 @@ function Questions() {
         dispatch({
             type: 'FETCH_QUESTIONS'
         })
-        
+
     }, []);
 
     // function handleChange(event) {
@@ -63,17 +70,30 @@ function Questions() {
                 they are purely for research purposes.
             </p>
             <p>Please type your answer in the given format shown.</p>
-             <ul>
-                    {questions.map(question => (
-                         <li key={question}>
-                        <span>
+            <table className='questionsTable'>
+                <tr>
+                    <th>Questions</th>
+                    <th>Answers</th>
+                </tr>
+                {questions.map(question => (
+                    <tr>
+                        <td key={question}>
                             {question.question}
-                        </span>
-                        
-                        </li>
-                    ))}
-            </ul>         
+                        </td>
+                        <td key={question}>
+                            <input type="text" placeholder={question.placeholder}>
+    
+                            </input>
+                        </td>
+                    </tr>
+                    
                 
+
+                ))}
+                
+
+            </table>
+
         </>
     )
 };

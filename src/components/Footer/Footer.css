@@ -5,5 +5,7 @@ footer {
   border:1px solid black;
   position:absolute;
   width:100%;
-  bottom:0;
+  bottom:0 ;
+  background-color: grey;
+  
 }

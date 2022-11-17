@@ -1,16 +1,15 @@
-import { accordionSummaryClasses } from '@mui/material';
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 // worker Saga: will be fired on "FETCH_USER" actions
-function* fetchAnswers(action) {
+function* fetchAnswers() {
 
-    console.log('the action payload for fetchAnswers is', action.payload);
+    console.log('the action payload for fetchAnswers is', answers.payload);
     try {
-        const response = yield axios.get('/api/answers');
+        const answers = yield axios.get('/api/answers');
         yield put({
             type: 'SET_ANSWERS',
-            payload: response.data,
+            payload: answers.data,
         })
     } catch (err) {
         console.log('get qeustions request failed', err);

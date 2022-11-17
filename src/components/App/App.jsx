@@ -24,6 +24,8 @@ import Results from '../Results/Results';
 import Questions from '../Questions/Questions';
 import './App.css';
 import Profile from '../Profile/Profile';
+import Answers from '../Answers/Answers';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -128,7 +130,7 @@ function App() {
 
           <Route path="/questions">
             <Questions />
-          </Route>
+           </Route>
           {/* Newly added components (monday nov 14th) */}
 
           {/* If none of the other routes matched, we will show a 404. */}
