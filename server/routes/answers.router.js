@@ -13,7 +13,7 @@ const router = express.Router();
  */
 router.get('/',  (req, res) => {
     // GET route code here
-    console.log('in answers router yo yo yo');
+    console.log('IN ANSWERS ROUTER TTOTOOTOTOTOTOT');
 
     const sqlText = `SELECT "answers" FROM "answers"
     JOIN "user"
@@ -27,7 +27,7 @@ router.get('/',  (req, res) => {
         res.send(dbRes.rows)
     })
     .catch((err) => {
-        console.log('error getting dbRes');
+        console.log('error getting dbRes answers');
     })
 });
 

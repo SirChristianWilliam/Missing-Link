@@ -36,25 +36,22 @@ import { useParams } from 'react-router-dom'
 function Questions() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const questions = useSelector(store => store.questions[0]);
-    const answers = useSelector(store => store.answers);
-    console.log('QUESTION ITEMS AREo', questions);
+    const questions = useSelector(store => store.questions);
+    // const answers = useSelector(store => store.answers);
+    console.log('QUESTION ITEMS ARE HEHEHEH', questions);
     // console.log('answer items are', answers);
 
     useEffect(() => {
         dispatch({
-            type: 'FETCH_QUESTIONS',
-            
+            type: 'FETCH_QUESTIONS'
         })
-        dispatch({
-            type:'FETCH_ANSWERS',
-        })
+        
     }, []);
 
-    function handleChange(event) {
-        event.preventDefault();
-        console.log('handleChange, event.target.value is', event.target.value);
-    };
+    // function handleChange(event) {
+    //     event.preventDefault();
+    //     console.log('handleChange, event.target.value is', event.target.value);
+    // };
 
     return (
         <>
@@ -66,24 +63,17 @@ function Questions() {
                 they are purely for research purposes.
             </p>
             <p>Please type your answer in the given format shown.</p>
-            <table className="questionsTableContainer">
-                <thead>
-                    <tr>
-                        <th>questions</th><th>Answers</th>
-                    </tr>
+             <ul>
                     {questions.map(question => (
-                         <tr>
-                        <td 
-                            key={question.id}
-                        >
-                            {question.question}                          
-                        </td>
-                        </tr>
+                         <li key={question}>
+                        <span>
+                            {question.question}
+                        </span>
+                        
+                        </li>
                     ))}
-                          
-                    
-                </thead>
-            </table>
+            </ul>         
+                
         </>
     )
 };

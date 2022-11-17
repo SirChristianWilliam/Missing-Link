@@ -13,7 +13,7 @@ const router = express.Router();
  */
 router.get('/',  (req, res) => {
     // GET route code here
-    console.log('in questions router yo yo yo');
+    console.log('QUEEEEEEEESTIONS ROUTER' );
 
     const sqlText = `SELECT "questions"."question" FROM "answers"
         JOIN "user"
@@ -22,11 +22,11 @@ router.get('/',  (req, res) => {
         ON "questions"."id" = "answers"."questions_id";`
     pool.query(sqlText)
     .then((dbRes) => {
-        console.log('dbRes ROW is', dbRes.rows)
+        console.log('dbRes ROW is returning the questions')
         res.send(dbRes.rows)
     })
     .catch((err) => {
-        console.log('error getting dbRes');
+        console.log('error getting dbRes',err);
     })
 });
 

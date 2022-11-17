@@ -1,16 +1,18 @@
 import { accordionSummaryClasses } from '@mui/material';
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 // worker Saga: will be fired on "FETCH_USER" actions
-function* fetchQuestions(action) {
-
-    console.log('the action payload for fetchQuestions is', action.payload);
+function* fetchQuestions() {
+    
+    console.log('the action payload for fetchQuestions is');
     try {
-        const response = yield axios.get('/api/questions');
+        
+        const questions = yield axios.get('/api/questions');
+        console.log('HEY THAR',questions.data);
         yield put({
             type: 'SET_QUESTIONS',
-            payload: [response.data],
+            payload: questions.data
         })
     } catch (err) {
         console.log('get qeustions request failed', err);
@@ -32,7 +34,7 @@ function* fetchQuestions(action) {
 
 function* questionsSaga() {
     //   yield takeLatest('FETCH_USER', fetchUser);
-    yield takeLatest('FETCH_QUESTIONS', fetchQuestions)
+    yield takeEvery('FETCH_QUESTIONS', fetchQuestions)
 }
 
 export default questionsSaga;
