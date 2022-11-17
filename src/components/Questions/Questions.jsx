@@ -36,10 +36,10 @@ import { useParams } from 'react-router-dom'
 function Questions() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const questions = useSelector(store => store.questions);
+    const questions = useSelector(store => store.questions[0]);
     const answers = useSelector(store => store.answers);
-    console.log('question items are', questions);
-    console.log('answer items are', answers);
+    console.log('QUESTION ITEMS AREo', questions);
+    // console.log('answer items are', answers);
 
     useEffect(() => {
         dispatch({
@@ -71,22 +71,17 @@ function Questions() {
                     <tr>
                         <th>questions</th><th>Answers</th>
                     </tr>
-                    <tr>
-                        <td>
-                            questions.map: questions</td>
-                        <td>
-                            {/* {answers.map(answer => (  
-                            <input
-                                type='text'
-                                key={answer}
-                                placeholder={answer}
-                                value='answers.map:answers'
-                                onChange={handleChange}
-                            />
-                        ))} */}
-                            
+                    {questions.map(question => (
+                         <tr>
+                        <td 
+                            key={question.id}
+                        >
+                            {question.question}                          
                         </td>
-                    </tr>
+                        </tr>
+                    ))}
+                          
+                    
                 </thead>
             </table>
         </>

@@ -10,7 +10,7 @@ function* fetchQuestions(action) {
         const response = yield axios.get('/api/questions');
         yield put({
             type: 'SET_QUESTIONS',
-            payload: response.data,
+            payload: [response.data],
         })
     } catch (err) {
         console.log('get qeustions request failed', err);
