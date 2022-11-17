@@ -92,6 +92,7 @@ function Profile() {
             <div className='profileRightContainer'>
                 <h2>Your personal condtions list:</h2>
                 <table className='profileTableContainer'>
+                    <thead>
                     <tr>
                         <th>Condition</th><th>Key Access?</th><th>Delete</th>
                     </tr>
@@ -104,7 +105,7 @@ function Profile() {
                         </button>
                         </td>
                     </tr>
-
+                    </thead>
                 </table>
 
             </div>

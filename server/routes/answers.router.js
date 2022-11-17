@@ -13,7 +13,7 @@ const router = express.Router();
  */
 router.get('/',  (req, res) => {
     // GET route code here
-    console.log('IN ANSWERS ROUTER TTOTOOTOTOTOTOT');
+    // console.log('IN ANSWERS ROUTER TTOTOOTOTOTOTOT');
 
     const sqlText = `SELECT "answers" FROM "answers"
     JOIN "user"

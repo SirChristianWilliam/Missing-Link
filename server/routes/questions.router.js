@@ -13,7 +13,7 @@ const router = express.Router();
  */
 router.get('/',  (req, res) => {
     // GET route code here
-    console.log('QUEEEEEEEESTIONS ROUTER' );
+    // console.log('QUEEEEEEEESTIONS ROUTER' );
 
     const sqlText = `SELECT "questions"."question","questions"."placeholder" FROM "answers"
         JOIN "user"

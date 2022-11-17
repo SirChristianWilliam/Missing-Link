@@ -60,7 +60,22 @@ function Questions() {
     //     console.log('handleChange, event.target.value is', event.target.value);
     // };
 
+    function handleAnswerChange(evt) {
+        evt.preventDefault();
+        console.log('in handleAnswerChange', evt.target.value);
+    }
+    function changeAnswer(evt) {
+        evt.preventDefault();
+        console.log('in changeAnswer', evt.target.value);
+        //I need to have this data change the user's answer for this
+        // specific row somehow. Maybe a dispatch to the answer route,
+        // using a PUT axios request? Then the query will be an UPDATE
+        // That means I'll need to use req.params to send, like
+        // '/api/answers/:id', and then use that id to target which answer
+        // I want to update for that specific user.
+    }
     return (
+
         <>
             <button onClick={() => { history.go(-1) }}>Go Back</button>
             <h1>Questions Page</h1>
@@ -71,6 +86,7 @@ function Questions() {
             </p>
             <p>Please type your answer in the given format shown.</p>
             <table className='questionsTable'>
+                <thead>
                 <tr>
                     <th>Questions</th>
                     <th>Answers</th>
@@ -81,17 +97,21 @@ function Questions() {
                             {question.question}
                         </td>
                         <td key={question}>
-                            <input type="text" placeholder={question.placeholder}>
-    
+                            <input 
+                                type="text" 
+                                placeholder={question.placeholder}
+                                onChange={handleAnswerChange}
+                                onBlur={changeAnswer}
+                            >
+                        
                             </input>
+                            <Answers/>
                         </td>
                     </tr>
                     
-                
-
                 ))}
                 
-
+                </thead>
             </table>
 
         </>

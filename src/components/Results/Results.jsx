@@ -61,6 +61,7 @@ function Results() {
                 <p>If you were given an access code for "CONDITON",
                     enter it here and your questionnaire data(accessed
                     from your profile page), will be added.
+                </p>
                     <form
                         onSubmit={submitCode}>
                         <input
@@ -74,7 +75,7 @@ function Results() {
                             Submit Code
                         </button>
                     </form>
-                </p>
+                
 
             </div>
 
