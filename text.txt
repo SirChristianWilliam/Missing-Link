@@ -1,1 +1,3 @@
-- 
+- PROBLEMS: I can log in and logout, unless I click on the questions/answer page,
+and then I can do neither. 
+

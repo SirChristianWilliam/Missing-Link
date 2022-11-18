@@ -7,13 +7,8 @@ const encryptLib = require('../modules/encryption');
 const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
-//YO I MIGHT NOT EVEN NEED THIS. (ANSWERS.ROUTER/ ANSWERS REDUCER/ ANSWERS SAGA/ )
-/**
- * GET route template
- */
+
 router.get('/',  (req, res) => {
-    // GET route code here
-    // console.log('IN ANSWERS ROUTER TTOTOOTOTOTOTOT');
 
     const sqlText = `SELECT "answers" FROM "answers"
     JOIN "user"
@@ -31,12 +26,21 @@ router.get('/',  (req, res) => {
     })
 });
 
-
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-    // POST route code here
+router.put('/', rejectUnauthenticated,(req,res) => {
+    console.log('HEY HEY HEY BODY',req.body.name);
+    const params = [req.body.name,req.body.id];
+    console.log('PARAMS DO BE',params)
+    const sqlText = `UPDATE "answers" 
+    SET "answers" = $1
+    WHERE "answers"."id" = $2;
+    ;`
+    pool.query(sqlText, params)
+    .then((dbRes) => {
+         res.sendStatus(200);
+    })
+    .catch((err) => {
+        console.log('error updating answers in put',err);
+    })
 });
-
+ 
 module.exports = router;

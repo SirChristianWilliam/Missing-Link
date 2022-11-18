@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
-//THIS PAGE NEEDS TO HAVE THE SEARCH, PROFILE, AND ABOUT, CURRENTLY
-// THEY ARE THERE TO BE REPLACED
+
 function Nav() {
   const user = useSelector((store) => store.user);
 

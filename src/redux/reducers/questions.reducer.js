@@ -1,5 +1,6 @@
 const questionsReducer = (state = [], action) => {
-    console.log('WHAT IS STATE',state);
+    // console.log('WHAT IS STATE',state);
+    console.log('in questionsReducer')
     console.log('WHAT IS ACTION payload payload 4 questions', action.payload)
     switch (action.type) {
       case 'SET_QUESTIONS':

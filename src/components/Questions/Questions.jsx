@@ -9,6 +9,8 @@
 // INCLUDE THE NOTE TO ENSURE ANONYMITY.
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+ 
+
 import {
   HashRouter as Router,
   Redirect,
@@ -18,7 +20,7 @@ import {
 
 
 import { useHistory } from "react-router-dom";
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import Answers from '../Answers/Answers';
 // HOW TO: At some point, use GET to get the questions DB data.
 // Maybe can use an axios.get to get the data from the db too on useEffect();
@@ -44,35 +46,42 @@ function Questions() {
     const dispatch = useDispatch();
     const history = useHistory();
     const questions = useSelector(store => store.questions);
-    // const answers = useSelector(store => store.answers);
-    console.log('QUESTION ITEMS ARE HEHEHEH', questions);
-    // console.log('answer items are', answers);
+    const answers = useSelector(store => store.answers);
+    console.log('QUESTION ITEMS ARE ', questions);
 
     useEffect(() => {
         dispatch({
             type: 'FETCH_QUESTIONS'
         })
-
     }, []);
-
-    // function handleChange(event) {
-    //     event.preventDefault();
-    //     console.log('handleChange, event.target.value is', event.target.value);
-    // };
-
+ 
     function handleAnswerChange(evt) {
         evt.preventDefault();
         console.log('in handleAnswerChange', evt.target.value);
     }
-    function changeAnswer(evt) {
+    function changeAnswer(evt,id) {
         evt.preventDefault();
         console.log('in changeAnswer', evt.target.value);
+        console.log('in changeAnswer the id is',id);
+
+        //
+             dispatch({
+                type: 'ADD_ANSWER',
+                payload: {
+                    id: id,
+                    name: evt.target.value
+                }
+            })
+    // With this commented out, I can log in/out fine
+        
+
         //I need to have this data change the user's answer for this
         // specific row somehow. Maybe a dispatch to the answer route,
         // using a PUT axios request? Then the query will be an UPDATE
         // That means I'll need to use req.params to send, like
         // '/api/answers/:id', and then use that id to target which answer
         // I want to update for that specific user.
+
     }
     return (
 
@@ -84,6 +93,7 @@ function Questions() {
                 able to see who is associated with these results, as
                 they are purely for research purposes.
             </p>
+            
             <p>Please type your answer in the given format shown.</p>
             <table className='questionsTable'>
                 <thead>
@@ -92,20 +102,21 @@ function Questions() {
                     <th>Answers</th>
                 </tr>
                 {questions.map(question => (
-                    <tr>
-                        <td key={question}>
+                    <tr key={question.id}>
+                        <td>
                             {question.question}
                         </td>
-                        <td key={question}>
+                        <td >
                             <input 
                                 type="text" 
                                 placeholder={question.placeholder}
+                                // value={this.value}
                                 onChange={handleAnswerChange}
-                                onBlur={changeAnswer}
+                                onBlur={(evt) => {changeAnswer(evt, question.id)}}
                             >
-                        
                             </input>
-                            <Answers/>
+                            {/* <Answers/> */}
+                             {/*This also needed to be commented out to log in/out  */}
                         </td>
                     </tr>
                     

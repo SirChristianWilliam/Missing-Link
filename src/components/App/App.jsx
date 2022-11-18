@@ -15,7 +15,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -64,15 +63,6 @@ function App() {
           >
             <Search />
           </ProtectedRoute>
-
-          {/* <ProtectedRoute
-            logged in shows InfoPage else shows LoginPage
-            exact
-            path="/search"
-          >
-            <InfoPage />
-          </ProtectedRoute> */}
-          {/* NOT SURE IF I NEED THIS ABOVE STUFF */}
 
           <Route
             exact
@@ -128,11 +118,11 @@ function App() {
             <Profile />
           </Route>
 
+{/*  */}
           <Route path="/questions">
             <Questions />
            </Route>
-          {/* Newly added components (monday nov 14th) */}
-
+{/*  */}
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>

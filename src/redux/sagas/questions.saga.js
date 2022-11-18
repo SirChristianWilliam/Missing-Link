@@ -5,7 +5,7 @@ import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchQuestions() {
     
-    console.log('the action payload for fetchQuestions is');
+    console.log('in fetchQuestions saga');
     try {
         
         const questions = yield axios.get('/api/questions');

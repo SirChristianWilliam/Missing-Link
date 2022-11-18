@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-// worker Saga: will be fired on "FETCH_USER" actions
+// worker Saga: will be fired on "FETCH_ANSWERS" actions
 function* fetchAnswers() {
 
     console.log('the action payload for fetchAnswers is', answers.payload);
@@ -9,29 +9,34 @@ function* fetchAnswers() {
         const answers = yield axios.get('/api/answers');
         yield put({
             type: 'SET_ANSWERS',
-            payload: answers.data,
+            payload: answers.data     
         })
     } catch (err) {
         console.log('get qeustions request failed', err);
     }
-    //   try {
-    //     const config = {
-    //       headers: { 'Content-Type': 'application/json' },
-    //       withCredentials: true,
-    //     };
+    
+    //  yield put({
+    //     type:'SET_ANSWERS',
+    //     payload: answers.data
+        
+    // })
+    
+};
 
-    //     const response = yield axios.get('/api/user', config);
-
-    //     yield put({ type: 'SET_USER', payload: response.data });
-    //   } catch (error) {
-    //     console.log('User get request failed', error);
-    //   }
-    // console.log('in questions saga.js')
-}
+function* addAnswer(action) {
+    console.log('the action.payload for addAnswer is:', action.payload); //Might need another thing here
+    try {
+        yield axios.put(`/api/answers`,action.payload);
+        yield put({type: 'FETCH_ANSWERS'})
+    } catch(err) {
+        console.log('error in addAnswer PUT',err);
+    }
+};
 
 function* answersSaga() {
     //   yield takeLatest('FETCH_USER', fetchUser);
-    yield takeLatest('FETCH_ANSWERS', fetchAnswers)
+    yield takeLatest('FETCH_ANSWERS', fetchAnswers);
+    yield takeLatest('ADD_ANSWER', addAnswer);
 }
 
 export default answersSaga;
