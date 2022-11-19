@@ -2,39 +2,30 @@ import { accordionSummaryClasses } from '@mui/material';
 import axios from 'axios';
 import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 
-// worker Saga: will be fired on "FETCH_USER" actions
+// worker Saga: will be fired on "FETCH_QUESTIONS" actions
 function* fetchQuestions() {
     
     console.log('in fetchQuestions saga');
     try {
-        
-        const questions = yield axios.get('/api/questions');
-        console.log('HEY THAR',questions.data);
+        const config = {
+                  headers: { 'Content-Type': 'application/json' },
+                  withCredentials: true,
+        }
+        const questions = yield axios.get('/api/questions',config);
+        console.log('questions.saga questions.data is: ', questions.data); // Array of all the questions & their placeholders
         yield put({
-            type: 'SET_QUESTIONS',
-            payload: questions.data
+            type: 'SET_QUESTIONS', 
+            payload: questions.data // Send payload (from api/questions) to the questions reducer
         })
     } catch (err) {
         console.log('get qeustions request failed', err);
     }
-    //   try {
-    //     const config = {
-    //       headers: { 'Content-Type': 'application/json' },
-    //       withCredentials: true,
-    //     };
-
-    //     const response = yield axios.get('/api/user', config);
-
-    //     yield put({ type: 'SET_USER', payload: response.data });
-    //   } catch (error) {
-    //     console.log('User get request failed', error);
-    //   }
-    // console.log('in questions saga.js')
 }
 
 function* questionsSaga() {
     //   yield takeLatest('FETCH_USER', fetchUser);
-    yield takeEvery('FETCH_QUESTIONS', fetchQuestions)
+    yield takeEvery('FETCH_QUESTIONS', fetchQuestions);
+    
 }
 
 export default questionsSaga;

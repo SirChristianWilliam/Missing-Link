@@ -9,14 +9,6 @@
 // INCLUDE THE NOTE TO ENSURE ANONYMITY.
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
- 
-
-import {
-  HashRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from 'react-router-dom';
 
 
 import { useHistory } from "react-router-dom";
@@ -45,46 +37,42 @@ import Answers from '../Answers/Answers';
 function Questions() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const questions = useSelector(store => store.questions);
+    const questions = useSelector(store => store.questions); //grabs questions array from store
     const answers = useSelector(store => store.answers);
-    console.log('QUESTION ITEMS ARE ', questions);
-
+    console.log('The answers array is...',answers); //This is fine in some cases, I will need all
+    // the answers of all users to be displayed at one point. However, to USE the specific
+    // answer data of a specific user, I will need to fetch the answers only where the
+    // user's ID matches the currently logged in user
     useEffect(() => {
         dispatch({
-            type: 'FETCH_QUESTIONS'
+            type: 'FETCH_QUESTIONS' // Immediately call this, and head to the questions saga
+        }),
+        dispatch({
+            type:'FETCH_ANSWERS'
         })
-    }, []);
- 
-    function handleAnswerChange(evt) {
-        evt.preventDefault();
-        console.log('in handleAnswerChange', evt.target.value);
-    }
+    }, []); 
+
     function changeAnswer(evt,id) {
         evt.preventDefault();
-        console.log('in changeAnswer', evt.target.value);
-        console.log('in changeAnswer the id is',id);
+        console.log('the input text is set to: ', evt.target.value); //Shows the value of the input when you lose focus of the input
+        console.log('the question ID is: ',id); // This is the question id
 
-        //
              dispatch({
-                type: 'ADD_ANSWER',
+                type: 'UPDATE_ANSWER',
                 payload: {
-                    id: id,
-                    name: evt.target.value
+                    id: id, // The question's ID
+                    name: evt.target.value // The text of the changed input
                 }
             })
-    // With this commented out, I can log in/out fine
         
-
         //I need to have this data change the user's answer for this
         // specific row somehow. Maybe a dispatch to the answer route,
         // using a PUT axios request? Then the query will be an UPDATE
         // That means I'll need to use req.params to send, like
         // '/api/answers/:id', and then use that id to target which answer
         // I want to update for that specific user.
-
     }
     return (
-
         <>
             <button onClick={() => { history.go(-1) }}>Go Back</button>
             <h1>Questions Page</h1>
@@ -104,19 +92,18 @@ function Questions() {
                 {questions.map(question => (
                     <tr key={question.id}>
                         <td>
-                            {question.question}
+                            {question.question}  
                         </td>
                         <td >
                             <input 
                                 type="text" 
                                 placeholder={question.placeholder}
                                 // value={this.value}
-                                onChange={handleAnswerChange}
                                 onBlur={(evt) => {changeAnswer(evt, question.id)}}
                             >
                             </input>
                             {/* <Answers/> */}
-                             {/*This also needed to be commented out to log in/out  */}
+
                         </td>
                     </tr>
                     

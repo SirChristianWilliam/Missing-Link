@@ -1,3 +1,5 @@
-- PROBLEMS: I can log in and logout, unless I click on the questions/answer page,
-and then I can do neither. 
-
+- PROBLEMS: I can update an answer row for a user, but only one row. If I log out and
+try another user, it works for that user too, but as with the other one, it only
+takes the last value that was answered. Also, the questions ID stays at one, I
+think that's part of the problem. Not sure how to get it to change with the questions
+ID, as I am already passing it through as a paramater.

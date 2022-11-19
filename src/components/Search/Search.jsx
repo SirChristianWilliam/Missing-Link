@@ -1,14 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Fuse from 'fuse.js';
+import axios from 'axios';
 // THIS PAGE NEEDS THE GREETING AND THE HOW TO USE INFO,
 // ALSO NEEDS A DROPDOWN SEARCH INPUT AND A SEARCH/SUBMIT 
 // BUTTON FOR THE CONDITIONS IN QUESTIONS. SHOULD BE EASY ENOUGH
 
 
 function Search() {
+    const [query, setQuery] = useState('');
     const history = useHistory();
+    const [conditions, setConditions] = useState([]);
+    const fuse = new Fuse(conditions, {
+        keys: [
+            'name'
+        ],
+        includeScore: true
+    })
+    const results = fuse.search(query);
+    console.log(results,'results');
+    console.log('fuse',fuse);
+    const characterResults = results.map(result => result.item);
+
+    useEffect(() => {
+        axios({
+            method: 'GET',
+            url: '/conditions'
+        }).then((response) => {
+            setConditions(response.data);
+        }).catch((err) => {
+            console.log('ERROR in getting conditions');
+        })
+    }, []);
+    function handleOnSearch({currentTarget = {}}) {
+        const {value} = currentTarget;
+        setQuery(value);
+    }
 
     function handleSubmit(evt) {
         evt.preventDefault();
@@ -55,6 +84,9 @@ function Search() {
             <div>
                 <form onSubmit={handleSubmit}>
                     <input
+                        type="text"
+                        value={query}
+                        onChange={handleOnSearch}
                         className='searchInput'
                         placeholder="Search a condition"
                     >
@@ -65,6 +97,20 @@ function Search() {
                     >
                         Search
                     </button>
+                    <table className='fuseContainer'>
+                        {characterResults.map(condition => {
+                            const {name} = condition;
+                            return (
+                                <tr
+                                    key={name}
+                                    className="fusetd">
+                                        <td>
+                                            {name}
+                                        </td>
+                                    </tr>
+                            )
+                        })}
+                    </table>
                 </form>
             </div>
         </>

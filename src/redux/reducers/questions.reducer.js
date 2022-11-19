@@ -1,16 +1,11 @@
 const questionsReducer = (state = [], action) => {
-    // console.log('WHAT IS STATE',state);
-    console.log('in questionsReducer')
-    console.log('WHAT IS ACTION payload payload 4 questions', action.payload)
+    console.log('questionsReducer action.payload is: ', action.payload); //Received from questions.saga
     switch (action.type) {
-      case 'SET_QUESTIONS':
+      case 'SET_QUESTIONS':  
         return action.payload;
         default:
             return state;
     }
- 
 };
   
-  // user will be on the redux state at:
-  // state.user
   export default questionsReducer;

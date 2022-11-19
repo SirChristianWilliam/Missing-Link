@@ -9,16 +9,16 @@ const userStrategy = require('../strategies/user.strategy');
 const router = express.Router();
  
 router.get('/',  (req, res) => {
-  
+  // This simply gets all the questions. Gets called from questions.saga
     const sqlText = `SELECT "questions"."question","questions"."placeholder","questions"."id" FROM "answers"
         JOIN "user"
         ON "user"."id" = "answers"."user_id"
-        JOIN "questions"
+        RIGHT JOIN "questions"
         ON "questions"."id" = "answers"."questions_id"
         ORDER BY "id";`
     pool.query(sqlText)
     .then((dbRes) => {
-         res.send(dbRes.rows)
+         res.send(dbRes.rows) //send the array of DB questions back to saga
     })
     .catch((err) => {
         console.log('error getting dbRes',err);
