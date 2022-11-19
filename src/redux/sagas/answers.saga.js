@@ -33,11 +33,26 @@ function* updateAnswer(action) {
         console.log('error in updateAnswer.saga(put)',err);
     }
 };
-
+function* resultCondition(action) {
+    console.log('what is action in resultCondition',action.payload.name)
+    try {
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          };
+          yield put({
+            type: 'SET_RESULT_CONDITION',
+            payload: action.payload.name     
+        })
+    } catch(err) {
+        console.log('error in updateAnswer.saga(put)',err);
+    }
+}
 function* answersSaga() {
     //   yield takeLatest('FETCH_USER', fetchUser);
     yield takeLatest('FETCH_ANSWERS', fetchAnswers);
     yield takeLatest('UPDATE_ANSWER', updateAnswer); // Called from questions.jsx 
+    yield takeLatest('UPDATE_RESULTS_CONDITION', resultCondition)
 }
 
 export default answersSaga;

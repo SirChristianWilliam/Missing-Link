@@ -18,5 +18,5 @@ export default function* rootSaga() {
     userSaga(),
     questionsSaga(),
     answersSaga()
-  ]);
+    ]);
 }

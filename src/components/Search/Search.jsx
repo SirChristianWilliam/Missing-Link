@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Fuse from 'fuse.js';
 import axios from 'axios';
@@ -12,7 +12,9 @@ import axios from 'axios';
 function Search() {
     const [query, setQuery] = useState('');
     const history = useHistory();
-    // const [search, setSearch] = useState('');
+    const dispatch = useDispatch();
+    const user = useSelector((store) => store.user);
+
     const [conditions, setConditions] = useState([]);
     const fuse = new Fuse(conditions, {
         keys: [
@@ -21,8 +23,8 @@ function Search() {
         includeScore: true
     })
     const results = fuse.search(query);
-    console.log(results,'results');
-    console.log('fuse',fuse);
+    console.log(results, 'results');
+    console.log('fuse', fuse);
     const characterResults = results.map(result => result.item);
 
     useEffect(() => {
@@ -35,30 +37,41 @@ function Search() {
             console.log('ERROR in getting conditions');
         })
     }, []);
-    function handleOnSearch({currentTarget = {}}) {
-        const {value} = currentTarget;
+    function handleOnSearch({ currentTarget = {} }) {
+        const { value } = currentTarget;
         setQuery(value);
     }
 
     function handleSubmit(evt) {
         evt.preventDefault();
-        console.log('in handleSubmit');
-        //Here I will need a condition saying if there is
-        // no condition/disease that matches the user's input,
-        // then don't go to the next page.
-        history.push('/results')
-    };
+        dispatch({
+            type: 'UPDATE_RESULTS_CONDITION',
+            payload: {
+                name: evt.target.firstChild.value
+            }
+        })
 
-    function handleClick() {
-        console.log('in handleClick')
+        let hasCondition = false;
+        {
+            conditions.map(condition => {
+                if (condition.name == evt.target.firstChild.value) {
+                    history.push('/results');
+                    hasCondition = true;
+                }
+            })
+        }
+        if (hasCondition == true) {
+            return;
+        } else {
+            alert(`Condition ${evt.target.firstChild.value} not found`);
+        }
     };
 
     function setValue(event) {
-        console.log('setvalue',event.target);
+        console.log('setValue is', event.target.innerHTML);
         var txt = event.target.innerHTML;
         document.getElementById("myInput").value = txt;
     }
-    const user = useSelector((store) => store.user);
 
     return (
         <>
@@ -100,27 +113,27 @@ function Search() {
                     </input>
                     <button
                         type='submit'
-                        onClick={handleClick}
+                    // onClick={handleClick}
                     >
                         Search
                     </button>
                     <table className='fuseContainer'>
-                    <tbody>
-                        {characterResults.map(condition => {
-                            const {name} = condition;
-                            return (
-                                
-                                <tr
-                                    key={name}
-                                    className="fusetd">
+                        <tbody>
+                            {characterResults.map(condition => {
+                                const { name } = condition;
+                                return (
+
+                                    <tr
+                                        key={name}
+                                        className="fusetd">
                                         <td onClick={setValue}>
                                             {name}
                                         </td>
                                     </tr>
-                                  
-                            )
-                        })}
-                          </tbody>
+
+                                )
+                            })}
+                        </tbody>
                     </table>
                 </form>
             </div>

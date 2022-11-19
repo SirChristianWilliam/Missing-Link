@@ -1,12 +1,12 @@
-
-//  THIS PAGE WILL HAVE THE ADD CODE BUTTON FOR THE 
-// 'POP-UP' FOR THE CODE ENTRY,A SAVE COMPARISON BUTTON, AN
-// AND A TABLE DISPLAYING ALL THE QUESTIONS AND ANSWERS,
-// THE TABLE WILL ALSO HAVE THE MATCHES.
-// THE TABLE WILL HAVE 3 COLUMNS PROBABLY
-
+import React, { useEffect, useState } from 'react';
+import LogOutButton from '../LogOutButton/LogOutButton';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import Fuse from 'fuse.js';
+import axios from 'axios';
 
 function Results() {
+    const resultCondition = useSelector((store) => store.results);
 
     function saveCondition(event) {
         event.preventDefault();
@@ -33,7 +33,7 @@ function Results() {
     }
 
     function closePopup() {
-        console.log('close Popup button clicked')
+        console.log('close Popup close button clicked')
     }
 
     //end of pop up box code
@@ -47,12 +47,15 @@ function Results() {
             >
                 Save Condition to Your List
             </button>
+
             <button
                 onClick={openPopup}
             >
                 - Add Access Code -
             </button>
 
+            <h1> {resultCondition} </h1>
+            
             {/* HIDE THIS UNTIL */}
             <div className="codePopupContainer">
                 <button onClick={closePopup}>
