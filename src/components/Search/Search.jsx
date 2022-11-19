@@ -12,6 +12,7 @@ import axios from 'axios';
 function Search() {
     const [query, setQuery] = useState('');
     const history = useHistory();
+    // const [search, setSearch] = useState('');
     const [conditions, setConditions] = useState([]);
     const fuse = new Fuse(conditions, {
         keys: [
@@ -52,6 +53,11 @@ function Search() {
         console.log('in handleClick')
     };
 
+    function setValue(event) {
+        console.log('setvalue',event.target);
+        var txt = event.target.innerHTML;
+        document.getElementById("myInput").value = txt;
+    }
     const user = useSelector((store) => store.user);
 
     return (
@@ -85,6 +91,7 @@ function Search() {
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
+                        id="myInput"
                         value={query}
                         onChange={handleOnSearch}
                         className='searchInput'
@@ -98,18 +105,22 @@ function Search() {
                         Search
                     </button>
                     <table className='fuseContainer'>
+                    <tbody>
                         {characterResults.map(condition => {
                             const {name} = condition;
                             return (
+                                
                                 <tr
                                     key={name}
                                     className="fusetd">
-                                        <td>
+                                        <td onClick={setValue}>
                                             {name}
                                         </td>
                                     </tr>
+                                  
                             )
                         })}
+                          </tbody>
                     </table>
                 </form>
             </div>
