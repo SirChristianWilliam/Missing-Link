@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     pool.query
         (`SELECT * FROM "conditions";`)
         .then((result) => {
-            console.log('in condition list GET', result.rows);
+            // console.log('in condition list GET', result.rows);
             res.send(result.rows);
         }).catch((err) => {
             console.log('ERROR GET /conditions ', err);

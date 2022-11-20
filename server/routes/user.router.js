@@ -51,9 +51,24 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
-router.put('/userkey', (req,res) => {
-  console.log('in user PUT to update the KEY')
+router.put('/userkey',rejectUnauthenticated, (req,res) => {
+  console.log('in user PUT to update the KEY');
+
+  console.log('in user put',req.body.key);
+  console.log(req.user.id,'and id');
+  const params = [req.user.id, req.body.key];
+  const sqlText = `
+    UPDATE "user" SET "key" = $2 WHERE "user"."id" = $1;
+  `
+pool.query(sqlText, params)
+.then((dbRes) => {
+  res.sendStatus(200);
 })
+.catch((err) => {
+  console.log('error updating user key in put', err);
+})
+
+});
 
 // router.post('/register', (req, res, next) => {
 //   const username = req.body.username;

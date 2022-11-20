@@ -34,11 +34,14 @@ router.put('/', rejectUnauthenticated,(req,res) => {
     const params = [ req.body.id, req.body.name,  req.user.id];
     console.log('What are the params of all those above console logs? : ',params);
     
-    const sqlText = `INSERT INTO answers(questions_id, answer,  user_id)
+    //IF the user exists, UPDATE the Answer and the question ID where the id 
+     
+    const sqlText = `
+    INSERT INTO answers(questions_id, answer, user_id)
     VALUES($1,$2,$3)
-    ON CONFLICT (user_id ) DO
-        UPDATE SET answer = $2 
-        WHERE "answers"."user_id" = $3;`
+    ON CONFLICT (user_id) DO
+        UPDATE SET  answer = $2
+        WHERE "answers"."user_id" = $3  ;`
         
     pool.query(sqlText, params)
     .then((dbRes) => {

@@ -47,16 +47,15 @@ function Results() {
     const submitCode = (evt) => {
         console.log('code was submitted', evt.target[0].value);
         let target = evt.target[0].value;
-
-        //This will also need conditional in case the code was wrong.
-        //(if entered code equals the current disease codename and
-        // any of the current user's keys, then go ahead and add it. )
-        // THIS CAN USE THE UPSERT
         {
             conditions.map(condition => {
 
                 if (condition.access_key == target && condition.name == resultCondition) {
-                    return alert(`Access key ${target} accepted for condition: ${condition.name}`);
+                    // return alert(`Access key ${target} accepted for condition: ${condition.name}`);
+                    dispatch({
+                        type: 'ADD_USER_KEY',
+                        payload: {key:target}
+                    })
                 } else {
                     return;
                 }

@@ -23,9 +23,26 @@ function* fetchUser() {
     console.log('User get request failed', error);
   }
 }
+function* addUserKey(action) {
+  console.log('in addUserKey, action.payload is: ',action.payload);
 
+  try {
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      };
+
+    yield axios.put(`/api/user/userkey`,action.payload);
+    
+} catch(err) {
+    console.log('error in updateAnswer.saga(put)',err);
+}
+
+
+}
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
+  yield takeLatest('ADD_USER_KEY', addUserKey);
 }
 
 export default userSaga;

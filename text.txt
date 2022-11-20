@@ -38,3 +38,23 @@ HOW TO ADD/GET DATA FROM THE TABLES:
         WHERE "user"."key" == "condition"."key" AND
         "condition"."name" == (current condition);
 
+GOOD MORNING, HERE WHAT TO DO :( ) :
+1. Go to results page. You have access key working. 
+2. When the access key is accepted, run a dispatch called
+    "SET_KEY". 
+3. Find out if I need to create a new saga for it,
+    I can probably use the user.saga.js and such.
+4. The DB request will be a PUT, as I'm updating the info key for users.
+5. INSERT INTO "user" ("key")
+    VALUES($1)
+    ON CONFLICT (id) DO
+    UPDATE SET "key" = $1
+    WHERE "user"."id" = $2
+6. Looks like I'll need to send the data of the user's id as well.
+7. This INSERT statement will make it so if there is already a key
+    there, it will just add another on to it. 
+    When I pull up the results page, I will have to take the
+    conditions list and compare their key values to the key
+    values of each user. If there is a match, the condition
+    will need to grab the questions/answers data from that user
+    and compile it with the others who also have those keys.
