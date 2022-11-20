@@ -43,6 +43,7 @@ function Search() {
     }
 
     function handleSubmit(evt) {
+
         evt.preventDefault();
         dispatch({
             type: 'UPDATE_RESULTS_CONDITION',

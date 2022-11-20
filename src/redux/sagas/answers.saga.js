@@ -3,7 +3,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 // worker Saga: will be fired on "FETCH_ANSWERS" actions
 function* fetchAnswers() {
-    console.log('HERE I AM IN FETCHANSWERS SAGA YO YOY O')
+    console.log('HERE I AM IN FETCHANSWERS SAGA')
     try {
         const answers = yield axios.get('/api/answers');
         console.log('what is answers.data then? : ',answers.data)
@@ -18,17 +18,22 @@ function* fetchAnswers() {
 };
 
 function* updateAnswer(action) {
-
+    console.log('in updateAnswer', action.payload);
     // action.payload is an object with the question id, and the input name
     try {
         const config = {
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true,
           };
-    //   yield put({type: 'FETCH_ANSWERS'}) 
 
         yield axios.put(`/api/answers`,action.payload);
-
+        
+        const updatedAnswers = yield axios.get('/api/answers',config);
+          console.log(updatedAnswers.data,'is the updatedAnswers')
+        yield put({
+            type: 'SET_ANSWERS',
+            payload: updatedAnswers.data 
+        })
     } catch(err) {
         console.log('error in updateAnswer.saga(put)',err);
     }

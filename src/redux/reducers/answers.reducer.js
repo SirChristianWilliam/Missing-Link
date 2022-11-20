@@ -2,10 +2,13 @@ const answersReducer = (state = [], action) => {
     console.log('answerReducer action.payload is: ',action.payload)
     switch (action.type) {
       case 'SET_ANSWERS':
-        return action.payload;
-      case 'UPDATE_ANSWER':
-        return action.payload;
+        return [
+            ...state, ...action.payload
+        ]
+     //   case 'UPDATE_ANSWER':
+    //     return action.payload;
     }
+    
     return state;
 
 };

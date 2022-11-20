@@ -9,7 +9,7 @@ const userStrategy = require('../strategies/user.strategy');
 const router = express.Router();
 
 router.get('/',  (req, res) => {
-
+// I believe this gets the entire collection of user's ansers
     const sqlText = `SELECT "answer" FROM "answers"
     JOIN "user"
     ON "user"."id" = "answers"."user_id"
@@ -18,7 +18,7 @@ router.get('/',  (req, res) => {
     ;`
     pool.query(sqlText)
     .then((dbRes) => {
-        console.log('dbRes ROW is', dbRes.rows);
+        console.log('what is the dbRes ROW is', dbRes.rows);
         res.send(dbRes.rows)
     })
     .catch((err) => {
@@ -31,15 +31,15 @@ router.put('/', rejectUnauthenticated,(req,res) => {
     console.log('What is the inputs value? : ',req.body.name); // This comes from the input's value
     console.log('What is the inputs question ID? : ', req.body.id); //This comes from the question's id
     console.log('What is the users id? : ', req.user.id); // The user who is currently logged in
-    const params = [ req.body.name, req.body.id, req.user.id];
+    const params = [ req.body.id, req.body.name,  req.user.id];
     console.log('What are the params of all those above console logs? : ',params);
     
-   
-    const sqlText = `INSERT INTO answers(answer, questions_id, user_id)
+    const sqlText = `INSERT INTO answers(questions_id, answer, user_id)
     VALUES($1,$2,$3)
     ON CONFLICT (user_id ) DO
-        UPDATE SET answer = $1
+        UPDATE SET answer = $2 
         WHERE "answers"."user_id" = $3;`
+        
     pool.query(sqlText, params)
     .then((dbRes) => {
          res.sendStatus(200);

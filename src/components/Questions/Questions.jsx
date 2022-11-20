@@ -14,32 +14,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import Answers from '../Answers/Answers';
-// HOW TO: At some point, use GET to get the questions DB data.
-// Maybe can use an axios.get to get the data from the db too on useEffect();
-// useSelector((store) => {store.questions}) to grab that data from redux store.
-// Loop through the questions using .map() down in the return.
-// probably. Will look like questions.map(question => ()) or so...
-// Don't forget key={i} or key={key}
-// Will also be looping the ANSWERS, which are empty to start and
-// will be entered in as inputs with placeholders, so I will need
-// the placeholder values looped thru.
-// I think at first I will loop through the answers table "answers" column,
-// and display those as inputs. Basically I think I'll need to use
-// axios here to 'GET' the joined tables of "answers" and "questions".
-// I think I need to do that because I think I need to map through the
+
+
+// I think I need to map through the
 // "answers", "questions"."question", and the "questions"."placeholder_hint".
 // Then, the user will input their answer and when the targeted input field
 // loses focuse (blur), it will send that data as a 'POST' to the user's
 // "answers" values. 
-
-// const questions = useSelector((store) => {store.questions}); //Something like this, map thru it
 
 function Questions() {
     const dispatch = useDispatch();
     const history = useHistory();
     const questions = useSelector(store => store.questions); //grabs questions array from store
     const answers = useSelector(store => store.answers);
-    console.log('The answers array is...',answers); //This is fine in some cases, I will need all
+    console.log('The answers array is...',answers.arr); //This is fine in some cases, I will need all
     // the answers of all users to be displayed at one point. However, to USE the specific
     // answer data of a specific user, I will need to fetch the answers only where the
     // user's ID matches the currently logged in user
@@ -64,13 +52,6 @@ function Questions() {
                     name: evt.target.value // The text of the changed input
                 }
             })
-        
-        //I need to have this data change the user's answer for this
-        // specific row somehow. Maybe a dispatch to the answer route,
-        // using a PUT axios request? Then the query will be an UPDATE
-        // That means I'll need to use req.params to send, like
-        // '/api/answers/:id', and then use that id to target which answer
-        // I want to update for that specific user.
     }
     return (
         <>
