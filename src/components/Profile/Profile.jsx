@@ -14,24 +14,42 @@
 // OR JUST A BIG LETTER, GRABBED FROM THE FIRST LETTER
 // OF THE USER'S NAME.
 
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useSelector,useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 
-function changePic() {
-    console.log('Change pic clicked');
-    //* onClick, open images folder to replace 
-    //this image to one of your choosing.
-
-}
 function Profile() {
+    // const params = useParams();
+    const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store) => store.user);
 
-    function editUsername(event) {
-        event.preventDefault();
-        console.log('edit username button clicked', event.target.value)
+  function changePic() {
+    console.log('in changePic');
+  }
+    function editUsername(evt) {
+        evt.preventDefault();
+        //This is just to change the username's attribute and class
+        document.getElementById('userName').setAttribute("contenteditable",'true');
+        document.getElementById('userName').classList.add('borderhere');
+
     };
+
+//USERNAME
+
+    function updateUsername(evt) {
+        evt.preventDefault();
+        console.log('in updateUsername',evt.target.innerText);
+        document.getElementById('userName').setAttribute("contenteditable",'false');
+        document.getElementById('userName').classList.remove('borderhere');
+
+        dispatch({
+            type: 'EDIT_USER',
+            payload:{name: evt.target.innerText}
+        })
+
+    }
+// END USERNAME
 
     function editEmail(event) {
         event.preventDefault();
@@ -53,14 +71,19 @@ function Profile() {
                 </img>
                 <div>
                     <h3>Username:</h3>
-                    <span>
+                    <span 
+                        id="userName" 
+                        contentEditable="false"
+                        onBlur={updateUsername}
+                        >
                         {user.username}
+                    </span>
                         <button
-                            onClick={editUsername}
+                            onClick={(evt) => {editUsername(evt)}}
                         >
                             Edit
                         </button>
-                    </span>
+                    
                 </div>
 
                 <div>

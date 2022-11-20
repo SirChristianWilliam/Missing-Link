@@ -18,7 +18,7 @@ function* fetchAnswers() {
 };
 
 function* updateAnswer(action) {
-    console.log('in updateAnswer', action.payload);
+    console.log('in updateAnswer!!!!!!', action.payload);
     // action.payload is an object with the question id, and the input name
     try {
         const config = {

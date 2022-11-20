@@ -18,7 +18,7 @@ router.get('/',  (req, res) => {
     ;`
     pool.query(sqlText)
     .then((dbRes) => {
-        console.log('what is the dbRes ROW is', dbRes.rows);
+        console.log('what is the dbRes answer ROW is', dbRes.rows);
         res.send(dbRes.rows)
     })
     .catch((err) => {

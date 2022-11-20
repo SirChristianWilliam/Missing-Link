@@ -13,8 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useHistory } from "react-router-dom";
 import { useParams } from 'react-router-dom';
-import Answers from '../Answers/Answers';
-
 
 // I think I need to map through the
 // "answers", "questions"."question", and the "questions"."placeholder_hint".

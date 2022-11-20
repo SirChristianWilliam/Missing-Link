@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, take, takeLatest } from 'redux-saga/effects';
 
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchUser() {
@@ -37,12 +37,35 @@ function* addUserKey(action) {
 } catch(err) {
     console.log('error in updateAnswer.saga(put)',err);
 }
+}
+
+function* editUser(action) {
+  console.log('in editUser generator saga',action.payload)
+  try {
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      };
+      yield axios.put(`/api/user/useredit`, action.payload);
+
+      const updatedUser = yield axios.get('/api/user',config);
+      console.log(updatedUser.data.username,'is the updatedUser');
+      
+    yield put({
+        type: 'SET_USER',
+        payload: updatedUser.data
+    })
+
+} catch(err) {
+    console.log('error in editUser.saga(put)',err);
+}
 
 
 }
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('ADD_USER_KEY', addUserKey);
+  yield takeLatest('EDIT_USER', editUser);
 }
 
 export default userSaga;

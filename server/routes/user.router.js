@@ -1,3 +1,4 @@
+const { RouterRounded } = require('@mui/icons-material');
 const express = require('express');
 const {
   rejectUnauthenticated,
@@ -27,7 +28,7 @@ router.post('/register', (req, res, next) => {
   const queryText = `INSERT INTO "user" (username, password, "firstName", "lastName",email)
     VALUES ($1, $2, $3,$4,$5) RETURNING id`;
   pool
-    .query(queryText, [username, password, firstName,lastName,email])
+    .query(queryText, [username, password, firstName, lastName, email])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log('User registration failed: ', err);
@@ -40,7 +41,7 @@ router.post('/register', (req, res, next) => {
 // this middleware will run our POST if successful
 // this middleware will send a 404 if not successful
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
-  console.log('The user loggin in is: ',req.user)
+  console.log('The user loggin in is: ', req.user)
   res.sendStatus(200);
 });
 
@@ -51,24 +52,41 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
-router.put('/userkey',rejectUnauthenticated, (req,res) => {
+router.put('/userkey', rejectUnauthenticated, (req, res) => {
   console.log('in user PUT to update the KEY');
 
-  console.log('in user put',req.body.key);
-  console.log(req.user.id,'and id');
+  console.log('in user put', req.body.key);
+  console.log(req.user.id, 'and id');
   const params = [req.user.id, req.body.key];
   const sqlText = `
     UPDATE "user" SET "key" = $2 WHERE "user"."id" = $1;
   `
-pool.query(sqlText, params)
-.then((dbRes) => {
-  res.sendStatus(200);
-})
-.catch((err) => {
-  console.log('error updating user key in put', err);
-})
-
+  pool.query(sqlText, params)
+    .then((dbRes) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log('error updating user key in put', err);
+    })
 });
+
+//
+router.put('/useredit', rejectUnauthenticated, (req, res) => {
+  // console.log('in edituser PUT,body is',req);
+  console.log('what is req.body', req.body.name);
+  console.log('what is user now', req.user.id);
+  const params = [req.user.id, req.body.name];
+  const sqlText = `
+    UPDATE "user" SET "username" = $2 WHERE "user"."id" = $1;
+  `
+  pool.query(sqlText, params)
+    .then((dbRes) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log('error updating username in put', err);
+    })
+})
 
 // router.post('/register', (req, res, next) => {
 //   const username = req.body.username;
