@@ -48,13 +48,28 @@ function Profile() {
             payload:{name: evt.target.innerText}
         })
 
-    }
-// END USERNAME
-
-    function editEmail(event) {
-        event.preventDefault();
-        console.log('edit email button clicked', event.target.value)
     };
+
+// END USERNAME
+    function editEmail(evt) {
+        evt.preventDefault();
+        document.getElementById('email').setAttribute("contenteditable",'true');
+        document.getElementById('email').classList.add('borderhere');
+    }
+    function updateEmail(event) {
+        event.preventDefault();
+        console.log('edit email button clicked', event.target.value);
+
+        document.getElementById('email').setAttribute("contenteditable",'false');
+        document.getElementById('email').classList.remove('borderhere');
+
+        dispatch({
+            type: 'EDIT_EMAIL',
+            payload:{email: event.target.innerText}
+        })
+    };
+
+
     function deleteRow(event) {
         event.preventDefault();
         console.log('Profile delete clicked', event.target.value)
@@ -83,18 +98,22 @@ function Profile() {
                         >
                             Edit
                         </button>
-                    
                 </div>
 
                 <div>
                     <h3>Email:</h3>
-                    <span>
+                    <span
+                        id="email"
+                        contentEditable="false"
+                        onBlur={(event) => {updateEmail(event)}}
+                    >
                         {user.email}
+                    </span>
                         <button
-                            onClick={editEmail}
+                            onClick={(evt) => {editEmail(evt)}}
                         >Edit
                         </button>
-                    </span>
+                   
                 </div>
 
                 <div>

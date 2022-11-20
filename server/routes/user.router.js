@@ -86,6 +86,23 @@ router.put('/useredit', rejectUnauthenticated, (req, res) => {
     .catch((err) => {
       console.log('error updating username in put', err);
     })
+});
+
+router.put('/editemail', rejectUnauthenticated, (req, res) => {
+
+  console.log('what is req.body', req.body.email);
+  console.log('what is user now', req.user.id);
+  const params = [req.user.id, req.body.email];
+  const sqlText = `
+    UPDATE "user" SET "email" = $2 WHERE "user"."id" = $1;
+  `
+  pool.query(sqlText, params)
+    .then((dbRes) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log('error updating email in put', err);
+    })
 })
 
 // router.post('/register', (req, res, next) => {

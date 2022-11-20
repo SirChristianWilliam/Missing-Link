@@ -8,6 +8,7 @@ import React from 'react';
 function AboutPage() {
   return (
     <div className="container">
+      <h1> About </h1>
       <div>
         <p>
           Thank you Prime Digital Academy for teaching me 

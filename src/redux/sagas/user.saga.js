@@ -24,41 +24,63 @@ function* fetchUser() {
   }
 }
 function* addUserKey(action) {
-  console.log('in addUserKey, action.payload is: ',action.payload);
+  console.log('in addUserKey, action.payload is: ', action.payload);
 
   try {
     const config = {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
-      };
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
 
-    yield axios.put(`/api/user/userkey`,action.payload);
-    
-} catch(err) {
-    console.log('error in updateAnswer.saga(put)',err);
-}
+    yield axios.put(`/api/user/userkey`, action.payload);
+
+  } catch (err) {
+    console.log('error in updateAnswer.saga(put)', err);
+  }
 }
 
 function* editUser(action) {
-  console.log('in editUser generator saga',action.payload)
+  console.log('in editUser generator saga', action.payload)
   try {
     const config = {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
-      };
-      yield axios.put(`/api/user/useredit`, action.payload);
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+    yield axios.put(`/api/user/useredit`, action.payload);
 
-      const updatedUser = yield axios.get('/api/user',config);
-      console.log(updatedUser.data.username,'is the updatedUser');
-      
+    const updatedUser = yield axios.get('/api/user', config);
+    console.log(updatedUser.data.username, 'is the updatedUser');
+
     yield put({
-        type: 'SET_USER',
-        payload: updatedUser.data
+      type: 'SET_USER',
+      payload: updatedUser.data
     })
 
-} catch(err) {
-    console.log('error in editUser.saga(put)',err);
+  } catch (err) {
+    console.log('error in editUser.saga(put)', err);
+  }
 }
+
+function* editEmail(action) {
+  console.log('in editEmail generator saga', action.payload)
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+    yield axios.put(`/api/user/editemail`, action.payload);
+
+    const updatedEmail = yield axios.get('/api/user', config);
+    console.log(updatedEmail.data.email, 'is the updatedEmail');
+
+    yield put({
+      type: 'SET_USER',
+      payload: updatedEmail.data
+    })
+
+  } catch (err) {
+    console.log('error in editUser.saga(put)', err);
+  }
 
 
 }
@@ -66,6 +88,7 @@ function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('ADD_USER_KEY', addUserKey);
   yield takeLatest('EDIT_USER', editUser);
+  yield takeLatest('EDIT_EMAIL', editEmail);
 }
 
 export default userSaga;
