@@ -3,3 +3,38 @@ try another user, it works for that user too, but as with the other one, it only
 takes the last value that was answered. Also, the questions ID stays at one, I
 think that's part of the problem. Not sure how to get it to change with the questions
 ID, as I am already passing it through as a paramater.
+
+WHAT I NEED TO DO TO GET MY APP RUNNING WITH BASE MODE:
+1. Update the user's answer on the questions page.
+2. Results page must show the condition's questions/answer pairs for ALL users
+3. Results page must show a number of matches if there are duplicate answers for
+    the same question amongst all users.
+4. In results page, when condition is saved, it should be added to the profile page
+    list. All it needs to do is provide a link with that conditions' name to get back
+        to the results page. 
+5. Profile page needs to be able to EDIT the username of the user. 
+6. Profile page condition needs to be able to be DELETED.
+7. Results page needs to add a code, and if it matches with a condition, it will
+    display a success message and the user's question/answers will be added to the
+    condition's dataset of questions/answers. Any duplicate answers for the same
+    question will just increase the count # of that question's ID, in the "occurs" 
+    table column. 
+8. Show a checkmark next to the condition on the profile page that you have an access
+    key synced up for. 
+
+HOW TO ADD/GET DATA FROM THE TABLES:
+1. First, user's answers will all be saved to the answers table.
+2. This data will be huge, but the user's ID will make it so I can sort
+    through it by the user's ID. 
+3. Results page will need to access that data. Each individual condition
+     will only accept data where the USER'S ACCESS KEY matches the CONDITION KEY 
+     for the condition that is being shown. To make that easier to understand,
+     it's basically 
+        SELECT "questions","answers" FROM "answers"
+        JOIN "conditions"
+        ON "conditions"."id" = "questions"."id"
+        JOIN "user"
+        ON "user"."id" = "answers"."id"
+        WHERE "user"."key" == "condition"."key" AND
+        "condition"."name" == (current condition);
+

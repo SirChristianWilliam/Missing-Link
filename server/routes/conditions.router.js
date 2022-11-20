@@ -10,9 +10,9 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     pool.query
-        (`SELECT "name" FROM "conditions";`)
+        (`SELECT * FROM "conditions";`)
         .then((result) => {
-            console.log('in condition list GET', req.body);
+            console.log('in condition list GET', result.rows);
             res.send(result.rows);
         }).catch((err) => {
             console.log('ERROR GET /conditions ', err);

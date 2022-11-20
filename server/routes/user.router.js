@@ -51,6 +51,9 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+router.put('/userkey', (req,res) => {
+  console.log('in user PUT to update the KEY')
+})
 
 // router.post('/register', (req, res, next) => {
 //   const username = req.body.username;

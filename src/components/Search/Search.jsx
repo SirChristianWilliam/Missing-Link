@@ -30,7 +30,7 @@ function Search() {
     useEffect(() => {
         axios({
             method: 'GET',
-            url: '/conditions'
+            url: '/api/conditions'
         }).then((response) => {
             setConditions(response.data);
         }).catch((err) => {

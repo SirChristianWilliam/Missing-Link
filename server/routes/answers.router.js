@@ -34,7 +34,7 @@ router.put('/', rejectUnauthenticated,(req,res) => {
     const params = [ req.body.id, req.body.name,  req.user.id];
     console.log('What are the params of all those above console logs? : ',params);
     
-    const sqlText = `INSERT INTO answers(questions_id, answer, user_id)
+    const sqlText = `INSERT INTO answers(questions_id, answer,  user_id)
     VALUES($1,$2,$3)
     ON CONFLICT (user_id ) DO
         UPDATE SET answer = $2 

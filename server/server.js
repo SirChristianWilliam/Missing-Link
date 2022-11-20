@@ -31,7 +31,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/questions',questionsRouter);
 app.use('/api/answers',answersRouter);
-app.use('/conditions', conditionsRouter);
+app.use('/api/conditions', conditionsRouter);
 // auth-shelf has app.use('/api/shelf',shelfRouter)
 
 // Serve static files
