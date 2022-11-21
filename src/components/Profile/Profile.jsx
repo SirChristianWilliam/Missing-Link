@@ -15,7 +15,7 @@
 // OF THE USER'S NAME.
 
 import React, { useEffect } from 'react';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
 function Profile() {
@@ -23,57 +23,61 @@ function Profile() {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store) => store.user);
-    const userList = useSelector((store) => store.userList);
+    const userList = useSelector((store) => store.profilelist);
+    const conditions = useSelector((store) => store.conditions);
+    console.log('ay ay ay ay',conditions);
     console.log('user list is', userList);
     useEffect(() => {
         dispatch({
             type: 'FETCH_PROFILE_CONDITIONS' // Immediately call this, and head to the profilelist saga
+        }),
+        dispatch({
+            type: 'FETCH_CONDITIONS'
         })
     }, []);
 
     function editUsername(evt) {
         evt.preventDefault();
         //This is just to change the username's attribute and class
-        document.getElementById('userName').setAttribute("contenteditable",'true');
+        document.getElementById('userName').setAttribute("contenteditable", 'true');
         document.getElementById('userName').classList.add('borderhere');
-
     };
 
-//USERNAME
-function changePic(event) {
-    // console.log('in changePic',event.target.src); 
-} 
-//IF I WANT THE IMAGES SRC TO STORE LATER, I CAN SEE WHAT IT IS WITH THIS FUNCTION
+    //USERNAME
+    function changePic(event) {
+        // console.log('in changePic',event.target.src); 
+    }
+    //IF I WANT THE IMAGES SRC TO STORE LATER, I CAN SEE WHAT IT IS WITH THIS FUNCTION
 
     function updateUsername(evt) {
         evt.preventDefault();
-        console.log('in updateUsername',evt.target.innerText);
-        document.getElementById('userName').setAttribute("contenteditable",'false');
+        console.log('in updateUsername', evt.target.innerText);
+        document.getElementById('userName').setAttribute("contenteditable", 'false');
         document.getElementById('userName').classList.remove('borderhere');
 
         dispatch({
             type: 'EDIT_USER',
-            payload:{name: evt.target.innerText}
+            payload: { name: evt.target.innerText }
         })
 
     };
 
-// END USERNAME
+    // END USERNAME
     function editEmail(evt) {
         evt.preventDefault();
-        document.getElementById('email').setAttribute("contenteditable",'true');
+        document.getElementById('email').setAttribute("contenteditable", 'true');
         document.getElementById('email').classList.add('borderhere');
     }
     function updateEmail(event) {
         event.preventDefault();
         console.log('edit email button clicked', event.target.value);
 
-        document.getElementById('email').setAttribute("contenteditable",'false');
+        document.getElementById('email').setAttribute("contenteditable", 'false');
         document.getElementById('email').classList.remove('borderhere');
 
         dispatch({
             type: 'EDIT_EMAIL',
-            payload:{email: event.target.innerText}
+            payload: { email: event.target.innerText }
         })
     };
 
@@ -82,63 +86,63 @@ function changePic(event) {
         console.log('Profile delete clicked', event.target.value)
     }
 
-function onFileSelected(event) {
-    let selectedFile = event.target.files[0];
-    let reader = new FileReader();
-    let imgtag = document.getElementById("myimage");
-    imgtag.title = selectedFile.name;
-    reader.onload = function(event) {
-        imgtag.src = event.target.result;
+    function onFileSelected(event) {
+        let selectedFile = event.target.files[0];
+        let reader = new FileReader();
+        let imgtag = document.getElementById("myimage");
+        imgtag.title = selectedFile.name;
+        reader.onload = function (event) {
+            imgtag.src = event.target.result;
+        };
+        reader.readAsDataURL(selectedFile);
     };
-    reader.readAsDataURL(selectedFile);
-};
-     
+
     return (
         <>
             <h1>Profile Page</h1>
             {/* LEFT SIDE OF PROFILE PAGE */}
             <div className='profileLeftContainer'>
-                <form method="post" enctype="multipart/form-data" onChange={(event) =>onFileSelected(event)} >
-                <input type="file" id="imgupload" className="hideInput" />
-                <label for='imgupload'> 
-                <img
-                    id = "myimage" 
-                    label for='imgupload'
-                    onClick={(evt)=> {changePic(evt)}}
-                    className="ppic"
-                    src={"ppic.png"}
-                    >
-                </img>
-                </label>
+                <form method="post" enctype="multipart/form-data" onChange={(event) => onFileSelected(event)} >
+                    <input type="file" id="imgupload" className="hideInput" />
+                    <label for='imgupload'>
+                        <img
+                            id="myimage"
+                            label for='imgupload'
+                            onClick={(evt) => { changePic(evt) }}
+                            className="ppic"
+                            src={"ppic.png"}
+                        >
+                        </img>
+                    </label>
                 </form>
                 <div>
                     <h3>Username:</h3>
-                    <span 
-                        id="userName" 
-                         onBlur={updateUsername}
-                        >
+                    <span
+                        id="userName"
+                        onBlur={updateUsername}
+                    >
                         {user.username}
                     </span>
-                        <button
-                            onClick={(evt) => {editUsername(evt)}}
-                        >
-                            Edit
-                        </button>
+                    <button
+                        onClick={(evt) => { editUsername(evt) }}
+                    >
+                        Edit
+                    </button>
                 </div>
 
                 <div>
                     <h3>Email:</h3>
                     <span
                         id="email"
-                         onBlur={(event) => {updateEmail(event)}}
+                        onBlur={(event) => { updateEmail(event) }}
                     >
                         {user.email}
                     </span>
-                        <button
-                            onClick={(evt) => {editEmail(evt)}}
-                        >Edit
-                        </button>
-                   
+                    <button
+                        onClick={(evt) => { editEmail(evt) }}
+                    >Edit
+                    </button>
+
                 </div>
 
                 <div>
@@ -159,18 +163,30 @@ function onFileSelected(event) {
                 <h2>Your personal condtions list:</h2>
                 <table className='profileTableContainer'>
                     <thead>
-                    <tr>
-                        <th>Condition</th><th>Key Access?</th><th>Delete</th>
-                    </tr>
-                    <tr>
-                        <td>- map saved condition -</td>
-                        <td>- map boolean value for that condition, show checkmark -</td>
-                        <td><button
-                            onClick={deleteRow}
-                        >Delete
-                        </button>
-                        </td>
-                    </tr>
+                        <tr>
+                            <th>Condition</th><th>Key for condition?</th><th>Delete</th>
+                        </tr>
+
+                        {userList.map(item => {
+                            return (
+                                <tr key={item}>
+                                    <td>{item.condition_id}</td>
+                                    <td>
+                                        {item.verified
+                                            ? ("true") : ("false")
+                                        }
+                                    </td>
+                                    <td><button
+                                        onClick={deleteRow}
+                                    >Delete
+                                    </button>
+                                    </td>
+
+                                </tr>
+                            )
+                        })}
+
+
                     </thead>
                 </table>
 

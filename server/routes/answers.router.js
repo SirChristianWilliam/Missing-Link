@@ -38,11 +38,12 @@ router.put('/', rejectUnauthenticated,(req,res) => {
     //IF the user exists, UPDATE the Answer and the question ID where the id 
      
     const sqlText = `
-    INSERT INTO answers(questions_id, answer, user_id)
+    INSERT INTO answers ("questions_id", "answer", "user_id")
     VALUES($1,$2,$3)
-    ON CONFLICT (user_id) DO
-        UPDATE SET  answer = $2
-        WHERE "answers"."user_id" = $3  ;`
+    ON CONFLICT ON CONSTRAINT question_user_id 
+        DO
+        UPDATE SET  "answer" = $2
+        WHERE "answers"."user_id" = $3 AND "answers"."questions_id" = $1;`
         
     pool.query(sqlText, params)
     .then((dbRes) => {
@@ -50,6 +51,7 @@ router.put('/', rejectUnauthenticated,(req,res) => {
     })
     .catch((err) => {
         console.log('error updating answers in put',err);
+        res.sendStatus(500);
     })
 });
  
