@@ -83,7 +83,7 @@ function Results() {
                     payload: {
                         id: conditionId, // The condition's ID on this page
                         name: conditionName, // The condition's name on this page
-                        code: conditionCode // The condition's code on this page
+                        code: conditionCode
                     }
                 })
             }

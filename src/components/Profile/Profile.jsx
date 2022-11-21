@@ -17,7 +17,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-
+import {
+    HashRouter as Router,
+    Redirect,
+    Route,
+    Switch,
+  } from 'react-router-dom';
+  
 function Profile() {
     // const params = useParams();
     const dispatch = useDispatch();
@@ -96,7 +102,19 @@ function Profile() {
         };
         reader.readAsDataURL(selectedFile);
     };
-
+    function backToResults(evt) {
+        evt.preventDefault();
+        console.log('whats the event YOYOYYO',evt.target.innerText);//Grabs the text clicked
+   
+        dispatch({
+            type: 'UPDATE_RESULTS_CONDITION',
+            payload: {
+                name: evt.target.innerText
+            }
+        })
+    
+        history.push('/results');
+    }
     return (
         <>
             <h1>Profile Page</h1>
@@ -170,9 +188,14 @@ function Profile() {
                         {userList.map(item => {
                             return (
                                 <tr key={item}>
-                                    <td>{item.condition_id}</td>
+                                    <td
+                                        onClick={(evt) => {backToResults(evt)}}   
+                                    >
+                                        {item.con_name}
+                                
+                                        </td>
                                     <td>
-                                        {item.condition}
+                                       {item.condition}
                                         
                                     </td>
                                     <td><button

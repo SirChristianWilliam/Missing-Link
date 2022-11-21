@@ -11,9 +11,9 @@ const router = express.Router();
 router.get('/', rejectUnauthenticated, (req, res) => {
   // This simply gets the ALL user's lists. Gets called from questions.saga
     const theUser = req.user.id;
-    
+    console.log('HI THERE',req.name);
     console.log('whats theUser? : ', theUser);
-    const sqlText = `SELECT "condition_id","user_id","verified" 
+    const sqlText = `SELECT "condition_id","user_id","verified","con_name" 
     FROM "user_conditions"
     WHERE "user_id" = $1;`;
     pool.query(sqlText,[theUser])
@@ -28,10 +28,10 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 router.post('/',rejectUnauthenticated, (req, res) => {
    console.log('req body',req.body);
-    const params = [req.body.id, req.user.id]
+    const params = [req.body.id, req.user.id,req.body.name];
     console.log(params,'params are')
-    const queryText = `INSERT INTO "user_conditions" (condition_id, user_id)
-      VALUES ($1, $2);`;
+    const queryText = `INSERT INTO "user_conditions" (condition_id, user_id,con_name)
+      VALUES ($1, $2,$3);`;
     pool
       .query(queryText, params)
       .then((dbRes) => {res.sendStatus(201) 
