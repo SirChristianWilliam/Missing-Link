@@ -172,9 +172,8 @@ function Profile() {
                                 <tr key={item}>
                                     <td>{item.condition_id}</td>
                                     <td>
-                                        {item.verified
-                                            ? ("true") : ("false")
-                                        }
+                                        {item.condition}
+                                        
                                     </td>
                                     <td><button
                                         onClick={deleteRow}

@@ -11,10 +11,12 @@ const router = express.Router();
 router.get('/', rejectUnauthenticated, (req, res) => {
   // This simply gets the ALL user's lists. Gets called from questions.saga
     const theUser = req.user.id;
+    
     console.log('whats theUser? : ', theUser);
     const sqlText = `SELECT "condition_id","user_id","verified" 
-    FROM "user_conditions";`;
-    pool.query(sqlText)
+    FROM "user_conditions"
+    WHERE "user_id" = $1;`;
+    pool.query(sqlText,[theUser])
     .then((dbRes) => {
         console.log('the rows arrrreeee',dbRes.rows);
          res.send(dbRes.rows) //send the array of DB questions back to saga
