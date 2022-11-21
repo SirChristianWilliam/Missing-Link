@@ -93,4 +93,7 @@ NOTES FOR TOMORROW:
     sure how I'm going to do this, but we'll have to ask around
     
    
-    
+Today in FETCH_QUESTIONS router, I added DISTINCT keyword.
+This way it will only show the current user's questions/answers.
+I will still need to loop through ALL user's questions/answer
+at one point when I'm displaying that data on the conditions page.

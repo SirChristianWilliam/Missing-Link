@@ -25,6 +25,8 @@ function Questions() {
     const history = useHistory();
     const questions = useSelector(store => store.questions); //grabs questions array from store
     const answers = useSelector(store => store.answers);
+    const user = useSelector(store => store.user);
+    console.log('and the USERS IS',user);
     console.log('The answers array is...',answers.arr); //This is fine in some cases, I will need all
     // the answers of all users to be displayed at one point. However, to USE the specific
     // answer data of a specific user, I will need to fetch the answers only where the
@@ -35,6 +37,9 @@ function Questions() {
         }),
         dispatch({
             type:'FETCH_ANSWERS'
+        }),
+        dispatch({
+            type:'FETCH_USER'
         })
     }, []); 
 
@@ -70,7 +75,11 @@ function Questions() {
                 </tr>
                 {questions.map(question => (
                     <tr key={question.id}>
+                        
+                        {/* only show results of questions
+                        of the currently logged in user.id*/}
                         <td>
+                            
                             {question.question}  
                         </td>
                         <td >
@@ -81,7 +90,6 @@ function Questions() {
                                 onBlur={(evt) => {changeAnswer(evt, question.id)}}
                             >
                             </input>
-                            {/* <Answers/> */}
 
                         </td>
                     </tr>
