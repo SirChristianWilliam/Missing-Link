@@ -11,14 +11,14 @@ WHAT I NEED TO DO TO GET MY APP RUNNING WITH BASE MODE:
     the same question amongst all users.
 4. In results page, when condition is saved, it should be added to the profile page
     list. All it needs to do is provide a link with that conditions' name to get back
-        to the results page. 
-5. Profile page needs to be able to EDIT the username of the user. 
-6. Profile page condition needs to be able to be DELETED.
+        to the results page. (Close to getting this part done)
+5. ✅ Profile page needs to be able to EDIT the username of the user. 
+6. Profile page condition list item needs to be able to be DELETED.
 7. Results page needs to add a code, and if it matches with a condition, it will
     display a success message and the user's question/answers will be added to the
     condition's dataset of questions/answers. Any duplicate answers for the same
     question will just increase the count # of that question's ID, in the "occurs" 
-    table column. 
+    table column. (almost there)
 8. Show a checkmark next to the condition on the profile page that you have an access
     key synced up for. 
 
@@ -39,18 +39,18 @@ HOW TO ADD/GET DATA FROM THE TABLES:
         "condition"."name" == (current condition);
 
 GOOD MORNING, HERE WHAT TO DO :( ) :
-1. Go to results page. You have access key working. 
-2. When the access key is accepted, run a dispatch called
+1.✅ Go to results page. You have access key working. 
+2. ✅ When the access key is accepted, run a dispatch called
     "SET_KEY". 
-3. Find out if I need to create a new saga for it,
+3. ✅ Find out if I need to create a new saga for it,
     I can probably use the user.saga.js and such.
-4. The DB request will be a PUT, as I'm updating the info key for users.
-5. INSERT INTO "user" ("key")
+4. ✅ The DB request will be a PUT, as I'm updating the info key for users.
+5. ✅ INSERT INTO "user" ("key")
     VALUES($1)
     ON CONFLICT (id) DO
     UPDATE SET "key" = $1
     WHERE "user"."id" = $2
-6. Looks like I'll need to send the data of the user's id as well.
+6. ✅ Looks like I'll need to send the data of the user's id as well.
 7. This INSERT statement will make it so if there is already a key
     there, it will just add another on to it. 
     When I pull up the results page, I will have to take the
@@ -58,3 +58,39 @@ GOOD MORNING, HERE WHAT TO DO :( ) :
     values of each user. If there is a match, the condition
     will need to grab the questions/answers data from that user
     and compile it with the others who also have those keys.
+END OF DAY REVIEW: I DID get this working, users can add
+    keys to their existing user rows. However, I still need to 
+    figure out how to ADD multiple keys rather than what it's doing
+    now, which is REPLACING the existing key. If, when the user
+    enters their key, the global database gets updated permanently,
+    then I won't have to worry about it because they won't need
+    to use those keys anymore. If, each time the conditions page
+    renders a condition and it needs to loop through the list
+    of users with that specific key in order to get their questions data,
+    then I WILL need to make sure the keys get saved and not overwritten.
+
+NOTES FOR TOMORROW:
+1. Use the existing GET method for the users' list of saved
+    conditions, grab the data from the redux store.
+2. Display the data in the table on the user's profile page,
+    sort by that user's ID.
+3. OH, by the way, I'm currently using PUT to add user's answers
+    to the answers table. I think I need to use POST.
+    It will look like INSERT INTO "answers" ("user_id","answer")
+    VALUES ($1,$2);
+    Then, I will be able to GET that data and sort only where
+    the user's ID matches the currently logged in user.
+    I need to find out where to put my conditional rendering for
+    this. I'm looking for something along the lines of: 
+    IF "USER"."ID" == TRUE && "QUESTIONS"."ID" == TRUE
+    && "ANSWERS"."ANSWER" LENGTH > 1,
+    UPDATE "ANSWER" ELSE 
+    IF "USER"."ID" == TRUE && "QUESTIONS"."ID" == TRUE
+    && "ANSWERS"."ANSWER" LENGTH == 0,
+    INSERT A NEW ROW WITH (USER_ID,QUESTION,ANSWER,?COUNT?)..
+    so, this statement will have to be on the POST route somewhere.
+    If I'm updating the answer, that's a PUT, so i'm not fully
+    sure how I'm going to do this, but we'll have to ask around
+    
+   
+    
