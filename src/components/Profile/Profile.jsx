@@ -24,9 +24,13 @@ function Profile() {
     const history = useHistory();
     const user = useSelector((store) => store.user);
 
-  function changePic() {
-    console.log('in changePic');
-  }
+    
+  function changePic(event) {
+    console.log('in changePic',event.target);
+
+   
+
+}
     function editUsername(evt) {
         evt.preventDefault();
         //This is just to change the username's attribute and class
@@ -74,22 +78,42 @@ function Profile() {
         event.preventDefault();
         console.log('Profile delete clicked', event.target.value)
     }
+function onFileSelected(event) {
+    let selectedFile = event.target.files[0];
+    let reader = new FileReader();
+    let imgtag = document.getElementById("myimage");
+    imgtag.title = selectedFile.name;
+    reader.onload = function(event) {
+        imgtag.src = event.target.result;
+    };
+    reader.readAsDataURL(selectedFile);
+}
+     
     return (
         <>
             <h1>Profile Page</h1>
             {/* LEFT SIDE OF PROFILE PAGE */}
             <div className='profileLeftContainer'>
+                <form method="post" enctype="multipart/form-data" onChange={(event) =>onFileSelected(event)} >
+                <input type="file" id="imgupload" className="hideInput" />
+                <label for='imgupload'> 
                 <img
-                    onClick={changePic}
+                    id = "myimage" 
+                    label for='imgupload'
+                    onClick={(evt)=> {changePic(evt)}}
                     className="ppic"
-                    src="ppic.png">
+                    src={"ppic.png"}
+                    
+                    
+                    >
                 </img>
+                </label>
+                </form>
                 <div>
                     <h3>Username:</h3>
                     <span 
                         id="userName" 
-                        contentEditable="false"
-                        onBlur={updateUsername}
+                         onBlur={updateUsername}
                         >
                         {user.username}
                     </span>
@@ -104,8 +128,7 @@ function Profile() {
                     <h3>Email:</h3>
                     <span
                         id="email"
-                        contentEditable="false"
-                        onBlur={(event) => {updateEmail(event)}}
+                         onBlur={(event) => {updateEmail(event)}}
                     >
                         {user.email}
                     </span>

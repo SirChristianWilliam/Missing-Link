@@ -152,5 +152,9 @@ table, th, td{
   outline:none;
 }
 
+.hideInput {
+  display:none;
+}
+
 
  
