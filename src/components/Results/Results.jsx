@@ -6,55 +6,42 @@ import Fuse from 'fuse.js';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-
 function Results() {
     const dispatch = useDispatch();
-
     const resultCondition = useSelector((store) => store.results); //This store value
     //gets updated on the Search.jsx onSubmit event.
-     const conditions = useSelector((store) => store.conditions);
+    const conditions = useSelector((store) => store.conditions);
     console.log('IN RESULTS CONDITIONS ARE', conditions);
-    function saveCondition(event) {
-        event.preventDefault();
-        console.log('saveCondition clicked, ev.target.val is', event.target.value);
-    };
+
+
     useEffect(() => {
         dispatch({
-            type: 'FETCH_CONDITIONS' // Immediately call this, and head to the questions saga
+            type: 'FETCH_CONDITIONS' // Immediately call this, and head to the conditions saga
         })
     }, []);
 
     //-----------------------
     function openPopup() {
         console.log('openPopup button clicked')
-
-        //This will open pop-up box
         document.getElementById('codePopupID').style.opacity = '1';
         document.getElementById('codePopupID').style.zIndex = '1';
-
     };
-
     function closePopup() {
         console.log('close Popup close button clicked');
-
         document.getElementById('codePopupID').style.opacity = '0';
         document.getElementById('codePopupID').style.zIndex = '-1';
-
-    }
-
-    // pop up box code goes here for now
+    };
 
     const submitCode = (evt) => {
         console.log('code was submitted', evt.target[0].value);
         let target = evt.target[0].value;
         {
             conditions.map(condition => {
-
                 if (condition.access_key == target && condition.name == resultCondition) {
                     // return alert(`Access key ${target} accepted for condition: ${condition.name}`);
                     dispatch({
                         type: 'ADD_USER_KEY',
-                        payload: {key:target}
+                        payload: { key: target }
                     })
                 } else {
                     return;
@@ -64,18 +51,54 @@ function Results() {
     };
 
     function handleCodeChange(event) {
-
         console.log('code change value:', event.target.value);
     }; //Don't really need this
+    function saveCondition(evt) {
+        evt.preventDefault();
+        console.log('saveCondition clicked, ev.target.val is', evt.target.value);
+        let conditionId = "";
+        let conditionName = "";
+        let conditionCode = "";
+        {
+            conditions.map(condition => {
 
-    //end of pop up box code
-    //-----------------------------
+                if (condition.name === resultCondition) {
+                    conditionId = condition.id;
+                    conditionName = condition.name;
+                    conditionCode = condition.access_key;
+                    console.log(conditionId, ':condition id');
+                    console.log(conditionName, ':condition name');
+                    console.log(conditionCode, ':access key');
 
+                } else {
+                    return;
+                }
+            });
+            console.log(conditionId, conditionName, conditionCode, 'conditions result yuh');
+            if (!conditionName) {
+                return;
+            } else {
+                dispatch({
+                    type: 'ADD_PROFILE_CONDITION',
+                    payload: {
+                        id: conditionId, // The condition's ID on this page
+                        name: conditionName, // The condition's name on this page
+                        code: conditionCode // The condition's code on this page
+                    }
+                })
+            }
+        }
+        // Now here I need to save this data to my profile page.
+        // The user's "user_conditions" table specific to that user will take
+        // this data as a POST.
+
+
+    };
     return (
         <>
             <h1>Results page</h1>
             <button
-                onClick={saveCondition}
+                onClick={(evt) => { saveCondition(evt) }}
             >
                 Save Condition to Your List
             </button>
@@ -86,9 +109,8 @@ function Results() {
                 - Add Access Code -
             </button>
 
-            <h1> {resultCondition} </h1>
+            <h1 id="conditionShowing"> {resultCondition} </h1>
 
-            {/* HIDE THIS UNTIL */}
             <div className="codePopupContainer" id="codePopupID">
                 <button onClick={closePopup}>
                     X
@@ -135,10 +157,6 @@ function Results() {
                     </tr>
                 </thead>
             </table>
-
-
-
-
         </>
     )
 };

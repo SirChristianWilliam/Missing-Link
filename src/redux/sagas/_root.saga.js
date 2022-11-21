@@ -5,6 +5,7 @@ import userSaga from './user.saga';
 import questionsSaga from './questions.saga';
 import answersSaga from './answers.saga';
 import conditionsSaga from './conditions.saga';
+import profilelistSaga from './profilelist.saga';
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -19,6 +20,7 @@ export default function* rootSaga() {
     userSaga(),
     questionsSaga(),
     answersSaga(),
-    conditionsSaga()
+    conditionsSaga(),
+    profilelistSaga()
     ]);
 }

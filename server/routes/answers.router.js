@@ -26,7 +26,8 @@ router.get('/',  (req, res) => {
         res.sendStatus(500);
     })
 });
-
+//Maybe this needs to be a post????
+//Shit I think it might be a post...
 router.put('/', rejectUnauthenticated,(req,res) => {
     console.log('What is the inputs value? : ',req.body.name); // This comes from the input's value
     console.log('What is the inputs question ID? : ', req.body.id); //This comes from the question's id

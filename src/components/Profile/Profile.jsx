@@ -23,14 +23,14 @@ function Profile() {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store) => store.user);
+    const userList = useSelector((store) => store.userList);
+    console.log('user list is', userList);
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_PROFILE_CONDITIONS' // Immediately call this, and head to the profilelist saga
+        })
+    }, []);
 
-    
-  function changePic(event) {
-    console.log('in changePic',event.target);
-
-   
-
-}
     function editUsername(evt) {
         evt.preventDefault();
         //This is just to change the username's attribute and class
@@ -40,6 +40,10 @@ function Profile() {
     };
 
 //USERNAME
+function changePic(event) {
+    // console.log('in changePic',event.target.src); 
+} 
+//IF I WANT THE IMAGES SRC TO STORE LATER, I CAN SEE WHAT IT IS WITH THIS FUNCTION
 
     function updateUsername(evt) {
         evt.preventDefault();
@@ -73,11 +77,11 @@ function Profile() {
         })
     };
 
-
     function deleteRow(event) {
         event.preventDefault();
         console.log('Profile delete clicked', event.target.value)
     }
+
 function onFileSelected(event) {
     let selectedFile = event.target.files[0];
     let reader = new FileReader();
@@ -87,7 +91,7 @@ function onFileSelected(event) {
         imgtag.src = event.target.result;
     };
     reader.readAsDataURL(selectedFile);
-}
+};
      
     return (
         <>
@@ -103,8 +107,6 @@ function onFileSelected(event) {
                     onClick={(evt)=> {changePic(evt)}}
                     className="ppic"
                     src={"ppic.png"}
-                    
-                    
                     >
                 </img>
                 </label>
