@@ -14,65 +14,135 @@
 // OR JUST A BIG LETTER, GRABBED FROM THE FIRST LETTER
 // OF THE USER'S NAME.
 
-//HOW TO: THE USERNAME ALREADY SHOWS. I NEED TO 
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 
-function changePic() {
-    console.log('Change pic clicked');
-    //* onClick, open images folder to replace 
-    //this image to one of your choosing.
-
-}
 function Profile() {
+    // const params = useParams();
+    const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store) => store.user);
+    const userList = useSelector((store) => store.profilelist);
+    const conditions = useSelector((store) => store.conditions);
+    console.log('ay ay ay ay',conditions);
+    console.log('user list is', userList);
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_PROFILE_CONDITIONS' // Immediately call this, and head to the profilelist saga
+        }),
+        dispatch({
+            type: 'FETCH_CONDITIONS'
+        })
+    }, []);
 
-    function editUsername(event) {
-        event.preventDefault();
-        console.log('edit username button clicked', event.target.value)
+    function editUsername(evt) {
+        evt.preventDefault();
+        //This is just to change the username's attribute and class
+        document.getElementById('userName').setAttribute("contenteditable", 'true');
+        document.getElementById('userName').classList.add('borderhere');
     };
 
-    function editEmail(event) {
-        event.preventDefault();
-        console.log('edit email button clicked', event.target.value)
+    //USERNAME
+    function changePic(event) {
+        // console.log('in changePic',event.target.src); 
+    }
+    //IF I WANT THE IMAGES SRC TO STORE LATER, I CAN SEE WHAT IT IS WITH THIS FUNCTION
+
+    function updateUsername(evt) {
+        evt.preventDefault();
+        console.log('in updateUsername', evt.target.innerText);
+        document.getElementById('userName').setAttribute("contenteditable", 'false');
+        document.getElementById('userName').classList.remove('borderhere');
+
+        dispatch({
+            type: 'EDIT_USER',
+            payload: { name: evt.target.innerText }
+        })
+
     };
+
+    // END USERNAME
+    function editEmail(evt) {
+        evt.preventDefault();
+        document.getElementById('email').setAttribute("contenteditable", 'true');
+        document.getElementById('email').classList.add('borderhere');
+    }
+    function updateEmail(event) {
+        event.preventDefault();
+        console.log('edit email button clicked', event.target.value);
+
+        document.getElementById('email').setAttribute("contenteditable", 'false');
+        document.getElementById('email').classList.remove('borderhere');
+
+        dispatch({
+            type: 'EDIT_EMAIL',
+            payload: { email: event.target.innerText }
+        })
+    };
+
     function deleteRow(event) {
         event.preventDefault();
         console.log('Profile delete clicked', event.target.value)
     }
+
+    function onFileSelected(event) {
+        let selectedFile = event.target.files[0];
+        let reader = new FileReader();
+        let imgtag = document.getElementById("myimage");
+        imgtag.title = selectedFile.name;
+        reader.onload = function (event) {
+            imgtag.src = event.target.result;
+        };
+        reader.readAsDataURL(selectedFile);
+    };
+
     return (
         <>
             <h1>Profile Page</h1>
             {/* LEFT SIDE OF PROFILE PAGE */}
             <div className='profileLeftContainer'>
-                <img
-                    onClick={changePic}
-                    className="ppic"
-                    src="ppic.png">
-                </img>
+                <form method="post" enctype="multipart/form-data" onChange={(event) => onFileSelected(event)} >
+                    <input type="file" id="imgupload" className="hideInput" />
+                    <label for='imgupload'>
+                        <img
+                            id="myimage"
+                            label for='imgupload'
+                            onClick={(evt) => { changePic(evt) }}
+                            className="ppic"
+                            src={"ppic.png"}
+                        >
+                        </img>
+                    </label>
+                </form>
                 <div>
                     <h3>Username:</h3>
-                    <span>
+                    <span
+                        id="userName"
+                        onBlur={updateUsername}
+                    >
                         {user.username}
-                        <button
-                            onClick={editUsername}
-                        >
-                            Edit
-                        </button>
                     </span>
+                    <button
+                        onClick={(evt) => { editUsername(evt) }}
+                    >
+                        Edit
+                    </button>
                 </div>
 
                 <div>
                     <h3>Email:</h3>
-                    <span>
+                    <span
+                        id="email"
+                        onBlur={(event) => { updateEmail(event) }}
+                    >
                         {user.email}
-                        <button
-                            onClick={editEmail}
-                        >Edit
-                        </button>
                     </span>
+                    <button
+                        onClick={(evt) => { editEmail(evt) }}
+                    >Edit
+                    </button>
+
                 </div>
 
                 <div>
@@ -93,18 +163,30 @@ function Profile() {
                 <h2>Your personal condtions list:</h2>
                 <table className='profileTableContainer'>
                     <thead>
-                    <tr>
-                        <th>Condition</th><th>Key Access?</th><th>Delete</th>
-                    </tr>
-                    <tr>
-                        <td>- map saved condition -</td>
-                        <td>- map boolean value for that condition, show checkmark -</td>
-                        <td><button
-                            onClick={deleteRow}
-                        >Delete
-                        </button>
-                        </td>
-                    </tr>
+                        <tr>
+                            <th>Condition</th><th>Key for condition?</th><th>Delete</th>
+                        </tr>
+
+                        {userList.map(item => {
+                            return (
+                                <tr key={item}>
+                                    <td>{item.condition_id}</td>
+                                    <td>
+                                        {item.verified
+                                            ? ("true") : ("false")
+                                        }
+                                    </td>
+                                    <td><button
+                                        onClick={deleteRow}
+                                    >Delete
+                                    </button>
+                                    </td>
+
+                                </tr>
+                            )
+                        })}
+
+
                     </thead>
                 </table>
 

@@ -11,8 +11,8 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const questionsRouter = require('./routes/questions.router');
 const answersRouter = require('./routes/answers.router');
-
-
+const conditionsRouter = require('./routes/conditions.router');
+const userlistRouter = require('./routes/userlist.router');
 //auth-shelf has a shelf router as well, shelf is a component where
 // the information is displayed
 
@@ -31,6 +31,9 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/questions',questionsRouter);
 app.use('/api/answers',answersRouter);
+app.use('/api/conditions', conditionsRouter);
+app.use('/api/userlist', userlistRouter);
+
 // auth-shelf has app.use('/api/shelf',shelfRouter)
 
 // Serve static files

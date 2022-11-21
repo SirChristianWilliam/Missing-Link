@@ -9,73 +9,54 @@
 // INCLUDE THE NOTE TO ENSURE ANONYMITY.
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  HashRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from 'react-router-dom';
 
 
 import { useHistory } from "react-router-dom";
-import { useParams } from 'react-router-dom'
-import Answers from '../Answers/Answers';
-// HOW TO: At some point, use GET to get the questions DB data.
-// Maybe can use an axios.get to get the data from the db too on useEffect();
-// useSelector((store) => {store.questions}) to grab that data from redux store.
-// Loop through the questions using .map() down in the return.
-// probably. Will look like questions.map(question => ()) or so...
-// Don't forget key={i} or key={key}
-// Will also be looping the ANSWERS, which are empty to start and
-// will be entered in as inputs with placeholders, so I will need
-// the placeholder values looped thru.
-// I think at first I will loop through the answers table "answers" column,
-// and display those as inputs. Basically I think I'll need to use
-// axios here to 'GET' the joined tables of "answers" and "questions".
-// I think I need to do that because I think I need to map through the
+import { useParams } from 'react-router-dom';
+
+// I think I need to map through the
 // "answers", "questions"."question", and the "questions"."placeholder_hint".
 // Then, the user will input their answer and when the targeted input field
 // loses focuse (blur), it will send that data as a 'POST' to the user's
 // "answers" values. 
 
-// const questions = useSelector((store) => {store.questions}); //Something like this, map thru it
-
 function Questions() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const questions = useSelector(store => store.questions);
-    // const answers = useSelector(store => store.answers);
-    console.log('QUESTION ITEMS ARE HEHEHEH', questions);
-    // console.log('answer items are', answers);
-
+    const questions = useSelector(store => store.questions); //grabs questions array from store
+    const answers = useSelector(store => store.answers);
+    const user = useSelector(store => store.user);
+    console.log('and the USERS IS',user);
+    console.log('The answers array is...',answers.arr); //This is fine in some cases, I will need all
+    // the answers of all users to be displayed at one point. However, to USE the specific
+    // answer data of a specific user, I will need to fetch the answers only where the
+    // user's ID matches the currently logged in user
     useEffect(() => {
         dispatch({
-            type: 'FETCH_QUESTIONS'
+            type: 'FETCH_QUESTIONS' // Immediately call this, and head to the questions saga
+        }),
+        dispatch({
+            type:'FETCH_ANSWERS'
+        }),
+        dispatch({
+            type:'FETCH_USER'
         })
+    }, []); 
 
-    }, []);
-
-    // function handleChange(event) {
-    //     event.preventDefault();
-    //     console.log('handleChange, event.target.value is', event.target.value);
-    // };
-
-    function handleAnswerChange(evt) {
+    function changeAnswer(evt,id) {
         evt.preventDefault();
-        console.log('in handleAnswerChange', evt.target.value);
-    }
-    function changeAnswer(evt) {
-        evt.preventDefault();
-        console.log('in changeAnswer', evt.target.value);
-        //I need to have this data change the user's answer for this
-        // specific row somehow. Maybe a dispatch to the answer route,
-        // using a PUT axios request? Then the query will be an UPDATE
-        // That means I'll need to use req.params to send, like
-        // '/api/answers/:id', and then use that id to target which answer
-        // I want to update for that specific user.
+        console.log('the input text is set to: ', evt.target.value); //Shows the value of the input when you lose focus of the input
+        console.log('the question ID is: ',id); // This is the question id
+
+             dispatch({
+                type: 'UPDATE_ANSWER',
+                payload: {
+                    id: id, // The question's ID
+                    name: evt.target.value // The text of the changed input
+                }
+            })
     }
     return (
-
         <>
             <button onClick={() => { history.go(-1) }}>Go Back</button>
             <h1>Questions Page</h1>
@@ -84,6 +65,7 @@ function Questions() {
                 able to see who is associated with these results, as
                 they are purely for research purposes.
             </p>
+            
             <p>Please type your answer in the given format shown.</p>
             <table className='questionsTable'>
                 <thead>
@@ -92,20 +74,23 @@ function Questions() {
                     <th>Answers</th>
                 </tr>
                 {questions.map(question => (
-                    <tr>
-                        <td key={question}>
-                            {question.question}
+                    <tr key={question.id}>
+                        
+                        {/* only show results of questions
+                        of the currently logged in user.id*/}
+                        <td>
+                            
+                            {question.question}  
                         </td>
-                        <td key={question}>
+                        <td >
                             <input 
                                 type="text" 
                                 placeholder={question.placeholder}
-                                onChange={handleAnswerChange}
-                                onBlur={changeAnswer}
+                                // value={this.value}
+                                onBlur={(evt) => {changeAnswer(evt, question.id)}}
                             >
-                        
                             </input>
-                            <Answers/>
+
                         </td>
                     </tr>
                     
