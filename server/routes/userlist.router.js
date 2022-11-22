@@ -30,9 +30,19 @@ router.post('/',rejectUnauthenticated, (req, res) => {
    console.log('req body',req.body);
     const params = [req.body.id, req.user.id,req.body.name];
     console.log(params,'params are')
-    const queryText = `INSERT INTO  "user_conditions" (condition_id, user_id,con_name)
-      VALUES ($1, $2,$3)
-      ;`;
+    const queryText = 
+    
+    // `INSERT INTO  "user_conditions" (condition_id, user_id,con_name)
+    //   VALUES ($1, $2,$3)
+    //   ;`;
+
+      `INSERT INTO "user_conditions" ("condition_id", "user_id","con_name")
+      VALUES($1,$2,$3)
+      ON CONFLICT ON CONSTRAINT con_user_id 
+          DO
+          UPDATE SET  "condition_id" = $1, "user_id" = $2, "con_name" = $3
+          WHERE "user_conditions"."con_name" = $3 AND "user_conditions"."user_id" = $2;`;
+
     pool
       .query(queryText, params)
       .then((dbRes) => {res.sendStatus(201)
