@@ -7,7 +7,7 @@ const encryptLib = require('../modules/encryption');
 const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
- 
+
 router.get('/', rejectUnauthenticated, (req, res) => {
   // This simply gets the ALL user's lists. Gets called from questions.saga
     const theUser = req.user.id;
@@ -19,7 +19,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     pool.query(sqlText,[theUser])
     .then((dbRes) => {
         console.log('the rows arrrreeee',dbRes.rows);
-         res.send(dbRes.rows) //send the array of DB questions back to saga
+        res.send(dbRes.rows) //send the array of DB questions back to saga
     })
     .catch((err) => {
         console.log('error getting dbRes',err);
@@ -34,13 +34,29 @@ router.post('/',rejectUnauthenticated, (req, res) => {
       VALUES ($1, $2,$3);`;
     pool
       .query(queryText, params)
-      .then((dbRes) => {res.sendStatus(201) 
+      .then((dbRes) => {res.sendStatus(201)
     })
       .catch((err) => {
         console.log('POST add list failed: ', err);
         res.sendStatus(500);
       });
   });
+
+  router.delete('/:id',rejectUnauthenticated, (req, res) => {
+    console.log('req body in DELETE list item');
+     const params = [req.user.id,req.params.id];
+     console.log(params,'params are')
+     const queryText = `DELETE FROM "user_conditions" 
+       WHERE "user_id" = $1 AND "condition_id" = $2;`;
+     pool
+       .query(queryText, params)
+       .then((dbRes) => {res.sendStatus(201)
+     })
+       .catch((err) => {
+         console.log('DELETE list item failed: ', err);
+         res.sendStatus(500);
+       });
+   });
 
 //I will need to post for the specific user,
 //I will need to insert for the specific user,

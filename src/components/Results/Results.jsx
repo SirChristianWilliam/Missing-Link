@@ -73,6 +73,8 @@ function Results() {
                 } else {
                     return;
                 }
+
+                
             });
             console.log(conditionId, conditionName, conditionCode, 'conditions result yuh');
             if (!conditionName) {
@@ -85,6 +87,9 @@ function Results() {
                         name: conditionName, // The condition's name on this page
                         code: conditionCode
                     }
+                }),
+                dispatch({
+                    type: 'FETCH_PROFILE_CONDITIONS' 
                 })
             }
         }

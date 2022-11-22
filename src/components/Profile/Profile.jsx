@@ -17,6 +17,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import ListItem from '../ListItem/Listitem';
 import {
     HashRouter as Router,
     Redirect,
@@ -87,10 +88,10 @@ function Profile() {
         })
     };
 
-    function deleteRow(event) {
-        event.preventDefault();
-        console.log('Profile delete clicked', event.target.value)
-    }
+    function deleteRow(evt) {
+        evt.preventDefault();
+        console.log(' delete clicked', evt.target);
+    };
 
     function onFileSelected(event) {
         let selectedFile = event.target.files[0];
@@ -102,19 +103,18 @@ function Profile() {
         };
         reader.readAsDataURL(selectedFile);
     };
-    function backToResults(evt) {
-        evt.preventDefault();
-        console.log('whats the event YOYOYYO',evt.target.innerText);//Grabs the text clicked
+    // function backToResults(evt) {
+    //     evt.preventDefault();
+    //     console.log('whats the event YOYOYYO',evt.target.innerText);//Grabs the text clicked
    
-        dispatch({
-            type: 'UPDATE_RESULTS_CONDITION',
-            payload: {
-                name: evt.target.innerText
-            }
-        })
+    //     dispatch({
+    //         type: 'UPDATE_RESULTS_CONDITION',
+    //         payload: {
+    //             name: evt.target.innerText
+    //         }
+    //     })
+
     
-        history.push('/results');
-    }
     return (
         <>
             <h1>Profile Page</h1>
@@ -133,6 +133,7 @@ function Profile() {
                         </img>
                     </label>
                 </form>
+
                 <div>
                     <h3>Username:</h3>
                     <span
@@ -187,28 +188,12 @@ function Profile() {
 
                         {userList.map(item => {
                             return (
-                                <tr key={item}>
-                                    <td
-                                        onClick={(evt) => {backToResults(evt)}}   
-                                    >
-                                        {item.con_name}
-                                
-                                        </td>
-                                    <td>
-                                       {item.condition}
-                                        
-                                    </td>
-                                    <td><button
-                                        onClick={deleteRow}
-                                    >Delete
-                                    </button>
-                                    </td>
-
+                                <tr key={item.id} >
+                                    <ListItem key={item.id} item={item} />
+       
                                 </tr>
                             )
                         })}
-
-
                     </thead>
                 </table>
 
@@ -216,7 +201,6 @@ function Profile() {
 
             {/* END */}
         </>
-
     )
 };
 

@@ -123,7 +123,6 @@ function Search() {
                             {characterResults.map(condition => {
                                 const { name } = condition;
                                 return (
-
                                     <tr
                                         key={name}
                                         className="fusetd">
@@ -131,7 +130,6 @@ function Search() {
                                             {name}
                                         </td>
                                     </tr>
-
                                 )
                             })}
                         </tbody>
