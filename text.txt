@@ -3,9 +3,10 @@ try another user, it works for that user too, but as with the other one, it only
 takes the last value that was answered. Also, the questions ID stays at one, I
 think that's part of the problem. Not sure how to get it to change with the questions
 ID, as I am already passing it through as a paramater.
+- ✅ FIXED: I used ON CONFLICT ON CONSTRAINT ✅
 
 WHAT I NEED TO DO TO GET MY APP RUNNING WITH BASE MODE:
-1. Update the user's answer on the questions page.
+1. ✅ Update the user's answer on the questions page.
 2. Results page must show the condition's questions/answer pairs for ALL users
 3. Results page must show a number of matches if there are duplicate answers for
     the same question amongst all users.
@@ -13,7 +14,7 @@ WHAT I NEED TO DO TO GET MY APP RUNNING WITH BASE MODE:
     list. All it needs to do is provide a link with that conditions' name to get back
         to the results page. (Close to getting this part done)
 5. ✅ Profile page needs to be able to EDIT the username of the user. 
-6. Profile page condition list item needs to be able to be DELETED.
+6. ✅ Profile page condition list item needs to be able to be DELETED.
 7. Results page needs to add a code, and if it matches with a condition, it will
     display a success message and the user's question/answers will be added to the
     condition's dataset of questions/answers. Any duplicate answers for the same
@@ -23,8 +24,8 @@ WHAT I NEED TO DO TO GET MY APP RUNNING WITH BASE MODE:
     key synced up for. 
 
 HOW TO ADD/GET DATA FROM THE TABLES:
-1. First, user's answers will all be saved to the answers table.
-2. This data will be huge, but the user's ID will make it so I can sort
+1. ✅ First, user's answers will all be saved to the answers table.
+2. ✅ This data will be huge, but the user's ID will make it so I can sort
     through it by the user's ID. 
 3. Results page will need to access that data. Each individual condition
      will only accept data where the USER'S ACCESS KEY matches the CONDITION KEY 
@@ -70,9 +71,9 @@ END OF DAY REVIEW: I DID get this working, users can add
     then I WILL need to make sure the keys get saved and not overwritten.
 
 NOTES FOR TOMORROW:
-1. Use the existing GET method for the users' list of saved
+1. ✅ Use the existing GET method for the users' list of saved
     conditions, grab the data from the redux store.
-2. Display the data in the table on the user's profile page,
+2. ✅ Display the data in the table on the user's profile page,
     sort by that user's ID.
 3. OH, by the way, I'm currently using PUT to add user's answers
     to the answers table. I think I need to use POST.
@@ -97,3 +98,33 @@ Today in FETCH_QUESTIONS router, I added DISTINCT keyword.
 This way it will only show the current user's questions/answers.
 I will still need to loop through ALL user's questions/answer
 at one point when I'm displaying that data on the conditions page.
+
+Monday Nov 21nd, end of day review:
+
+After Edan helped me understand ON CONFLICT ON RESTRAINT, I've been able to make some SOLID
+progress. 
+WHAT NEEDS TO GET DONE STILL FOR BASE:
+1. Select user's can currently add an access key to a condition. However, I need to make it
+   so it doesn't overwrite the last access key code, but instead add it. I can either do that
+   by INSERTING a new row with the new code for that user, or UPDATING the current column and
+   aggregating it into an array. Not sure how to extract it when it's like that but I'm sure it'S
+   not too complicated. 
+2. On profile page load, automatically check for user's keys and compare it to the access keys
+    of each condition that the user has in their "user_conditions" table list. I have "verified"
+    currently as a column on the "user_conditions" table as a boolean. So, from the results page,
+    when the access key code is added, I need to somehow set the verified from false to true.
+    I'll run a conditional that says "if user_conditions.verified == true, then display check ✅."
+    I can easily do this in the map() part of the render, the issue is where I will actually
+    update the data for verified to change, for that specific user. 
+3. Results page: 
+
+-On the results page load, I need to loop through the whole list of conditions,
+    and select the condition that matches the one that is currently showing.
+-Then, I need to grab ALL the question/answer combos from ALL users but only
+    where the user's access key code matches that specific condition's access key code.
+-After grabbing that data, I need to loop through it all in a table structure.
+-In that map(), I need to conditionally render the data so that if a user has the same
+    question_id and the same answer, only ONE question/answer will show. 
+-In the case that there are matching answers, whenever that happens I need to change a 
+    global variable that is a part of the <table> <td> rowset that will increase instead
+    count by one, every time that happens, for that specific question ID. 
