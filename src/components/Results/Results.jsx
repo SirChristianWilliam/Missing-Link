@@ -59,6 +59,7 @@ function Results() {
         let conditionId = "";
         let conditionName = "";
         let conditionCode = "";
+        let verified = "g";
         {
             conditions.map(condition => {
 
@@ -66,6 +67,8 @@ function Results() {
                     conditionId = condition.id;
                     conditionName = condition.name;
                     conditionCode = condition.access_key;
+                    verified = condition.verified;
+                    console.log('VERIFIED VERIFIED VERIFIED',verified)
                     console.log(conditionId, ':condition id');
                     console.log(conditionName, ':condition name');
                     console.log(conditionCode, ':access key');
@@ -74,7 +77,6 @@ function Results() {
                     return;
                 }
 
-                
             });
             console.log(conditionId, conditionName, conditionCode, 'conditions result yuh');
             if (!conditionName) {

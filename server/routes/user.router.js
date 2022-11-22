@@ -105,6 +105,7 @@ router.put('/editemail', rejectUnauthenticated, (req, res) => {
     })
 })
 
+
 // router.post('/register', (req, res, next) => {
 //   const username = req.body.username;
 //   const password = encryptLib.encryptPassword(req.body.password);

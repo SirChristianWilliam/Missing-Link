@@ -32,6 +32,7 @@ function Profile() {
     const user = useSelector((store) => store.user);
     const userList = useSelector((store) => store.profilelist);
     const conditions = useSelector((store) => store.conditions);
+    
     console.log('ay ay ay ay',conditions);
     console.log('user list is', userList);
     useEffect(() => {
