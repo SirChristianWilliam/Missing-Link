@@ -183,7 +183,7 @@ function Profile() {
                 <table className='profileTableContainer'>
                     <thead>
                         <tr>
-                            <th>Condition</th><th>Key for condition?</th><th>Delete</th>
+                            <th>Condition</th><th>Access key?</th><th>Delete</th>
                         </tr>
 
                         {userList.map(item => {

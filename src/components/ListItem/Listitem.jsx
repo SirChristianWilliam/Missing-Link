@@ -33,7 +33,7 @@ function ListItem(props) {
         <>
            <td onClick={(evt) => {backToResults(evt)}}><span>{props.item.con_name}</span></td>
            <td>{props.item.condition}</td>
-            <td className='removeTd'><button onClick={removeItem} className="removeBtn">❌ Delete Row ❌</button></td>
+            <td className='removeTd'><button onClick={removeItem} className="removeBtn">Delete Row</button></td>
         </>
     )
 }

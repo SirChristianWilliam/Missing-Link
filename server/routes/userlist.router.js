@@ -30,8 +30,9 @@ router.post('/',rejectUnauthenticated, (req, res) => {
    console.log('req body',req.body);
     const params = [req.body.id, req.user.id,req.body.name];
     console.log(params,'params are')
-    const queryText = `INSERT INTO "user_conditions" (condition_id, user_id,con_name)
-      VALUES ($1, $2,$3);`;
+    const queryText = `INSERT INTO  "user_conditions" (condition_id, user_id,con_name)
+      VALUES ($1, $2,$3)
+      ;`;
     pool
       .query(queryText, params)
       .then((dbRes) => {res.sendStatus(201)
