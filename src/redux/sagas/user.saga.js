@@ -25,17 +25,15 @@ function* fetchUser() {
 }
 function* addUserKey(action) {
   console.log('in addUserKey, action.payload is: ', action.payload);
+  console.log(  action.payload.key);
+  console.log(  action.payload.name);
 
   try {
-    const config = {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-    };
-
     yield axios.put(`/api/user/userkey`, action.payload);
-
+    // Sending the access key value AND the name of the condition.
+    yield axios.get(`/api/user`);
   } catch (err) {
-    console.log('error in updateAnswer.saga(put)', err);
+    console.log('error in addUserKey.saga(put)', err);
   }
 }
 

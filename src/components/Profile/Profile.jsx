@@ -89,10 +89,10 @@ function Profile() {
         })
     };
 
-    function deleteRow(evt) {
-        evt.preventDefault();
-        console.log(' delete clicked', evt.target);
-    };
+    // function deleteRow(evt) {
+    //     evt.preventDefault();
+    //     console.log(' delete clicked', evt.target);
+    // };
 
     function onFileSelected(event) {
         let selectedFile = event.target.files[0];
@@ -104,18 +104,7 @@ function Profile() {
         };
         reader.readAsDataURL(selectedFile);
     };
-    // function backToResults(evt) {
-    //     evt.preventDefault();
-    //     console.log('whats the event YOYOYYO',evt.target.innerText);//Grabs the text clicked
-   
-    //     dispatch({
-    //         type: 'UPDATE_RESULTS_CONDITION',
-    //         payload: {
-    //             name: evt.target.innerText
-    //         }
-    //     })
 
-    
     return (
         <>
             <h1>Profile Page</h1>
@@ -188,12 +177,15 @@ function Profile() {
                         </tr>
 
                         {userList.map(item => {
+                            
                             return (
                                 <tr key={item.id} >
                                     <ListItem key={item.id} item={item} />
-       
+            
                                 </tr>
+                                
                             )
+                            
                         })}
                     </thead>
                 </table>

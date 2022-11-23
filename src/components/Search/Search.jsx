@@ -43,28 +43,24 @@ function Search() {
     }
 
     function handleSubmit(evt) {
-
+        
         evt.preventDefault();
-        dispatch({
-            type: 'UPDATE_RESULTS_CONDITION',
-            payload: {
-                name: evt.target.firstChild.value
-            }
-        })
 
-        let hasCondition = false;
-        {
-            conditions.map(condition => {
-                if (condition.name == evt.target.firstChild.value) {
-                    history.push('/results');
-                    hasCondition = true;
-                }
-            })
-        }
-        if (hasCondition == true) {
+        // Find the "query"'d condition is in our `conditions array
+        // will be undefined if there's no match
+        let matchingCondition = conditions.find(condition => {
+            return condition.name === query;
+        });
+
+        if (matchingCondition) {
+            dispatch({
+                type: 'UPDATE_RESULTS_CONDITION',
+                payload: matchingCondition
+            });
+            history.push('/results');
             return;
         } else {
-            alert(`Condition ${evt.target.firstChild.value} not found`);
+            alert(`Condition ${query} not found`);
         }
     };
 

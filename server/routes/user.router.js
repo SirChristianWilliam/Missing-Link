@@ -1,5 +1,6 @@
-const { RouterRounded } = require('@mui/icons-material');
+const { RouterRounded, Update } = require('@mui/icons-material');
 const express = require('express');
+const { select } = require('redux-saga/effects');
 const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
@@ -52,22 +53,45 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
-router.put('/userkey', rejectUnauthenticated, (req, res) => {
+
+
+router.put('/userkey', rejectUnauthenticated, async (req, res) => {
+  try {
   console.log('in user PUT to update the KEY');
 
-  console.log('in user put', req.body.key);
-  console.log(req.user.id, 'and id');
-  const params = [req.user.id, req.body.key];
-  const sqlText = `
-    UPDATE "user" SET "key" = $2 WHERE "user"."id" = $1;
+  console.log('in user put', req.body.key);//ACCESS KEY NAME (5fh3l)
+  console.log('in user put', req.body.name); //CONDITON NAME (allergies)
+  console.log(req.user.id, 'and id'); //USER ID (5)
+
+ 
+  const params = [req.body.id, req.body.key];
+
+  const selectSql = `
+  SELECT * FROM "conditions"
+  WHERE "conditions"."access_key" = $2 AND "conditions"."id" = $1;`
+
+const selectRes = await pool.query(selectSql,params);
+console.log('what is selectRes',selectRes.rows);
+
+if(selectRes.rows.length < 1) {
+  res.sendStatus(400);
+  return;
+} 
+
+  const putSql = `
+    UPDATE  "user_conditions" 
+    SET  "verified" = 'verified' 
+    WHERE "user_id" = $1 AND "condition_id" = $2;
   `
-  pool.query(sqlText, params)
-    .then((dbRes) => {
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      console.log('error updating user key in put', err);
-    })
+  const updateParams = [req.user.id, req.body.id];
+  const putRes = await pool.query(putSql,updateParams);
+res.sendStatus(200);
+
+  }
+  catch(error) {
+    console.log('error in put update key',error);
+    res.sendStatus(500);
+  }
 });
 
 //
@@ -87,6 +111,7 @@ router.put('/useredit', rejectUnauthenticated, (req, res) => {
       console.log('error updating username in put', err);
     })
 });
+
 
 router.put('/editemail', rejectUnauthenticated, (req, res) => {
 

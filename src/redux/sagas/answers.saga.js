@@ -41,23 +41,41 @@ function* updateAnswer(action) {
 function* resultCondition(action) {
     console.log('what is action in resultCondition',action.payload.name)
     try {
-        const config = {
-            headers: { 'Content-Type': 'application/json' },
-            withCredentials: true,
-          };
           yield put({
             type: 'SET_RESULT_CONDITION',
-            payload: action.payload.name     
+            payload: action.payload     
         })
     } catch(err) {
         console.log('error in updateAnswer.saga(put)',err);
     }
 }
+
+// new
+function* fetchAllProfileConditions(action) {
+    console.log('fetchAllProfileConditions action.payload',action);
+    try {
+
+        const userLists = yield axios.get('/api/userlist/all');
+        console.log('what what what what huh why', userLists.data)
+          yield put({
+            type: 'SET_ALL_RESULT_CONDITION',
+            payload: userLists.data     
+        })
+    } catch(err) {
+        console.log('error in fetchAllProfileConditions',err);
+    }
+}
+//new
+
 function* answersSaga() {
     //   yield takeLatest('FETCH_USER', fetchUser);
     yield takeLatest('FETCH_ANSWERS', fetchAnswers);
     yield takeLatest('UPDATE_ANSWER', updateAnswer); // Called from questions.jsx 
-    yield takeLatest('UPDATE_RESULTS_CONDITION', resultCondition)
+    yield takeLatest('UPDATE_RESULTS_CONDITION', resultCondition);
+
+    //new
+    yield takeLatest('FETCH_ALL_PROFILE_CONDITIONS',fetchAllProfileConditions);
+    //new
 }
 
 export default answersSaga;

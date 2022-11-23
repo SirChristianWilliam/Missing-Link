@@ -9,9 +9,9 @@ function ListItem(props) {
     console.log('what are the PROPS? ',props.item.condition_id);
     const user = useSelector(store => store.user);
     const conditions = useSelector(store => store.conditions);
-    console.log('WHAT WHAT WHAT',conditions)
+
     console.log('what do be the user in list item',user)
-    console.log(user.key,"jjjjjjjjjjjjjj");
+    console.log(user.key,"user key in ListItem");
     const removeItem = () => {
         dispatch({
             type: 'DELETE_ITEM',
@@ -28,7 +28,8 @@ function ListItem(props) {
         dispatch({
             type: 'UPDATE_RESULTS_CONDITION',
             payload: {
-                name: evt.target.innerText
+                id: props.item.condition_id,
+                name: props.item.con_name
             }
         })
         history.push('/results');
@@ -36,13 +37,14 @@ function ListItem(props) {
     return (
         <>
            <td onClick={(evt) => {backToResults(evt)}}><span>{props.item.con_name}</span></td>
-{/* if the conditions.key = the users key then return true else return false */}
 
-            
-           {user.key == conditions.key ? <td>
-           True
-           </td> : <td>False</td>
-           }
+
+           <td>
+            {/* What I want to see happen:
+            IF THE CURRENT USER'S KEY == THIS ROW'S CONDITIONS.ACCESS_KEY,
+            THEN DISPLAY "TRUE" FOR THIS ROW.  */}
+          {props.item.verified}
+           </td> 
            
             <td className='removeTd'><button onClick={removeItem} className="removeBtn">Delete Row</button></td>
         </>

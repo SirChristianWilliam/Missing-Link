@@ -9,9 +9,10 @@ const userStrategy = require('../strategies/user.strategy');
 const router = express.Router();
 
 router.get('/', rejectUnauthenticated, (req, res) => {
-  // This simply gets the ALL user's lists. Gets called from questions.saga
+  // This simply gets ONE user's lists. Gets called from questions.saga
+  // I need one for ALL.
     const theUser = req.user.id;
-    console.log('HI THERE',req.name);
+
     console.log('whats theUser? : ', theUser);
     const sqlText = `SELECT "condition_id","user_id","verified","con_name" 
     FROM "user_conditions"
@@ -25,6 +26,24 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         console.log('error getting dbRes',err);
     })
 });
+
+//new
+router.get('/all', rejectUnauthenticated, (req, res) => {
+    console.log('in /all uuuuuuuuuuuuuuuuu');
+      const sqlText = `SELECT "condition_id","user_id","verified","con_name" 
+      FROM "user_conditions"
+      WHERE "verified" = 'verified'`;
+//AND WHERE "condition name" is the same as the name that's showing....
+      pool.query(sqlText )
+      .then((dbRes) => {
+          console.log('get ALL rows /all',dbRes.rows);
+          res.send(dbRes.rows) //send the array of DB questions back to saga
+      })
+      .catch((err) => {
+          console.log('error getting dbRes in /all',err);
+      })
+  });
+  //new
 
 router.post('/',rejectUnauthenticated, (req, res) => {
    console.log('req body',req.body);
@@ -69,8 +88,6 @@ router.post('/',rejectUnauthenticated, (req, res) => {
        });
    });
 
-//I will need to post for the specific user,
-//I will need to insert for the specific user,
-// and I'll need to pull from the user's id,
-// AND I'll need to delete for the user all in here
+
+
 module.exports = router;
