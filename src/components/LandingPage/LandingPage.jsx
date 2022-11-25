@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
 // import Drawer from '@mui/material/Drawer';
 
-
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
 // import { Button } from '@mui/material';
@@ -54,7 +53,6 @@ function LandingPage() {
         </div>
         <div className='registerPageContainer'>
           <RegisterForm />
-
           <center>
             <h4>Already a Member?</h4>
             <button className="btn btn_sizeSm" onClick={onLogin}>
@@ -65,6 +63,6 @@ function LandingPage() {
       </div>
     </div>
   );
-}
+};
 
 export default LandingPage;

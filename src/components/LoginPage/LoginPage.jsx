@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import LoginForm from '../LoginForm/LoginForm';
 import { useHistory } from 'react-router-dom';
 
@@ -9,7 +8,6 @@ function LoginPage() {
   return (
     <div>
       <LoginForm />
-
       <center>
         <button
           type="button"
@@ -23,6 +21,6 @@ function LoginPage() {
       </center>
     </div>
   );
-}
+};
 
 export default LoginPage;

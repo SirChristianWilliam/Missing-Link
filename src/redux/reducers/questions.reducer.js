@@ -1,5 +1,5 @@
 const questionsReducer = (state = [], action) => {
-    console.log('questionsReducer action.payload is: ', action.payload); //Received from questions.saga
+    console.log('questionsReducer action.payload is: ', action.payload); 
     switch (action.type) {
       case 'SET_QUESTIONS':  
         return action.payload;
@@ -10,4 +10,4 @@ const questionsReducer = (state = [], action) => {
     }
 };
   
-  export default questionsReducer;
+export default questionsReducer;

@@ -1,5 +1,5 @@
 const profilelistReducer = (state = [], action) => {
-    console.log('profilelistReducer action.payload is: ', action.payload); //Received from questions.saga
+    console.log('profilelistReducer action.payload is: ', action.payload);  
     switch (action.type) {
       case 'FETCH_PROFLE_CONDITIONS':
         return action.payload;

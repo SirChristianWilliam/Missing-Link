@@ -5,27 +5,36 @@ import { useHistory } from 'react-router-dom';
 import Fuse from 'fuse.js';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import userSaga from '../../redux/sagas/user.saga';
 
 function Results() {
     const dispatch = useDispatch();
     const resultCondition = useSelector((store) => store.results); //This store value
     const conditions = useSelector((store) => store.conditions);
-    // const list = useSelector((store) => store.profilelist);
-    console.log('HHHHHHH', resultCondition)
+    const questions = useSelector(store => store.questions); //grabs questions array from store
+    console.log('water answers',answers);
+    const answers = useSelector(store => store.answers);
     const [accessKey, setAccessKey] = useState(''); 
-    // const [yo, getYo] = useState('');
-    //REPLACE ALL INPUTS WITH USESTATES
+    let count = 0;
 
+    const resultsData = useSelector(store => store.resultdataReducer);
+
+    console.log('On results page, resultsData is: ',resultsData);
+ 
     useEffect(() => {
         dispatch({
             type: 'FETCH_CONDITIONS' // Immediately call this, and head to the conditions saga
         }),
         dispatch({
             type: 'FETCH_PROFILE_CONDITIONS'
-        }), //new
+        }), 
         dispatch({
             type:'FETCH_ALL_PROFILE_CONDITIONS'
-        })//new
+        }),
+        dispatch({
+            type:'FETCH_FOR_CONDITION',
+            payload: resultCondition
+        })
     }, []);
 
     //-----------------------
@@ -62,7 +71,6 @@ function Results() {
         let conditionName = "";
         let conditionCode = "";
         let verified = "";
-        // console.log('HJHHHHHHH',resultCondition);
             conditions.map(condition => {
 
                 if (condition.name === resultCondition.name) {
@@ -70,11 +78,6 @@ function Results() {
                     conditionName = condition.name;
                     conditionCode = condition.access_key;
                     verified = condition.verified;
-                    // console.log('VERIFIED VERIFIED VERIFIED',verified);
-                    // console.log(conditionId, ':condition id');
-                    // console.log(conditionName, ':condition name');
-                    // console.log(conditionCode, ':access key');
-                    console.log(condition.name ,'conditions result');
 
                 } else {
                     return;
@@ -96,12 +99,45 @@ function Results() {
                 }),
                 dispatch({
                     type: 'FETCH_PROFILE_CONDITIONS' 
-                })
-            
+                })          
         }
    
     };
-    return (
+
+//Figure out how to put this into my map in my return. 
+function toFindDuplicates() {
+    let toMap = {};
+    let newStuff = "";
+    let resultToReturn = false;
+    for (let i = 0; i < resultsData.length; i++) {
+        if (toMap[resultsData[i].answer]) {
+            resultToReturn = true;    
+            newStuff += resultsData[i].answer 
+            // terminate the loop
+        }
+        toMap[resultsData[i].answer] = true;
+    }
+    if (resultToReturn) {
+        console.log('Duplicate elements exist', newStuff ) //show which ones
+        }
+        //This shows if there are duplicates, but with a catch: 
+        // if there are TWO values, it just console.logs 1, if there are THREE, it shows two,
+        // and however many there are it always show one less than there should be.
+        //Maybe that's fine, it's just not counting the first one, so I should delete the ones
+        // that ARE included in the match.
+
+        //for (let x of array)
+        // if (the duplicate is true) {
+            //  don't return x
+        //} else { return x }
+       // }
+        else {
+            console.log('Duplicates do not exist ', newStuff) //show which ones(there will be none)
+            }
+        }
+        toFindDuplicates();
+        
+     return (
         <>
             <h1>Results page</h1>
             <button
@@ -149,14 +185,22 @@ function Results() {
                         <th>All user's answers:</th>
                         <th>Matching answers</th>
                     </tr>
-                    <tr>
-                        <td>Question:
-                         
+
+                    {resultsData.map(data => (
+                    <tr key={data.id}>   
+                    
+                    <td>{data.question}</td>   
+                        <td>{data.answer}:
                         </td>
-                        <td>Answer:
+                        <td>
+                        {count}
                         </td>
-                        <td>0</td>
                     </tr>
+                        ))}
+
+                    <tr>
+                    </tr>
+
                 </thead>
             </table>
         </>

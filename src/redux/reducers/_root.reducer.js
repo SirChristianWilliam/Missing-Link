@@ -6,6 +6,7 @@ import answers from './answers.reducer';
 import results from './result.reducer';
 import conditions from './conditions.reducer';
 import profilelist from './profilelist.reducer';
+import resultdataReducer from './resultdata.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   answers,
   results,
   conditions,
-  profilelist
+  profilelist,
+  resultdataReducer,
 });
 
 export default rootReducer;

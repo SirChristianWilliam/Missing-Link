@@ -5,14 +5,10 @@ const answersReducer = (state = [], action) => {
         return [
             ...state, ...action.payload
         ]
-     //   case 'UPDATE_ANSWER':
-    //     return action.payload;
-    }
-    
+    } 
     return state;
-
 };
   
   // user will be on the redux state at:
   // state.user
-  export default answersReducer;
+export default answersReducer;

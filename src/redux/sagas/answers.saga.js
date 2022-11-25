@@ -1,20 +1,17 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-// worker Saga: will be fired on "FETCH_ANSWERS" actions
 function* fetchAnswers() {
-    console.log('HERE I AM IN FETCHANSWERS SAGA')
     try {
         const answers = yield axios.get('/api/answers');
-        console.log('what is answers.data then? : ',answers.data)
+        console.log('fetchAnswers SAGA, answers.data : ',answers.data)
         yield put({
             type: 'SET_ANSWERS',
             payload: answers.data     
         })
     } catch (err) {
-        console.log('get qeustions request failed', err);
+        console.log('fetchAnswers get request failed in fetchAnswers SAGA', err);
     }
-
 };
 
 function* updateAnswer(action) {
@@ -27,34 +24,31 @@ function* updateAnswer(action) {
           };
 
         yield axios.put(`/api/answers`,action.payload);
-        
         const updatedAnswers = yield axios.get('/api/answers',config);
-          console.log(updatedAnswers.data,'is the updatedAnswers')
+          console.log('updateAnswer Saga, updatedAnswers.data is: ',updatedAnswers.data);
         yield put({
             type: 'SET_ANSWERS',
             payload: updatedAnswers.data 
         })
     } catch(err) {
-        console.log('error in updateAnswer.saga(put)',err);
+        console.log('error in updateAnswer SAGA(put)',err);
     }
 };
 function* resultCondition(action) {
-    console.log('what is action in resultCondition',action.payload.name)
+    console.log('resultCondition SAGA action.payload.name: ',action.payload.name)
     try {
           yield put({
             type: 'SET_RESULT_CONDITION',
             payload: action.payload     
         })
     } catch(err) {
-        console.log('error in updateAnswer.saga(put)',err);
+        console.log('error in resultCondition SAGA',err);
     }
-}
+};
 
-// new
 function* fetchAllProfileConditions(action) {
     console.log('fetchAllProfileConditions action.payload',action);
     try {
-
         const userLists = yield axios.get('/api/userlist/all');
         console.log('what what what what huh why', userLists.data)
           yield put({
@@ -64,18 +58,27 @@ function* fetchAllProfileConditions(action) {
     } catch(err) {
         console.log('error in fetchAllProfileConditions',err);
     }
-}
-//new
+};
+
+function* fetchForCondition(action) {
+    console.log('fetchForCondition SAGA, action.payload.name',action.payload.name);
+    try {
+        const resultsAnswers = yield axios.get(`/api/answers/conditionResult/${action.payload.name}`);
+        yield put({
+            type: 'SET_CONDITION_DATA',
+            payload: resultsAnswers.data
+        })
+    } catch(err) {
+        console.log('error in fetchForCondition SAGA',err);
+    }
+};
 
 function* answersSaga() {
-    //   yield takeLatest('FETCH_USER', fetchUser);
     yield takeLatest('FETCH_ANSWERS', fetchAnswers);
     yield takeLatest('UPDATE_ANSWER', updateAnswer); // Called from questions.jsx 
     yield takeLatest('UPDATE_RESULTS_CONDITION', resultCondition);
-
-    //new
     yield takeLatest('FETCH_ALL_PROFILE_CONDITIONS',fetchAllProfileConditions);
-    //new
-}
+    yield takeLatest('FETCH_FOR_CONDITION',fetchForCondition);
+};
 
 export default answersSaga;

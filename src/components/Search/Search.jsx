@@ -4,17 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Fuse from 'fuse.js';
 import axios from 'axios';
-// THIS PAGE NEEDS THE GREETING AND THE HOW TO USE INFO,
-// ALSO NEEDS A DROPDOWN SEARCH INPUT AND A SEARCH/SUBMIT 
-// BUTTON FOR THE CONDITIONS IN QUESTIONS. SHOULD BE EASY ENOUGH
-
 
 function Search() {
     const [query, setQuery] = useState('');
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
-
     const [conditions, setConditions] = useState([]);
     const fuse = new Fuse(conditions, {
         keys: [
@@ -37,21 +32,17 @@ function Search() {
             console.log('ERROR in getting conditions');
         })
     }, []);
+    
     function handleOnSearch({ currentTarget = {} }) {
         const { value } = currentTarget;
         setQuery(value);
     }
 
-    function handleSubmit(evt) {
-        
+    function handleSubmit(evt) {   
         evt.preventDefault();
-
-        // Find the "query"'d condition is in our `conditions array
-        // will be undefined if there's no match
         let matchingCondition = conditions.find(condition => {
             return condition.name === query;
         });
-
         if (matchingCondition) {
             dispatch({
                 type: 'UPDATE_RESULTS_CONDITION',
@@ -63,20 +54,15 @@ function Search() {
             alert(`Condition ${query} not found`);
         }
     };
-
-    function setValue(event) {
-        console.log('setValue is', event.target.innerHTML);
-        var txt = event.target.innerHTML;
-        document.getElementById("myInput").value = txt;
+    function setValue(evt) {
+        console.log(evt.target.innerText)
+        setQuery(evt.target.innerText); //Change this to useState 
     }
-
     return (
         <>
-            {/* <h2>Welcome, {user.username}!</h2> */}
             <h1>Search Page</h1>
             <div className="container">
                 <h2>Welcome, {user.username}!</h2>
-                {/* <p>Your ID is: {user.id}</p> */}
             </div>
             <div>
                 <p id="searchIntro">
@@ -122,7 +108,7 @@ function Search() {
                                     <tr
                                         key={name}
                                         className="fusetd">
-                                        <td onClick={setValue}>
+                                        <td onClick={(evt) => {setValue(evt)}} >
                                             {name}
                                         </td>
                                     </tr>

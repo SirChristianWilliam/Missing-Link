@@ -5,24 +5,17 @@ import { useSelector } from 'react-redux';
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
   const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
-
   const login = (event) => {
     event.preventDefault();
-
+    
     if (username && password) {
       dispatch({
         type: 'LOGIN',
         payload: {
           username: username,
-          password: password,
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
+          password: password
         },
       });
     } else {
@@ -68,6 +61,6 @@ function LoginForm() {
       </div>
     </form>
   );
-}
+};
 
 export default LoginForm;

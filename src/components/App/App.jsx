@@ -7,14 +7,10 @@ import {
 } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -23,12 +19,9 @@ import Results from '../Results/Results';
 import Questions from '../Questions/Questions';
 import './App.css';
 import Profile from '../Profile/Profile';
-import Answers from '../Answers/Answers';
-
 
 function App() {
   const dispatch = useDispatch();
-
   const user = useSelector(store => store.user);
 
   useEffect(() => {
@@ -118,11 +111,10 @@ function App() {
             <Profile />
           </Route>
 
-{/*  */}
           <Route path="/questions">
             <Questions />
            </Route>
-{/*  */}
+
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
@@ -132,6 +124,6 @@ function App() {
       </div>
     </Router>
   );
-}
+};
 
 export default App;

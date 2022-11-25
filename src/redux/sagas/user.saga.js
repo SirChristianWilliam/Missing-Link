@@ -90,7 +90,6 @@ function* userSaga() {
   yield takeLatest('ADD_USER_KEY', addUserKey);
   yield takeLatest('EDIT_USER', editUser);
   yield takeLatest('EDIT_EMAIL', editEmail);
-  // yield takeLatest('UPDATE_VERIFIED',updateVerified);
 }
 
 export default userSaga;

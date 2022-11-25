@@ -3,13 +3,10 @@ const pool = require('../modules/pool');
 const {
     rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
-const encryptLib = require('../modules/encryption');
-const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
-router.get('/',  (req, res) => {
-// I believe this gets the entire collection of user's ansers
+router.get('/', (req, res) => {
     const sqlText = `SELECT "answer" FROM "answers"
     JOIN "user"
     ON "user"."id" = "answers"."user_id"
@@ -17,26 +14,20 @@ router.get('/',  (req, res) => {
     ON "questions"."id" = "answers"."id"
     ;`
     pool.query(sqlText)
-    .then((dbRes) => {
-        console.log('what is the dbRes answer ROW is', dbRes.rows);
-        res.send(dbRes.rows)
-    })
-    .catch((err) => {
-        console.log('error getting dbRes answers',err);
-        res.sendStatus(500);
-    })
+        .then((dbRes) => {
+            console.log('answers.router GET dbRes.rows is: ', dbRes.rows);
+            res.send(dbRes.rows)
+        })
+        .catch((err) => {
+            console.log('answers.router GET error: ', err);
+            res.sendStatus(500);
+        })
 });
-//Maybe this needs to be a post????
-//Shit I think it might be a post...
-router.put('/', rejectUnauthenticated,(req,res) => {
-    console.log('What is the inputs value? : ',req.body.name); // This comes from the input's value
-    console.log('What is the inputs question ID? : ', req.body.id); //This comes from the question's id
-    console.log('What is the users id? : ', req.user.id); // The user who is currently logged in
-    const params = [ req.body.id, req.body.name,  req.user.id];
-    console.log('What are the params of all those above console logs? : ',params);
-    
-    //IF the user exists, UPDATE the Answer and the question ID where the id 
-     
+
+router.put('/', rejectUnauthenticated, (req, res) => {
+    const params = [req.body.id, req.body.name, req.user.id];
+    console.log('answers.router PUT params.id, name, and user id is: ', params);
+
     const sqlText = `
     INSERT INTO answers ("questions_id", "answer", "user_id")
     VALUES($1,$2,$3)
@@ -44,15 +35,37 @@ router.put('/', rejectUnauthenticated,(req,res) => {
         DO
         UPDATE SET  "answer" = $2
         WHERE "answers"."user_id" = $3 AND "answers"."questions_id" = $1;`
-        
+
     pool.query(sqlText, params)
-    .then((dbRes) => {
-         res.sendStatus(200);
-    })
-    .catch((err) => {
-        console.log('error updating answers in put',err);
-        res.sendStatus(500);
-    })
+        .then((dbRes) => {
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            console.log('answers.router PUT error: ', err);
+            res.sendStatus(500);
+        })
 });
- 
+router.get('/conditionResult/:id', rejectUnauthenticated, (req, res) => {
+    const params = [req.params.id];
+    console.log('in answers.router GET/conditionResult/:id, the params is: ', params);
+    const sqlText = ` SELECT "question", "questions_id", "answer" FROM "questions"
+        JOIN "answers"
+        ON "answers"."questions_id" = "questions"."id"
+        JOIN "user"
+        ON "user"."id" = "answers"."user_id"
+        JOIN "user_conditions"
+        ON "user_conditions"."user_id" = "user"."id"
+        WHERE "user_conditions"."con_name" = $1 AND "user_conditions"."verified" = 'verified'
+        ;`
+    pool.query(sqlText, params)
+        .then((dbRes) => {
+            console.log('in answers.router GET/conditionResult/:id, dbRes.rows is: ', dbRes.rows);
+            res.send(dbRes.rows)
+        })
+        .catch((err) => {
+            console.log('answers.router GET/conditionResult/:id error: ', err);
+            res.sendStatus(500);
+        })
+});
+
 module.exports = router;

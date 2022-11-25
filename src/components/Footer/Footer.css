@@ -1,11 +1,13 @@
 footer {
-  /* margin-top: 80px; */
+  margin-top: 600px;
   padding: 20px;
   text-align: center;
   border:1px solid black;
-  position:absolute;
+  position:sticky;
   width:100%;
-  bottom:0 ;
+  bottom:0;
+   right:0;
+  left:0;
   background-color: grey;
   
 }

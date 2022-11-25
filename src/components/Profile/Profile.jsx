@@ -1,43 +1,23 @@
-
-//THIS PAGE NEEDS TO DISPLAY THE USER INFO W/EMAIL, A LINK/BUTTON
-// OF SOME SORT TO GET TO THE QUESTIONS PAGE, 
-// PUT IT UNDERNEATH THE PROFILE INFORMATION IN THE SAME DI,
-// JUST LIKE THE WIREFRAME SHOWS. 
-// 2ND DIV CONTAINER NEEDS TO LIST THE SAVED CONDITIONS,
-// EACH ONE THAT IS DISPLAYED NEEDS A DELETE BUTTON,
-// AND A TEXT THAT SAYS 'ACCESS KEY?' THAT IS ONLY CHECKED
-// IF IT'S TRUE. I CAN PROBABLY DO A ::AFTER OR ::BEFORE
-// TO DISPLAY THE KEY FOR THE USER
-// ALSO, AN EDIT BUTTON FOR THE PROFILE USER'S NAME AND
-// EMAIL. I ALSO WANT A BIG CIRCLE WITH EITHER THEIR IMAGE
+// I ALSO WANT A BIG CIRCLE WITH EITHER THEIR IMAGE
 // TO UPLOAD(YOU SAW THIS IN CLASS FROM STUDENT PRESENTATION),
-// OR JUST A BIG LETTER, GRABBED FROM THE FIRST LETTER
-// OF THE USER'S NAME.
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import ListItem from '../ListItem/Listitem';
-import {
-    HashRouter as Router,
-    Redirect,
-    Route,
-    Switch,
-  } from 'react-router-dom';
-  
+
 function Profile() {
-    // const params = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store) => store.user);
     const userList = useSelector((store) => store.profilelist);
-    const conditions = useSelector((store) => store.conditions);
-    
-    console.log('ay ay ay ay',conditions);
-    console.log('user list is', userList);
+    const conditions = useSelector((store) => store.conditions); 
+    console.log('in Profile.jsx, here are the conditions: ',conditions);
+    console.log('in Profile.jsx, here is the userList', userList);
+
     useEffect(() => {
         dispatch({
-            type: 'FETCH_PROFILE_CONDITIONS' // Immediately call this, and head to the profilelist saga
+            type: 'FETCH_PROFILE_CONDITIONS' 
         }),
         dispatch({
             type: 'FETCH_CONDITIONS'
@@ -51,9 +31,8 @@ function Profile() {
         document.getElementById('userName').classList.add('borderhere');
     };
 
-    //USERNAME
     function changePic(event) {
-        // console.log('in changePic',event.target.src); 
+        console.log('in changePic');
     }
     //IF I WANT THE IMAGES SRC TO STORE LATER, I CAN SEE WHAT IT IS WITH THIS FUNCTION
 
@@ -67,32 +46,24 @@ function Profile() {
             type: 'EDIT_USER',
             payload: { name: evt.target.innerText }
         })
-
     };
 
-    // END USERNAME
     function editEmail(evt) {
         evt.preventDefault();
         document.getElementById('email').setAttribute("contenteditable", 'true');
         document.getElementById('email').classList.add('borderhere');
-    }
+    };
     function updateEmail(event) {
         event.preventDefault();
-        console.log('edit email button clicked', event.target.value);
-
+        console.log('updateEmail event.target.value: ', event.target.value);
         document.getElementById('email').setAttribute("contenteditable", 'false');
         document.getElementById('email').classList.remove('borderhere');
 
         dispatch({
             type: 'EDIT_EMAIL',
-            payload: { email: event.target.innerText }
+            payload: { email: event.target.innerText } //This shouldn't user innerText, useState instead
         })
     };
-
-    // function deleteRow(evt) {
-    //     evt.preventDefault();
-    //     console.log(' delete clicked', evt.target);
-    // };
 
     function onFileSelected(event) {
         let selectedFile = event.target.files[0];
@@ -151,7 +122,6 @@ function Profile() {
                         onClick={(evt) => { editEmail(evt) }}
                     >Edit
                     </button>
-
                 </div>
 
                 <div>
@@ -167,7 +137,6 @@ function Profile() {
             </div>
             {/* END */}
             {/* RIGHT SIDE OF PROFILE PAGE */}
-
             <div className='profileRightContainer'>
                 <h2>Your personal condtions list:</h2>
                 <table className='profileTableContainer'>
@@ -176,23 +145,16 @@ function Profile() {
                             <th>Condition</th><th>Access key?</th><th>Delete</th>
                         </tr>
 
-                        {userList.map(item => {
-                            
+                        {userList.map(item => {                          
                             return (
                                 <tr key={item.id} >
-                                    <ListItem key={item.id} item={item} />
-            
-                                </tr>
-                                
-                            )
-                            
+                                    <ListItem key={item.id} item={item} />        
+                                </tr>                               
+                            )                          
                         })}
                     </thead>
                 </table>
-
             </div>
-
-            {/* END */}
         </>
     )
 };

@@ -1,4 +1,3 @@
-import { accordionSummaryClasses } from '@mui/material';
 import axios from 'axios';
 import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 
@@ -18,12 +17,10 @@ function* fetchProfileConditions() {
     } catch (err) {
         console.log(' GET userList request failed', err);
     }
-}
-
+};
 
 function* addProfileCondition(action) {
-
-    console.log('in addProfileCondition saga, action is',action.payload);
+    console.log('in addProfileCondition saga, action.payload is',action.payload);
     try {
         const config = {
                   headers: { 'Content-Type': 'application/json' },
@@ -35,13 +32,11 @@ function* addProfileCondition(action) {
         yield put({
             type: 'SET_PROFILE_LIST', 
             payload: userList.data 
-        })
-
-        
+        })   
     } catch (err) {
         console.log(' POST userList request failed', err);
     }
-}
+};
 function* deleteItem(action) {
     console.log('What is the delete item action?',action.payload.url);
     yield axios.delete(`/api/userlist/${action.payload.url}`);
@@ -49,14 +44,13 @@ function* deleteItem(action) {
     yield put({
         type: 'FETCH_PROFILE_CONDITIONS'
     })
-}
+};
 
 function* profilelistSaga() {
-    //   yield takeLatest('FETCH_USER', fetchUser);
     yield takeEvery('FETCH_PROFILE_CONDITIONS', fetchProfileConditions);
     yield takeEvery('ADD_PROFILE_CONDITION', addProfileCondition);
     yield takeEvery('DELETE_ITEM',deleteItem);
 
-}
+};
 
 export default profilelistSaga;

@@ -3,20 +3,18 @@ const pool = require('../modules/pool');
 const {
     rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
-const encryptLib = require('../modules/encryption');
-const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    console.log(req.body,'req.body.in search')
+    console.log('search.router GET req.body is: ', req.body);
     pool.query
         (`SELECT "name" FROM "conditions";`)
         .then((result) => {
-            console.log('SEARCH SEARCH SEARCH', req.body);
+            console.log('search.router GET result.rows is ', result.rows);
             res.send(result.rows);
         }).catch((err) => {
-            console.log('ERROR GET /conditions ', err);
+            console.log('search.router GET error ', err);
             res.sendStatus(500);
         })
 });

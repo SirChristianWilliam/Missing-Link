@@ -7,10 +7,8 @@ function RegisterForm() {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
-
   const registerUser = (event) => {
     event.preventDefault();
 

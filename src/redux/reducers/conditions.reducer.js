@@ -8,4 +8,4 @@ const conditionsReducer = (state = [], action) => {
     }
 };
   
-  export default conditionsReducer;
+export default conditionsReducer;

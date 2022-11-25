@@ -23,9 +23,7 @@ function* fetchQuestions() {
 }
 
 function* questionsSaga() {
-    //   yield takeLatest('FETCH_USER', fetchUser);
-    yield takeEvery('FETCH_QUESTIONS', fetchQuestions);
-    
+    yield takeEvery('FETCH_QUESTIONS', fetchQuestions);  
 }
 
 export default questionsSaga;

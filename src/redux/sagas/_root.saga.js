@@ -23,4 +23,4 @@ export default function* rootSaga() {
     conditionsSaga(),
     profilelistSaga()
     ]);
-}
+};

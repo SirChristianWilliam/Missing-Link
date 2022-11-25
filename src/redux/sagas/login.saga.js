@@ -33,7 +33,7 @@ function* loginUser(action) {
       yield put({ type: 'LOGIN_FAILED_NO_CODE' });
     }
   }
-}
+};
 
 // worker Saga: will be fired on "LOGOUT" actions
 function* logoutUser(action) {
@@ -57,11 +57,11 @@ function* logoutUser(action) {
   } catch (error) {
     console.log('Error with user logout:', error);
   }
-}
+};
 
 function* loginSaga() {
   yield takeLatest('LOGIN', loginUser);
   yield takeLatest('LOGOUT', logoutUser);
-}
+};
 
 export default loginSaga;
