@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import Fuse from 'fuse.js';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
-import userSaga from '../../redux/sagas/user.saga';
 
 function Results() {
     const dispatch = useDispatch();
@@ -101,58 +96,53 @@ function Results() {
                     type: 'FETCH_PROFILE_CONDITIONS' 
                 })          
         }
-   
     };
 
-//Figure out how to put this into my map in my return. 
-function toFindDuplicates() {
+//-----------------------------------------
     let toMap = {};
-    let newStuff = "";
+    let excludedMatches = [];
     let resultToReturn = false;
+
+    function toFindDuplicates() {
+    
     for (let i = 0; i < resultsData.length; i++) {
-        if (toMap[resultsData[i].answer]) {
-            resultToReturn = true;    
-            newStuff += resultsData[i].answer 
-            // terminate the loop
+        if (toMap[resultsData[i].question] && toMap[resultsData[i].answer]) { 
+
+            resultToReturn = true;  
+            count++;
+
+        } else {
+            excludedMatches.push(resultsData[i]);
+            
         }
+        toMap[resultsData[i].question] = true;
         toMap[resultsData[i].answer] = true;
     }
-    if (resultToReturn) {
-        console.log('Duplicate elements exist', newStuff ) //show which ones
-        }
-        //This shows if there are duplicates, but with a catch: 
-        // if there are TWO values, it just console.logs 1, if there are THREE, it shows two,
-        // and however many there are it always show one less than there should be.
-        //Maybe that's fine, it's just not counting the first one, so I should delete the ones
-        // that ARE included in the match.
 
-        //for (let x of array)
-        // if (the duplicate is true) {
-            //  don't return x
-        //} else { return x }
-       // }
-        else {
-            console.log('Duplicates do not exist ', newStuff) //show which ones(there will be none)
-            }
-        }
+}
+
         toFindDuplicates();
-        
+//-----------------------------------------
+    
      return (
         <>
+            <div className='pageContainer resultsContainer'>
             <h1>Results page</h1>
+            <h1 id="conditionShowing"> <span className='conditionStyle'>Condition: </span><span class="conditionNameStyle">{resultCondition.name}</span> </h1>
+
+        <div className='buttonResultsContainer'>
             <button
                 onClick={(evt) => { saveCondition(evt) }}
             >
                 Save Condition to Your List
             </button>
-
+        <br></br>
             <button
                 onClick={openPopup}
             >
                 - Add Access Code -
             </button>
-
-            <h1 id="conditionShowing"> {resultCondition.name} </h1>
+        </div>
 
             <div className="codePopupContainer" id="codePopupID">
                 <button onClick={closePopup}>
@@ -186,23 +176,22 @@ function toFindDuplicates() {
                         <th>Matching answers</th>
                     </tr>
 
-                    {resultsData.map(data => (
-                    <tr key={data.id}>   
-                    
-                    <td>{data.question}</td>   
-                        <td>{data.answer}:
-                        </td>
-                        <td>
-                        {count}
-                        </td>
-                    </tr>
-                        ))}
+ {excludedMatches.map(data => (
 
-                    <tr>
-                    </tr>
+<tr key={data.id}>   
+
+<td>{data.question}</td>   
+    <td>{data.answer}:
+    </td>
+    <td>
+    {count}
+    </td>
+</tr>
+    ))}
 
                 </thead>
             </table>
+        </div>
         </>
     )
 };

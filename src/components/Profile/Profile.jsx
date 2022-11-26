@@ -11,17 +11,17 @@ function Profile() {
     const history = useHistory();
     const user = useSelector((store) => store.user);
     const userList = useSelector((store) => store.profilelist);
-    const conditions = useSelector((store) => store.conditions); 
-    console.log('in Profile.jsx, here are the conditions: ',conditions);
+    const conditions = useSelector((store) => store.conditions);
+    console.log('in Profile.jsx, here are the conditions: ', conditions);
     console.log('in Profile.jsx, here is the userList', userList);
 
     useEffect(() => {
         dispatch({
-            type: 'FETCH_PROFILE_CONDITIONS' 
+            type: 'FETCH_PROFILE_CONDITIONS'
         }),
-        dispatch({
-            type: 'FETCH_CONDITIONS'
-        })
+            dispatch({
+                type: 'FETCH_CONDITIONS'
+            })
     }, []);
 
     function editUsername(evt) {
@@ -78,82 +78,84 @@ function Profile() {
 
     return (
         <>
-            <h1>Profile Page</h1>
-            {/* LEFT SIDE OF PROFILE PAGE */}
-            <div className='profileLeftContainer'>
-                <form method="post" enctype="multipart/form-data" onChange={(event) => onFileSelected(event)} >
-                    <input type="file" id="imgupload" className="hideInput" />
-                    <label for='imgupload'>
-                        <img
-                            id="myimage"
-                            label for='imgupload'
-                            onClick={(evt) => { changePic(evt) }}
-                            className="ppic"
-                            src={"ppic.png"}
+            <div className='pageContainer'>
+                <h1 id="profileh1">Profile Page</h1>
+                {/* LEFT SIDE OF PROFILE PAGE */}
+                <div className='profileLeftContainer'>
+                    <form method="post" enctype="multipart/form-data" onChange={(event) => onFileSelected(event)} >
+                        <input type="file" id="imgupload" className="hideInput" />
+                        <label for='imgupload'>
+                            <img
+                                id="myimage"
+                                label for='imgupload'
+                                onClick={(evt) => { changePic(evt) }}
+                                className="ppic"
+                                src={"ppic.png"}
+                            >
+                            </img>
+                        </label>
+                    </form>
+
+                    <div>
+                        <h3>Username:</h3>
+                        <span
+                            id="userName"
+                            onBlur={updateUsername}
                         >
-                        </img>
-                    </label>
-                </form>
+                            {user.username}
+                        </span>
+                        <button
+                            onClick={(evt) => { editUsername(evt) }}
+                        >
+                            Edit
+                        </button>
+                    </div>
 
-                <div>
-                    <h3>Username:</h3>
-                    <span
-                        id="userName"
-                        onBlur={updateUsername}
-                    >
-                        {user.username}
-                    </span>
-                    <button
-                        onClick={(evt) => { editUsername(evt) }}
-                    >
-                        Edit
-                    </button>
+                    <div>
+                        <h3>Email:</h3>
+                        <span
+                            id="email"
+                            onBlur={(event) => { updateEmail(event) }}
+                        >
+                            {user.email}
+                        </span>
+                        <button
+                            onClick={(evt) => { editEmail(evt) }}
+                        >Edit
+                        </button>
+                    </div>
+
+                    <div>
+                        <p>
+                            ⬇ Click button to fill out your own personal questionnaire.
+                        </p>
+                        <button
+                            onClick={() => { history.push('/questions') }}
+                        >
+                            Let's answer some questions!
+                        </button>
+                    </div>
                 </div>
+                {/* END */}
+                {/* RIGHT SIDE OF PROFILE PAGE */}
+                <div className='profileRightContainer'>
+                    <h2>Your personal condtions list:</h2>
+                    <table className='profileTableContainer'>
+                        <thead>
+                            <tr>
+                                <th>Condition</th><th>Access key?</th><th>Delete</th>
+                            </tr>
 
-                <div>
-                    <h3>Email:</h3>
-                    <span
-                        id="email"
-                        onBlur={(event) => { updateEmail(event) }}
-                    >
-                        {user.email}
-                    </span>
-                    <button
-                        onClick={(evt) => { editEmail(evt) }}
-                    >Edit
-                    </button>
+                            {userList.map(item => {
+                                return (
+                                    <tr key={item.id} >
+                                        <ListItem key={item.id} item={item} />
+                                    </tr>
+                                )
+                            })}
+                        </thead>
+                    </table>
                 </div>
-
-                <div>
-                    <p>
-                        ⬇ Click button to fill out your own personal questionnaire.
-                    </p>
-                    <button
-                        onClick={() => { history.push('/questions') }}
-                    >
-                        Let's answer some questions!
-                    </button>
-                </div>
-            </div>
-            {/* END */}
-            {/* RIGHT SIDE OF PROFILE PAGE */}
-            <div className='profileRightContainer'>
-                <h2>Your personal condtions list:</h2>
-                <table className='profileTableContainer'>
-                    <thead>
-                        <tr>
-                            <th>Condition</th><th>Access key?</th><th>Delete</th>
-                        </tr>
-
-                        {userList.map(item => {                          
-                            return (
-                                <tr key={item.id} >
-                                    <ListItem key={item.id} item={item} />        
-                                </tr>                               
-                            )                          
-                        })}
-                    </thead>
-                </table>
             </div>
         </>
     )

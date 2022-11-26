@@ -40,6 +40,7 @@ function Questions() {
 
     return (
         <>
+            <div className='pageContainer'>
             <button onClick={() => { history.go(-1) }}>Go Back</button>
             <h1>Questions Page</h1>
             <p>Please note: In order to receive honest responses,
@@ -71,6 +72,7 @@ function Questions() {
                 ))}               
                 </thead>
             </table>
+        </div>
         </>
     )
 };

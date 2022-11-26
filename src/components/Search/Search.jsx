@@ -60,13 +60,14 @@ function Search() {
     }
     return (
         <>
+        <div className='pageContainer'>
             <h1>Search Page</h1>
             <div className="container">
-                <h2>Welcome, {user.username}!</h2>
+                {/* <h2>Welcome, {user.username}!</h2> */}
             </div>
-            <div>
+            <div className='searchMainContainer'>
                 <p id="searchIntro">
-                    Welcome! Here you will be able to
+                    Welcome {user.username}! Here you will be able to
                     look up specific medical conditions.
                     Diagnosed patients have entered in a
                     huge list of data for their diagnosed
@@ -80,11 +81,11 @@ function Search() {
                     an unkown correlation that could point
                     researchers, doctors, or even YOU in new,
                     perhaps unconventional, directions.
-                    Let’s get started!
+                    Let’s get started by searching for a condition below!
                 </p>
             </div>
             <div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className='searchForm'>
                     <input
                         type="text"
                         id="myInput"
@@ -117,6 +118,7 @@ function Search() {
                         </tbody>
                     </table>
                 </form>
+            </div>
             </div>
         </>
     );
