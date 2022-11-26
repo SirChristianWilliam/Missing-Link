@@ -1,6 +1,6 @@
 CREATE TABLE "questions" (
 	"id" SERIAL PRIMARY KEY,
-	"question" VARCHAR(255),
+	"question" VARCHAR(255) UNIQUE,
 	"placeholder" VARCHAR(255)
 );
 DROP TABLE "questions";
@@ -142,150 +142,92 @@ VALUES
 	('What age, if any, did you have you first cup of coffee?',  '2'),
 	('Please list anything else you would like to add that you think may be relevant', 'Please try to keep this as short as possible');
 
+
+--Need 134 rows here in answers
+
+INSERT INTO "answers"("answer","questions_id","user_id") 
+VALUES('newanswer','question id', 'user id')
+ON CONFLICT "answer" action;
+
+--------
+DROP TABLE IF EXISTS customers;
+
+CREATE TABLE customers (
+	customer_id serial PRIMARY KEY,
+	name VARCHAR UNIQUE,
+	email VARCHAR NOT NULL,
+	active bool NOT NULL DEFAULT TRUE
+);
+
+INSERT INTO 
+    customers (name, email)
+VALUES 
+    ('IBM', 'contact@ibm.com'),
+    ('Microsoft', 'contact@microsoft.com'),
+    ('Intel', 'contact@intel.com');
+    
+    INSERT INTO customers (NAME, email)
+VALUES('Microsoft','hotline@microsoft.com') 
+ON CONFLICT ON CONSTRAINT customers_name_key 
+DO NOTHING;
+-------
+
 CREATE TABLE "answers" (
 	"id" SERIAL PRIMARY KEY,
 	"questions_id" INT REFERENCES questions(id),
-	"answers" VARCHAR(255),
-	"user_id" INT REFERENCES "user"("id")
+	"answer" VARCHAR(255),
+	"user_id" INT REFERENCES "user"("id"),
+ 	 CONSTRAINT question_user_id UNIQUE("questions_id", "user_id") 
+	);
+	
+INSERT INTO answers ("questions_id", "answer", "user_id")
+    VALUES(8,'hmm',2)
+    ON CONFLICT ON CONSTRAINT question_user_id 
+    	DO
+        UPDATE SET  "answer" = 'hmm'
+        WHERE "answers"."user_id" = 2 AND "answers"."questions_id" = 8;
+        
+        
+ DROP TABLE "answers";
+ 
+  
+INSERT INTO answers(questions_id,user_id, answer)
+VALUES('3','red guess','5')
+ON CONFLICT (questions_id, user_id) DO 
+	UPDATE SET answer = EXCLUDED.answer;
+
+CREATE TABLE "answers" (
+	"id" SERIAL PRIMARY KEY,
+	"questions_id" INT REFERENCES questions(id) UNIQUE,
+	"answer" VARCHAR(255),
+	"user_id" INT REFERENCES "user"("id") UNIQUE
 );
+
+--UPDATE "answers" 
+--JOIN "questions" ON "questions"."id" = "answers"."questions_id"
+--SET "answer" = 'req body' 
+--WHERE "answers"."questions_id" = 2 AND "answers"."user_id" = 'req user';
+
+
 DROP TABLE "answers";
---Need 134 rows here in answers
-INSERT INTO "answers" ("questions_id", "answers", "user_id")
+ 
+--  
+--INSERT INTO answers(questions_id,user_id, answer)
+--VALUES('14','3','blue guess')
+--ON CONFLICT (user_id) DO 
+--	UPDATE SET answer = ' guess'
+--	WHERE "answers".user_id = 3;
+---
+INSERT INTO answers(questions_id,user_id, answer)
+VALUES('14','3','blue guess')
+ON CONFLICT (user_id) DO 
+	UPDATE SET answer = ' guess'
+	WHERE "answers".user_id = 3;
+
+---
+
+INSERT INTO "answers" ("questions_id", "answer", "user_id")
 VALUES 
-('1', '', '1'),
-('2', '', '1'),
-('3', '', '1'),
-('4', '', '1'),
-('5', '', '1'),
-('6', '', '1'),
-('7', '', '1'),
-('8', '', '1'),
-('9', '', '1'),
-('10', '', '1'),
-('11', '', '1'),
-('12', '', '1'),
-('13', '', '1'),
-('14', '', '1'),
-('15', '', '1'),
-('16', '', '1'),
-('17', '', '1'),
-('18', '', '1'),
-('19', '', '1'),
-('20', '', '1'),
-('21', '', '1'),
-('22', '', '1'),
-('23', '', '1'),
-('24', '', '1'),
-('25', '', '1'),
-('26', '', '1'),
-('27', '', '1'),
-('28', '', '1'),
-('29', '', '1'),
-('30', '', '1'),
-('31', '', '1'),
-('32', '', '1'),
-('33', '', '1'),
-('34', '', '1'),
-('35', '', '1'),
-('36', '', '1'),
-('37', '', '1'),
-('38', '', '1'),
-('39', '', '1'),
-('40', '', '1'),
-('41', '', '1'),
-('42', '', '1'),
-('43', '', '1'), 
-('44', '', '1'),
-('45', '', '1'),
-('46', '', '1'),
-('47', '', '1'),
-('48', '', '1'),
-('49', '', '1'),
-('50', '', '1'),
-('51', '', '1'),
-('52', '', '1'),
-('53', '', '1'),
-('54', '', '1'),
-('55', '', '1'),
-('56', '', '1'),
-('57', '', '1'),
-('58', '', '1'),
-('59', '', '1'),
-('60', '', '1'),
-('61', '', '1'),
-('62', '', '1'),
-('63', '', '1'),
-('64', '', '1'),
-('65', '', '1'),
-('66', '', '1'),
-('67', '', '1'),
-('68', '', '1'),
-('69', '', '1'),
-('70', '', '1'),
-('71', '', '1'),
-('72', '', '1'),
-('73', '', '1'),
-('74', '', '1'),
-('75', '', '1'),
-('76', '', '1'),
-('77', '', '1'),
-('78', '', '1'),
-('79', '', '1'),
-('80', '', '1'),
-('81', '', '1'),
-('82', '', '1'),
-('83', '', '1'),
-('84', '', '1'),
-('85', '', '1'),
-('86', '', '1'),
-('87', '', '1'),
-('88', '', '1'),
-('89', '', '1'),
-('90', '', '1'),
-('91', '', '1'),
-('92', '', '1'),
-('93', '', '1'), 
-('94', '', '1'),
-('95', '', '1'),
-('96', '', '1'),
-('97', '', '1'),
-('98', '', '1'),
-('99', '', '1'),
-('100', '', '1'),
-('101', '', '1'),
-('102', '', '1'),
-('103', '', '1'),
-('104', '', '1'),
-('105', '', '1'),
-('106', '', '1'),
-('107', '', '1'),
-('108', '', '1'),
-('109', '', '1'),
-('110', '', '1'),
-('111', '', '1'),
-('112', '', '1'),
-('113', '', '1'),
-('114', '', '1'),
-('115', '', '1'),
-('116', '', '1'),
-('117', '', '1'),
-('118', '', '1'),
-('119', '', '1'),
-('120', '', '1'),
-('121', '', '1'),
-('122', '', '1'),
-('123', '', '1'),
-('124', '', '1'),
-('125', '', '1'),
-('126', '', '1'),
-('127', '', '1'),
-('128', '', '1'),
-('129', '', '1'),
-('130', '', '1'),
-('131', '', '1'),
-('132', '', '1'),
-('133', '', '1'),
-('134', '', '1')
 ;
 
 -------------------------------------------------------------
@@ -326,7 +268,6 @@ VALUES
 	('desmoplastic small-round-cell-tumor', '3f3f6' ),
 	('diabetes type 1', '7g7gr' ),
 	('diabetes type 2', '1g1g3' ),
-	('allergies', '0dp3o' ),
 	('dupuytrens disease', 'a8392' ),
 	('epilepsy', '09873' ),
 	('ehlers-danlos syndrome', '12349' ),
@@ -335,7 +276,6 @@ VALUES
 	('fluoroquinolone toxicity syndrome', 'eeerh' ),
 	('fibromyalgia', 'oodoo' ),
 	('gastroparesis', '89ei1' ),
-	('glioblastoma', '716dc' ),
 	('graves disease', '9090a' ),
 	('hearing loss', 'lkjhg'  ),
 	('HLH', 'asdfg' ),
@@ -349,7 +289,6 @@ VALUES
 	('irritable bowel syndrome', 'wszsw' ),
 	('immune thrombocytopenia', 'qazaq' ),
 	('joint pain', 'mkokm' ),
-	('allergies', 'mjujm' ),
 	('leukemia', 'mnhth' ),
 	('lichen planus', 'mnbvf' ),
 	('lymphedema', 'njiko' ),
@@ -453,11 +392,9 @@ VALUES
 	('vitiligo', '1o2o2' ),
 	('warkany syndrome', '1i1i1' ),
 	('warts', '1u1u1' ),
-	('allergies', '1y1y1' ),
 	('yellow fever', '1t1t1' ),
 	('zika virus disease', '1r1r1' ),
 	('lactose intolerance', '1e1e1' ),
-	('allergies', '1b1b1' ),
 	('peanut allergy', '3m3m3' ),
 	('cat allergy', '3k3k3' ),
 	('dog allergy', '3l3l3' ),
@@ -471,7 +408,6 @@ VALUES
 	('head cancer', '3a3a3' ),
 	('neck cancer', '4b4b4' ),
 	('kidney cancer', '4n4n4' ),
-	('liver cancer', '4m4m4' ),
 	('lung cancer', '4p4p4' ),
 	('matastatic cancer', '4o4o4' ),
 	('ovarian cancer', 'i4i4i' ),
@@ -526,7 +462,6 @@ VALUES
 	('dyslexia', '8p8p8' ),
 	('edema', '8o8o8' ),
 	('eisenmenger syndrome', '8i8i8' ),
-	('ehlers-danlos syndrome', '8y8y8' ),
 	('erectile dysfunction', '8t8t8' ),
 	('exercise-induced asthma', '8l8l8' ),
 	('female sexual dysfunction', '8k8k8' ),
@@ -559,265 +494,317 @@ VALUES
 	"id" SERIAL PRIMARY KEY,
 	"condition_id" INT REFERENCES conditions(id),
 	"user_id" INT REFERENCES "user"("id"),
-	"verified" BOOLEAN DEFAULT 'false'
+	"verified" VARCHAR DEFAULT 'false',
+	"con_name" VARCHAR,
+	 	 CONSTRAINT con_user_id UNIQUE("con_name", "user_id") 
+
 	);
+	
+	
+	----- testing this to make sure my data links correctly, it does :)
+	SELECT "question","answer","user_id","firstName" FROM "answers" 
+	JOIN "questions"
+	ON "questions"."id" = "answers"."questions_id"
+	JOIN "user"
+	ON "user"."id" = "answers"."user_id"
+	WHERE "user_id" = 9;
+	
+	SELECT * FROM "user_conditions"
+	JOIN ;
+	-----
+	
+SELECT * FROM "conditions" ;
+SELECT * FROM "user" ;
+SELECT * FROM "user_conditions";
+
+SELECT * FROM "conditions"
+WHERE "conditions"."access_key" = '6y6y6' ;
+
+SELECT "user_id", "condition_id","con_name", "username", "key", "verified" FROM "user_conditions"
+JOIN "user"
+ON "user_conditions"."user_id" = "user"."id" 
+WHERE "user"."id" = 6;
+-- dealing with results grabbing data to show
+SELECT * FROM "user_conditions"
+JOIN "conditions"
+ON "conditions"."id" = "user_conditions"."user_id"
+WHERE "verified" = 'verified';
+
+
+
+
+SELECT * FROM "user_conditions"
+JOIN "conditions"
+ON "conditions"."id" = "user_conditions"."user_id"
+JOIN "user"
+ON "user"."id" = "user_conditions"."user_id"
+WHERE  "verified" = 'verified';
+
+SELECT "question","answer" FROM "answers"
+JOIN "questions"
+ON "questions"."id" = "answers"."questions_id"
+
+; 
+
+
+
 
 DROP TABLE "user_conditions";
 
 --- needs 251 entries YO
 INSERT INTO "user_conditions" ("condition_id", "user_id", "verified")
 VALUES
-('1', '1', false),
-('2', '1', false),
-('3', '1', false),
-('4', '1', false),
-('5', '1', false),
-('6', '1', false),
-('7', '1', false),
-('8', '1', false),
-('9', '1', false),
-('10', '1', false),
-('11', '1', false),
-('12', '1', false),
-('13', '1', false),
-('14', '1', false),
-('15', '1', false),
-('16', '1', false),
-('17', '1', false),
-('18', '1', false),
-('19', '1', false),
-('20', '1', false),
-('21', '1', false),
-('22', '1', false),
-('23', '1', false),
-('24', '1', false),
-('25', '1', false),
-('26', '1', false),
-('27', '1', false),
-('28', '1', false),
-('29', '1', false),
-('30', '1', false),
-('31', '1', false),
-('32', '1', false),
-('33', '1', false),
-('34', '1', false),
-('35', '1', false),
-('36', '1', false),
-('37', '1', false),
-('38', '1', false),
-('39', '1', false),
-('40', '1', false),
-('41', '1', false),
-('42', '1', false),
-('43', '1', false),
-('44', '1', false),
-('45', '1', false),
-('46', '1', false),
-('47', '1', false),
-('48', '1', false),
-('49', '1', false),
-('50', '1', false),
-('51', '1', false),
-('52', '1', false),
-('53', '1', false),
-('54', '1', false),
-('55', '1', false),
-('56', '1', false),
-('57', '1', false),
-('58', '1', false),
-('59', '1', false),
-('60', '1', false),
-('61', '1', false),
-('62', '1', false),
-('63', '1', false),
-('64', '1', false),
-('65', '1', false),
-('66', '1', false),
-('67', '1', false),
-('68', '1', false),
-('69', '1', false),
-('70', '1', false),
-('71', '1', false),
-('72', '1', false),
-('73', '1', false),
-('74', '1', false),
-('75', '1', false),
-('76', '1', false),
-('77', '1', false),
-('78', '1', false),
-('79', '1', false),
-('80', '1', false),
-('81', '1', false),
-('82', '1', false),
-('83', '1', false),
-('84', '1', false),
-('85', '1', false),
-('86', '1', false),
-('87', '1', false),
-('88', '1', false),
-('89', '1', false),
-('90', '1', false),
-('91', '1', false),
-('92', '1', false),
-('93', '1', false),
-('94', '1', false),
-('95', '1', false),
-('96', '1', false),
-('97', '1', false),
-('98', '1', false),
-('99', '1', false),
-('100', '1', false),
-('101', '1', false),
-('102', '1', false),
-('103', '1', false),
-('104', '1', false),
-('105', '1', false),
-('106', '1', false),
-('107', '1', false),
-('108', '1', false),
-('109', '1', false),
-('110', '1', false),
-('111', '1', false),
-('112', '1', false),
-('113', '1', false),
-('114', '1', false),
-('115', '1', false),
-('116', '1', false),
-('117', '1', false),
-('118', '1', false),
-('119', '1', false),
-('120', '1', false),
-('121', '1', false),
-('122', '1', false),
-('123', '1', false),
-('124', '1', false),
-('125', '1', false),
-('126', '1', false),
-('127', '1', false),
-('128', '1', false),
-('129', '1', false),
-('130', '1', false),
-('131', '1', false),
-('132', '1', false),
-('133', '1', false),
-('134', '1', false),
-('135', '1', false),
-('136', '1', false),
-('137', '1', false),
-('138', '1', false),
-('139', '1', false),
-('140', '1', false),
-('141', '1', false),
-('142', '1', false),
-('143', '1', false),
-('144', '1', false),
-('145', '1', false),
-('146', '1', false),
-('147', '1', false),
-('148', '1', false),
-('149', '1', false),
-('150', '1', false),
-('151', '1', false),
-('152', '1', false),
-('153', '1', false),
-('154', '1', false),
-('155', '1', false),
-('156', '1', false),
-('157', '1', false),
-('158', '1', false),
-('159', '1', false),
-('160', '1', false),
-('161', '1', false),
-('162', '1', false),
-('163', '1', false),
-('164', '1', false),
-('165', '1', false),
-('166', '1', false),
-('167', '1', false),
-('168', '1', false),
-('169', '1', false),
-('170', '1', false),
-('171', '1', false),
-('172', '1', false),
-('173', '1', false),
-('174', '1', false),
-('175', '1', false),
-('176', '1', false),
-('177', '1', false),
-('178', '1', false),
-('179', '1', false),
-('180', '1', false),
-('181', '1', false),
-('182', '1', false),
-('183', '1', false),
-('184', '1', false),
-('185', '1', false),
-('186', '1', false),
-('187', '1', false),
-('188', '1', false),
-('189', '1', false),
-('190', '1', false),
-('191', '1', false),
-('192', '1', false),
-('193', '1', false),
-('194', '1', false),
-('195', '1', false),
-('196', '1', false),
-('197', '1', false),
-('198', '1', false),
-('199', '1', false),
-('200', '1', false),
-('201', '1', false),
-('202', '1', false),
-('203', '1', false),
-('204', '1', false),
-('205', '1', false),
-('206', '1', false),
-('207', '1', false),
-('208', '1', false),
-('209', '1', false),
-('210', '1', false),
-('211', '1', false),
-('212', '1', false),
-('213', '1', false),
-('214', '1', false),
-('215', '1', false),
-('216', '1', false),
-('217', '1', false),
-('218', '1', false),
-('219', '1', false),
-('220', '1', false),
-('221', '1', false),
-('222', '1', false),
-('223', '1', false),
-('224', '1', false),
-('225', '1', false),
-('226', '1', false),
-('227', '1', false),
-('228', '1', false),
-('229', '1', false),
-('230', '1', false),
-('231', '1', false),
-('232', '1', false),
-('233', '1', false),
-('234', '1', false),
-('235', '1', false),
-('236', '1', false),
-('237', '1', false),
-('238', '1', false),
-('239', '1', false),
-('240', '1', false),
-('241', '1', false),
-('242', '1', false),
-('243', '1', false),
-('244', '1', false),
-('245', '1', false),
-('246', '1', false),
-('247', '1', false),
-('248', '1', false),
-('249', '1', false),
-('250', '1', false),
-('251', '1', false);
+('1', '1', 'false'),
+('2', '1', 'false'),
+('3', '1', 'false'),
+('4', '1', 'false'),
+('5', '1', 'false'),
+('6', '1', 'false'),
+('7', '1', 'false'),
+('8', '1', 'false'),
+('9', '1', 'false'),
+('10', '1', 'false'),
+('11', '1', 'false'),
+('12', '1', 'false'),
+('13', '1', 'false'),
+('14', '1', 'false'),
+('15', '1', 'false'),
+('16', '1', 'false'),
+('17', '1', 'false'),
+('18', '1', 'false'),
+('19', '1', 'false'),
+('20', '1', 'false'),
+('21', '1', 'false'),
+('22', '1', 'false'),
+('23', '1', 'false'),
+('24', '1', 'false'),
+('25', '1', 'false'),
+('26', '1', 'false'),
+('27', '1', 'false'),
+('28', '1', 'false'),
+('29', '1', 'false'),
+('30', '1', 'false'),
+('31', '1', 'false'),
+('32', '1', 'false'),
+('33', '1', 'false'),
+('34', '1', 'false'),
+('35', '1', 'false'),
+('36', '1', 'false'),
+('37', '1', 'false'),
+('38', '1', 'false'),
+('39', '1', 'false'),
+('40', '1', 'false'),
+('41', '1', 'false'),
+('42', '1', 'false'),
+('43', '1', 'false'),
+('44', '1', 'false'),
+('45', '1', 'false'),
+('46', '1', 'false'),
+('47', '1', 'false'),
+('48', '1', 'false'),
+('49', '1', 'false'),
+('50', '1', 'false'),
+('51', '1', 'false'),
+('52', '1', 'false'),
+('53', '1', 'false'),
+('54', '1', 'false'),
+('55', '1', 'false'),
+('56', '1', 'false'),
+('57', '1', 'false'),
+('58', '1', 'false'),
+('59', '1', 'false'),
+('60', '1', 'false'),
+('61', '1', 'false'),
+('62', '1', 'false'),
+('63', '1', 'false'),
+('64', '1', 'false'),
+('65', '1', 'false'),
+('66', '1', 'false'),
+('67', '1', 'false'),
+('68', '1', 'false'),
+('69', '1', 'false'),
+('70', '1', 'false'),
+('71', '1', 'false'),
+('72', '1', 'false'),
+('73', '1', 'false'),
+('74', '1', 'false'),
+('75', '1', 'false'),
+('76', '1', 'false'),
+('77', '1', 'false'),
+('78', '1', 'false'),
+('79', '1', 'false'),
+('80', '1', 'false'),
+('81', '1', 'false'),
+('82', '1', 'false'),
+('83', '1', 'false'),
+('84', '1', 'false'),
+('85', '1', 'false'),
+('86', '1', 'false'),
+('87', '1', 'false'),
+('88', '1', 'false'),
+('89', '1', 'false'),
+('90', '1', 'false'),
+('91', '1', 'false'),
+('92', '1', 'false'),
+('93', '1', 'false'),
+('94', '1', 'false'),
+('95', '1', 'false'),
+('96', '1', 'false'),
+('97', '1', 'false'),
+('98', '1', 'false'),
+('99', '1', 'false'),
+('100', '1', 'false'),
+('101', '1', 'false'),
+('102', '1', 'false'),
+('103', '1', 'false'),
+('104', '1', 'false'),
+('105', '1', 'false'),
+('106', '1', 'false'),
+('107', '1', 'false'),
+('108', '1', 'false'),
+('109', '1', 'false'),
+('110', '1', 'false'),
+('111', '1', 'false'),
+('112', '1', 'false'),
+('113', '1', 'false'),
+('114', '1', 'false'),
+('115', '1', 'false'),
+('116', '1', 'false'),
+('117', '1', 'false'),
+('118', '1', 'false'),
+('119', '1', 'false'),
+('120', '1', 'false'),
+('121', '1', 'false'),
+('122', '1', 'false'),
+('123', '1', 'false'),
+('124', '1', 'false'),
+('125', '1', 'false'),
+('126', '1', 'false'),
+('127', '1', 'false'),
+('128', '1', 'false'),
+('129', '1', 'false'),
+('130', '1', 'false'),
+('131', '1', 'false'),
+('132', '1', 'false'),
+('133', '1', 'false'),
+('134', '1', 'false'),
+('135', '1', 'false'),
+('136', '1', 'false'),
+('137', '1', 'false'),
+('138', '1', 'false'),
+('139', '1', 'false'),
+('140', '1', 'false'),
+('141', '1', 'false'),
+('142', '1', 'false'),
+('143', '1', 'false'),
+('144', '1', 'false'),
+('145', '1', 'false'),
+('146', '1', 'false'),
+('147', '1', 'false'),
+('148', '1', 'false'),
+('149', '1', 'false'),
+('150', '1', 'false'),
+('151', '1', 'false'),
+('152', '1', 'false'),
+('153', '1', 'false'),
+('154', '1', 'false'),
+('155', '1', 'false'),
+('156', '1', 'false'),
+('157', '1', 'false'),
+('158', '1', 'false'),
+('159', '1', 'false'),
+('160', '1', 'false'),
+('161', '1', 'false'),
+('162', '1', 'false'),
+('163', '1', 'false'),
+('164', '1', 'false'),
+('165', '1', 'false'),
+('166', '1', 'false'),
+('167', '1', 'false'),
+('168', '1', 'false'),
+('169', '1', 'false'),
+('170', '1', 'false'),
+('171', '1', 'false'),
+('172', '1', 'false'),
+('173', '1', 'false'),
+('174', '1', 'false'),
+('175', '1', 'false'),
+('176', '1', 'false'),
+('177', '1', 'false'),
+('178', '1', 'false'),
+('179', '1', 'false'),
+('180', '1', 'false'),
+('181', '1', 'false'),
+('182', '1', 'false'),
+('183', '1', 'false'),
+('184', '1', 'false'),
+('185', '1', 'false'),
+('186', '1', 'false'),
+('187', '1', 'false'),
+('188', '1', 'false'),
+('189', '1', 'false'),
+('190', '1', 'false'),
+('191', '1', 'false'),
+('192', '1', 'false'),
+('193', '1', 'false'),
+('194', '1', 'false'),
+('195', '1', 'false'),
+('196', '1', 'false'),
+('197', '1', 'false'),
+('198', '1', 'false'),
+('199', '1', 'false'),
+('200', '1', 'false'),
+('201', '1', 'false'),
+('202', '1', 'false'),
+('203', '1', 'false'),
+('204', '1', 'false'),
+('205', '1', 'false'),
+('206', '1', 'false'),
+('207', '1', 'false'),
+('208', '1', 'false'),
+('209', '1', 'false'),
+('210', '1', 'false'),
+('211', '1', 'false'),
+('212', '1', 'false'),
+('213', '1', 'false'),
+('214', '1', 'false'),
+('215', '1', 'false'),
+('216', '1', 'false'),
+('217', '1', 'false'),
+('218', '1', 'false'),
+('219', '1', 'false'),
+('220', '1', 'false'),
+('221', '1', 'false'),
+('222', '1', 'false'),
+('223', '1', 'false'),
+('224', '1', 'false'),
+('225', '1', 'false'),
+('226', '1', 'false'),
+('227', '1', 'false'),
+('228', '1', 'false'),
+('229', '1', 'false'),
+('230', '1', 'false'),
+('231', '1', 'false'),
+('232', '1', 'false'),
+('233', '1', 'false'),
+('234', '1', 'false'),
+('235', '1', 'false'),
+('236', '1', 'false'),
+('237', '1', 'false'),
+('238', '1', 'false'),
+('239', '1', 'false'),
+('240', '1', 'false'),
+('241', '1', 'false'),
+('242', '1', 'false'),
+('243', '1', 'false'),
+('244', '1', 'false'),
+('245', '1', 'false'),
+('246', '1', 'false'),
+('247', '1', 'false'),
+('248', '1', 'false'),
+('249', '1', 'false'),
+('250', '1', 'false'),
+('251', '1', 'false');
 
 
 
@@ -830,7 +817,8 @@ CREATE TABLE "user" (
 	"firstName" VARCHAR(255),
 	"lastName" VARCHAR(255),
 	"email" VARCHAR(255),
-	"key" VARCHAR(255)
+	"key" VARCHAR(255),
+	"profile_pic" VARCHAR
 );
 
 DROP TABLE "user";
@@ -863,10 +851,165 @@ JOIN "answers"
 ON "user"."id" = "answers"."id"
 WHERE "user"."firstName" = 'Bill';
 
-------- EXTRACT DATA ⬇️
---This selects the question list for each individual user
-SELECT "questions"."question" FROM "answers"
+-- This only tests for one user, will need to be updated for when being applied
+-- I will also modify this when I want to update the answer into this user's answer,
+-- I can also grab the list of answers from the user with this as well as just questions
+SELECT "answers","answers"."id" FROM "answers"
 JOIN "user"
 ON "user"."id" = "answers"."user_id"
 JOIN "questions" 
-ON "questions"."id" = "answers"."id";
+ON "questions"."id" = "answers"."id"
+;
+
+-- This method will display all the conditions data for the specific user,
+-- It can show whether the user is verfied for that specific condition too
+SELECT * FROM "user_conditions"
+JOIN "user" 
+ON "user"."id" = "user_conditions"."user_id"
+JOIN "conditions"
+ON "conditions"."id" = "user_conditions"."condition_id";
+
+--Maybe use crossjoin if I can't figure this out 
+SELECT DISTINCT "questions"."question" FROM "answers"
+CROSS JOIN "user"
+CROSS JOIN "questions"
+WHERE "user"."firstName" = 'Bill'
+;
+
+
+SELECT "questions"."question" FROM "answers"
+JOIN "user"
+ON "user"."id" = "answers"."user_id"
+JOIN "questions"
+ON "questions"."id" = "answers"."questions_id";
+-- update answer set whatever where question id = question id that the request has and 
+-- user id matches the req.user.id- 
+-- NEEDS THE USER ID AND THE QUESTIONS ID
+SELECT * FROM "answers"
+CROSS JOIN "user"
+CROSS JOIN "questions"
+;
+UPDATE "answers" 
+SET  "answers" = 'howdy'
+WHERE "answers"."id" = '1';
+
+UPDATE "answers" 
+    SET "answers" = $1
+    WHERE "answers"."id" = $2;
+
+SELECT DISTINCT "conditions"."name" FROM "user_conditions"
+CROSS JOIN "user" 
+CROSS JOIN "conditions"
+WHERE "user"."firstName" = 'Bill';
+
+INSERT INTO "answers" ("answers")
+VALUES ('sdfasdfasd')
+;
+SELECT * FROM "answers"
+    JOIN "user"
+    ON "user"."id" = "answers"."user_id"
+    JOIN "questions" 
+    ON "questions"."id" = "answers"."id"
+    JOIN "user_conditions"
+    ON "user_conditions"."user_id" = "user"."id";
+    
+    UPDATE "answers" 
+    SET  "answer" = 'yo'
+    WHERE "answers"."id" = 2;
+    
+    UPDATE "answers"
+    SET "answer" = $1, "user_id" = $3
+    WHERE "id" = $2;
+    
+    SELECT * FROM "user_conditions"
+    JOIN "conditions"
+    ON "conditions"."id" = "user_conditions"."condition_id"
+    WHERE "conditions"."name" = 'allergies' AND "user_conditions"."verified" = 'verified';
+    
+    
+    
+-- In create table
+--- CONSTRAINT user_question UNIQUE (user_id, questions_id)
+
+-- I nthe upsert query
+ON CONFLICT ON CONSTRAINT user_question;
+
+
+
+ SELECT * FROM "user_conditions"
+        JOIN "conditions"
+        ON "conditions"."id" = "user_conditions"."condition_id"
+        JOIN "questions"
+        ON "questions"."id" = "user_conditions"."condition_id"
+        JOIN "answers"
+        ON "answers"."questions_id" = "questions"."id"
+        WHERE "conditions"."name" = 'asthma' AND "user_conditions"."verified" = 'verified';
+        
+        
+        
+   SELECT * FROM "questions"
+   JOIN "user_conditions"
+   ON "questions"."id" = "user_conditions"."id";
+        
+   SELECT * FROM "answers"
+   LEFT JOIN "questions"
+   ON "questions"."id" = "answers"."questions_id"
+   LEFT JOIN "user_conditions"
+   ON "user_conditions"."id" = "answers"."user_id"
+   LEFT JOIN "conditions"
+   ON "conditions"."name" = "user_conditions"."con_name";
+        
+   SELECT * FROM "questions"
+   JOIN "answers"
+   ON "questions"."id" = "answers"."questions_id"
+   JOIN "user"
+   ON "user"."id" =  "answers"."user_id"
+   JOIN "user_conditions"
+   ON "user_conditions".
+   
+   ;
+   --this one gets what i need lol
+   SELECT "question", "questions_id", "answer" FROM "questions"
+   JOIN "answers"
+   ON "answers"."questions_id" = "questions"."id"
+   JOIN "user"
+   ON "user"."id" = "answers"."user_id"
+   JOIN "user_conditions"
+   ON "user_conditions"."user_id" = "user"."id"
+   WHERE "user_conditions"."con_name" = 'allergies' AND "user_conditions"."verified" = 'verified'
+   ;
+   
+   SELECT DISTINCT "question", "questions_id", "answer" FROM "questions"
+   JOIN "answers"
+   ON "answers"."questions_id" = "questions"."id"
+   JOIN "user"
+   ON "user"."id" = "answers"."user_id"
+   JOIN "user_conditions"
+   ON "user_conditions"."user_id" = "user"."id"
+   WHERE "user_conditions"."con_name" = 'allergies' AND "user_conditions"."verified" = 'verified'
+   ;
+
+   
+   
+   
+     SELECT DISTINCT "question" FROM "questions"
+   JOIN "answers"
+   ON "answers"."questions_id" = "questions"."id"
+   JOIN "user"
+   ON "user"."id" = "answers"."user_id"
+   JOIN "user_conditions"
+   ON "user_conditions"."user_id" = "user"."id"
+   WHERE "user"."id" = 9
+   
+   ;
+     
+        SELECT * FROM "user_conditions"
+        LEFT JOIN "conditions"
+        ON "conditions"."id" = "user_conditions"."condition_id"
+        LEFT JOIN "questions"
+        ON "questions"."id" = "user_conditions"."condition_id"
+        LEFT JOIN "answers"
+        ON "questions"."id" = "answers"."questions_id"
+        WHERE "conditions"."name" = 'asthma' AND "user_conditions"."verified" = 'verified';
+	
+	
