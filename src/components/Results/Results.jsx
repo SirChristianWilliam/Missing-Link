@@ -10,8 +10,7 @@ function Results() {
     console.log('water answers',answers);
     const answers = useSelector(store => store.answers);
     const [accessKey, setAccessKey] = useState(''); 
-    let count = 0;
-
+    // let count = 0;
     const resultsData = useSelector(store => store.resultdataReducer);
 
     console.log('On results page, resultsData is: ',resultsData);
@@ -102,28 +101,56 @@ function Results() {
     let toMap = {};
     let excludedMatches = [];
     let resultToReturn = false;
+     
 
     function toFindDuplicates() {
     
-    for (let i = 0; i < resultsData.length; i++) {
-        if (toMap[resultsData[i].question] && toMap[resultsData[i].answer]) { 
+    // for (let i = 0; i < resultsData.length; i++) {
+    //     if (toMap[resultsData[i].question] && toMap[resultsData[i].answer]) { 
+            
+    //         resultToReturn = true;  
+    //         resultsData[i].count ? resultsData[i].count++ : resultsData[i].count = 1;
 
-            resultToReturn = true;  
-            count++;
+    //     } else {
+    //         excludedMatches.push(resultsData[i]);
+
+             
+    //     }
+    //     toMap[resultsData[i].question] = true;
+    //     toMap[resultsData[i].answer] = true;
+    // }
+
+    //IF THE CURRENT INDEX HAS A MATCH, INCREASE THE INDEX'S COUNT BY 1 FOR EVERY MATCH
+    for (let i = 0; i < resultsData.length; i++) {
+        let count = 0;
+        if (toMap[resultsData[i].question] && toMap[resultsData[i].answer]) { 
+             resultToReturn = true; 
+             console.log(resultToReturn,'hmm');
+            
+
+             resultsData[i].count = count+1;
+
+             const count1 = resultsData.filter(resultToReturn => resultToReturn === true).length;
+            console.log('this is count 1',count1); 
+            
 
         } else {
+            // resultsData[i].count ? resultsData[i].count +0 : resultsData[i].count = 1;
+            resultsData[i].count = 0;
             excludedMatches.push(resultsData[i]);
-            
+            // console.log(Boolean.length,'ya ya ya ay ay')
+
         }
+       
         toMap[resultsData[i].question] = true;
         toMap[resultsData[i].answer] = true;
+        
+        // toMap[resultsData[i].count] = true;
     }
-
 }
-
-        toFindDuplicates();
+ toFindDuplicates();
 //-----------------------------------------
-    
+
      return (
         <>
             <div className='pageContainer resultsContainer'>
@@ -181,14 +208,14 @@ function Results() {
 <tr key={data.id}>   
 
 <td>{data.question}</td>   
-    <td>{data.answer}:
+    <td>{data.answer}
     </td>
+    
     <td>
-    {count}
+    {data.count}
     </td>
 </tr>
     ))}
-
                 </thead>
             </table>
         </div>
