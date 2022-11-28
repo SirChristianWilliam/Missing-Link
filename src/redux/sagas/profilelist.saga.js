@@ -50,7 +50,6 @@ function* profilelistSaga() {
     yield takeEvery('FETCH_PROFILE_CONDITIONS', fetchProfileConditions);
     yield takeEvery('ADD_PROFILE_CONDITION', addProfileCondition);
     yield takeEvery('DELETE_ITEM',deleteItem);
-
 };
 
 export default profilelistSaga;

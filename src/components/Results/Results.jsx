@@ -43,7 +43,12 @@ function Results() {
     };
 
     const submitCode = (evt) => {
+        // evt.preventDefault();
         console.log('code was submitted', accessKey);
+        console.log(resultCondition.name,': resultcondition name ');
+        console.log(resultCondition.id,': resultcondition id ');
+        console.log(resultCondition.access_key,': resultcondition id ');
+
         dispatch({
             type: 'ADD_USER_KEY',
             payload: {
@@ -54,9 +59,9 @@ function Results() {
         });
     };
 
-    function handleCodeChange(event) {
-        console.log('code change value:', event.target.value);
-    }; //Don't really need this
+    // function handleCodeChange(event) {
+    //     console.log('code change value:', event.target.value);
+    // }; //Don't really need this
 
 
     function saveCondition(evt) {
@@ -73,18 +78,18 @@ function Results() {
                 conditionName = condition.name;
                 conditionCode = condition.access_key;
                 verified = condition.verified;
-
-            } else {
-                return;
-            }
-
-        });
+                alert(`${condition.name} was saved to your personal list, on your profile page!`);
+            }  
+            dispatch({
+                type: 'FETCH_PROFILE_CONDITIONS'
+            })
+        })
         console.log(verified, 'conditions result');
         if (!conditionName) {
+            alert('no condition to save'); 
             return;
         } else {
             dispatch({
-
                 type: 'ADD_PROFILE_CONDITION',
                 payload: {
                     id: conditionId, // The condition's ID on this page
@@ -92,9 +97,9 @@ function Results() {
                     code: conditionCode
                 }
             }),
-                dispatch({
-                    type: 'FETCH_PROFILE_CONDITIONS'
-                })
+            dispatch({
+                type: 'FETCH_PROFILE_CONDITIONS'
+            }) 
         }
     };
 
@@ -110,16 +115,11 @@ console.log('what is results data',resultsData);
         resultsData.count = 0;
 
         for (let i = 0; i < resultsData.length; i++) {
-            
             let result=resultsData[i];
-
             if (toMap[[resultsData[i].question, resultsData[i].answer]]) {
-
                 resultToReturn = true;
-               
             }  else {
                 result.count = toMap[[resultsData[i].question,resultsData[i].answer]] = {count:-1};
-
                 uniqueArray.push(result);
             }
             toMap[[resultsData[i].question,resultsData[i].answer]].count += 1;
@@ -128,25 +128,37 @@ console.log('what is results data',resultsData);
     toFindDuplicates();
      
     //-----------------------------------------
-console.log('gggggggggg',resultsData);
+console.log('resultsData',resultsData);
     return (
         <>
             <div className='pageContainer resultsContainer'>
-                <h1>Results</h1>
+                <div className='resultsh1Container'>
+                <h1 className='resultsresults'>Results</h1>
                 <h1 id="conditionShowing"> <span className='conditionStyle'>Condition: </span><span class="conditionNameStyle">{resultCondition.name}</span> </h1>
-
+                </div>
                 <div className='buttonResultsContainer'>
-                    <button
+                    <Button variant="outlined"
+                    sx={{
+                        bgcolor: '#5bc0a7',
+                        color:'#282321'
+                      }}
+                      className='buttonHoverResults'
                         onClick={(evt) => { saveCondition(evt) }}
                     >
                         Save Condition to Your List
-                    </button>
+                    </Button>
                     <br></br>
-                    <button
-                        onClick={openPopup}
+                    <Button variant="outlined"
+                    sx={{
+                        bgcolor: '#5bc0a7',
+                        color:'#282321'
+                      }}
+                      className='buttonHoverResults'
+                      onClick={openPopup}
                     >
                         - Add Access Code -
-                    </button>
+                    </Button>
+              
                 </div>
 
                 <div className="codePopupContainer" id="codePopupID">
@@ -193,14 +205,12 @@ console.log('gggggggggg',resultsData);
                                     {data.count.count}
                                 </td>
                             </tr>
-                        )
-                        
+                        ) 
                         )}
                     </thead>
                 </table>
             </div>
         </>
     )
-
 };
 export default Results;

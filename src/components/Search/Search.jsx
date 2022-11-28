@@ -89,6 +89,7 @@ function Search() {
                 <form onSubmit={handleSubmit} className='searchForm'>
                     <input
                         type="text"
+                        autoComplete='off'
                         id="myInput"
                         value={query}
                         onChange={handleOnSearch}

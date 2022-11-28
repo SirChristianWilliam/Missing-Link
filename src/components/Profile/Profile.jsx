@@ -22,6 +22,9 @@ function Profile() {
         }),
             dispatch({
                 type: 'FETCH_CONDITIONS'
+            }),
+             dispatch({
+                type: 'FETCH_ALL_PROFILE_CONDITIONS'
             })
     }, []);
 

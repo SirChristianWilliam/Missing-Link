@@ -11,6 +11,8 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
+  console.log('username',username);
+  console.log('password',password);
   const login = (event) => {
     event.preventDefault();
     
@@ -35,19 +37,18 @@ function LoginForm() {
           {errors.loginMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
+         <label htmlFor="username">
           Username:
           <Box
-      component="form"
+      // component="form"
       sx={{
         '& > :not(style)': { m: 1, width: '25ch' },
       }}
-      noValidate
+       
       autoComplete="off"
     >
           <TextField 
-            id="outlined-basic" 
+            id="outlined-basic1" 
             label="Username" 
             variant="outlined"
             type="text"
@@ -58,23 +59,21 @@ function LoginForm() {
              />
             </Box>
         </label>
-      </div>
-      <div>
-        <label htmlFor="password">
+         <label htmlFor="password">
           Password:
           <Box
-      component="form"
+      // component="form"
       sx={{
         '& > :not(style)': { m: 1, width: '25ch' },
       }}
-      noValidate
+       
       autoComplete="off"
     >
           <TextField 
             id="outlined-basic" 
             label="password" 
             variant="outlined"
-            type="text"
+            type="password"
             name="password"
             required
             value={password}
@@ -82,16 +81,17 @@ function LoginForm() {
              />
             </Box>
         </label>
-      </div>
-
+      
       <Button 
+                 
                 className='buttonHover'
                 variant="contained"
-                sx={{
-                    bgcolor: '#5bc0a7',
-                  }}
+               
                 type="submit"
                 name="submit"
+                sx={{
+                  bgcolor: '#5bc0a7',
+                }}
                  >
                 Log In
                 </Button>
@@ -101,3 +101,5 @@ function LoginForm() {
 };
 
 export default LoginForm;
+
+   
