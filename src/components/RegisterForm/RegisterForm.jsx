@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Input from '@mui/material/Input';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
@@ -35,65 +39,140 @@ function RegisterForm() {
       <div>
         <label htmlFor="username">
           Username:
-          <input
+          <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+          <TextField 
+            id="outlined-basic" 
+            label="Username" 
+            variant="outlined"
             type="text"
             name="username"
-            value={username}
             required
+            value={username}
             onChange={(event) => setUsername(event.target.value)}
-          />
+             />
+            </Box>
+          
         </label>
       </div>
       <div>
         <label htmlFor="password">
           Password:
-          <input
-            type="password"
+          <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+          <TextField 
+            id="outlined-basic" 
+            label="password" 
+            variant="outlined"
+            type="text"
             name="password"
-            value={password}
             required
+            value={password}
             onChange={(event) => setPassword(event.target.value)}
-          />
+             />
+            </Box>
+         
         </label>
       </div>
       <div>
         <label htmlFor="firstName">
           First Name:
-          <input
+          <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+          <TextField 
+            id="outlined-basic" 
+            label="firstName" 
+            variant="outlined"
             type="text"
             name="firstName"
-            value={firstName}
             required
+            value={firstName}
             onChange={(event) => setFirstName(event.target.value)}
-          />
+             />
+            </Box>
+         
         </label>
       </div>
       <div>
         <label htmlFor="lastName">
           Last Name:
-          <input
+          <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+          <TextField 
+            id="outlined-basic" 
+            label="lastName" 
+            variant="outlined"
             type="text"
             name="lastName"
-            value={lastName}
             required
+            value={lastName}
             onChange={(event) => setLastName(event.target.value)}
-          />
+             />
+            </Box>
+           
         </label>
       </div>
       <div>
         <label htmlFor="email">
           Email:
-          <input
+          <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+          <TextField 
+            id="outlined-basic" 
+            label="email" 
+            variant="outlined"
             type="text"
             name="email"
             required
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-          />
+             />
+            </Box>
         </label>
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+      <Button 
+                className='btn'
+                variant="contained"
+                sx={{
+                    bgcolor: '#5bc0a7',
+                  }}
+                type="submit"
+                name="submit"
+                 >
+                Register
+                </Button>
+      
       </div>
     </form>
   );

@@ -24,6 +24,12 @@
   padding-left: 35px;
   margin: 0;
 }
+.nav-title:hover {
+  color:white;
+  text-shadow: 0px 0px 5px #5bc0a7;
+ 
+
+}
 
 .navLink {
   /* display: inline-block; */
@@ -44,5 +50,10 @@
 .navLink:hover {
   background-color: #224e43;
   color:white;
+  text-shadow: 0px 0px 5px #5bc0a7;
 }
+
+
+
+
 

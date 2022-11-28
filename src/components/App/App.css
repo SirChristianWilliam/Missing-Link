@@ -5,11 +5,12 @@ body,
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  box-shadow:0px 70px 35px rgb(183, 222, 202) inset;
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
-  margin: 0px;
+  font-family: 'Lora', serif;
+    margin: 0px;
   height:auto;
   /* background-image:linear-gradient(#00539CFF,white); */
   background-image: url('/Users/mymac/PrimeFolder/AllTier1Projects/TIER2/week13/Missing-Link/public/doctor.jpeg');
@@ -29,6 +30,11 @@ Container
   background-color: rgba(20,20,20,.8);
   color:rgb(186, 184, 184);
   line-height: 1.6;
+  width:75%;
+  margin:auto;
+
+  border:1px solid white;
+
 }
 
 /* --------------------------------------------------------------------------------
@@ -126,8 +132,9 @@ input {
   border:1px solid black;
   border-radius:50%;
   box-shadow: 0px 0px 5px black;
-
+  cursor: pointer;
 }
+
 
 .codePopupContainer {
   border:1px solid black;
@@ -156,7 +163,11 @@ table, th, td{
 }
 
 .borderhere {
-  outline:1px solid black;
+  outline:1px dashed white;
+  padding:5px 50px;
+  background-color: rgba(255,255,255,.7);
+  color:black;
+  
 }
 .borderoff {
   outline:none;
@@ -172,9 +183,12 @@ footer {
 }
 .pageContainer {
   padding: 0px 35px;
+
 }
 #profileh1 {
   text-decoration: underline;
+  margin-left:40%;
+  font-size:40px;
 }
 .profileRightContainer {
   display: flex;
@@ -193,7 +207,7 @@ footer {
 }
 
 .profileTableContainer tr th {
-  padding:10px;
+  padding:20px;
 }
 .profileTableContainer tr td {
   padding:3px;
@@ -202,10 +216,12 @@ footer {
 .profileLeftContainer {
   float:left;
   width:25%;
-  padding:10px;
+  padding: 25px;
   outline:1px solid black;
   background-color: rgba(20,20,20,.8);
   color:rgb(186, 184, 184);
+  word-break: break-word;
+
 }
 .profileLeftContainer table {
   background-color: rgba(20,20,20,.8);
@@ -304,4 +320,74 @@ footer {
 .questionsTable {
   background-color: rgba(20,20,20,.8);
   color:rgb(186, 184, 184);
+  margin: auto;
+    width: 99%;
+}
+
+#email {
+  margin-right:10px;
+  font-weight: bold;
+}
+#userName {
+  margin-right:10px;
+  font-weight: bold;
+}
+
+#userUsername {
+  text-decoration: underline;
+}
+
+#userEmail {
+  text-decoration: underline;
+}
+
+#answerQuestionsBtn,.removeBtn,#usernameBtn, #emailBtn {
+  cursor: pointer;
+}
+.ppic:hover,#answerQuestionsBtn:hover, #usernameBtn:hover, #emailBtn:hover,.removeBtn:hover  {
+  box-shadow: 0px 0px 10px #5bc0a7;
+}
+#searchPageh1, .aboutContainer h1,.searchPageh2 {
+  text-decoration: underline;
+  text-align: center;
+}
+.tdCondition:hover {
+cursor: pointer;
+background-color: rgba(20,20,20,.8);
+outline:1px solid white;
+outline-offset: -2px;
+}
+
+.profileTableContainer tr:hover:not(:first-of-type) {
+  border-right:3px solid white;
+}
+.profileTableContainer:hover {
+  border-right:3px solid rgba(20,20,20,.8);
+  border-left:3px solid rgba(20,20,20,.8);
+
+}
+.removeBtn {
+  padding:3px 1.5px;
+}
+ 
+.buttonHover:hover {
+background-color: #326a5c !important;
+box-shadow: 0px 0px 10px #5bc0a7 !important;
+}
+.buttonHover:active {
+    color:black;
+}
+.profileTableContainer thead th {
+  font-size:25px;
+}
+.profileTableContainer  td {
+  font-size:18px;
+}
+.whitebox {
+  padding: 20px;
+  background-color: rgba(20,20,20,.8);
+  color:rgb(186, 184, 184);
+  line-height: 1.6;
+  width:75%;
+  margin:auto;
 }

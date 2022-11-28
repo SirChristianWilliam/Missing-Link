@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import ListItem from '../ListItem/Listitem';
+import Button from '@mui/material/Button';
 
 function Profile() {
     const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function Profile() {
         //This is just to change the username's attribute and class
         document.getElementById('userName').setAttribute("contenteditable", 'true');
         document.getElementById('userName').classList.add('borderhere');
+        document.getElementById('userName').focus();
     };
 
     function changePic(event) {
@@ -52,6 +54,8 @@ function Profile() {
         evt.preventDefault();
         document.getElementById('email').setAttribute("contenteditable", 'true');
         document.getElementById('email').classList.add('borderhere');
+        document.getElementById('email').focus();
+
     };
     function updateEmail(event) {
         event.preventDefault();
@@ -97,43 +101,70 @@ function Profile() {
                     </form>
 
                     <div>
-                        <h3>Username:</h3>
+                        <h3 id="userUsername">Username:</h3>
                         <span
                             id="userName"
                             onBlur={updateUsername}
                         >
                             {user.username}
                         </span>
-                        <button
+                        <Button 
+                            className='buttonHover'
+                            variant="contained"
+                            sx={{
+                                bgcolor: '#5bc0a7'
+                              }}
+                        id="usernameBtn"
                             onClick={(evt) => { editUsername(evt) }}
                         >
                             Edit
-                        </button>
+
+
+                        </Button>
+ 
                     </div>
 
                     <div>
-                        <h3>Email:</h3>
+                        <h3 id="userEmail">Email:</h3>
                         <span
+
                             id="email"
                             onBlur={(event) => { updateEmail(event) }}
                         >
                             {user.email}
                         </span>
-                        <button
+
+                        <Button 
+                            className='buttonHover'
+                            variant="contained"
+                            sx={{
+                                bgcolor: '#5bc0a7',
+                              }}
+                        id="usernameBtn"
                             onClick={(evt) => { editEmail(evt) }}
-                        >Edit
-                        </button>
+                        >
+                            Edit
+
+
+                        </Button>
+                      
                     </div>
 
                     <div>
                         <p>
                             ⬇ Click button to fill out your own personal questionnaire.
                         </p>
-                        <button
+                        <Button
+                            id='answerQuestionsBtn'
+                            className='buttonHover'
+                            variant="contained"
+                            sx={{
+                                bgcolor: '#5bc0a7',
+                              }}
                             onClick={() => { history.push('/questions') }}
                         >
                             Let's answer some questions!
-                        </button>
+                        </Button>
                     </div>
                 </div>
                 {/* END */}
@@ -148,7 +179,7 @@ function Profile() {
 
                             {userList.map(item => {
                                 return (
-                                    <tr key={item.id} >
+                                    <tr key={item.id}>
                                         <ListItem key={item.id} item={item} />
                                     </tr>
                                 )

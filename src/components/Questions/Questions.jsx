@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { useParams } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Input from '@mui/material/Input';
 
 function Questions() {
     const dispatch = useDispatch();
@@ -39,9 +41,17 @@ function Questions() {
     };
 
     return (
-        <>
-            <div className='pageContainer'>
-            <button onClick={() => { history.go(-1) }}>Go Back</button>
+        <>    
+            <div className='pageContainer whitebox'>
+            <Button 
+                className='buttonHover'
+                variant="contained"
+                sx={{
+                    bgcolor: '#5bc0a7',
+                  }}
+                onClick={() => { history.go(-1) }}>
+                    Go Back
+                </Button>
             <h1>Questions Page</h1>
             <p>Please note: In order to receive honest responses,
                 answers are uploaded anonymously. No one will be
@@ -61,12 +71,15 @@ function Questions() {
                             {question.question}  
                         </td>
                         <td >
-                            <input 
+                            <Input id="standard-basic" label="Standard" variant="standard"
+                                sx={{
+                                    color: 'white',
+                                  }}
                                 type="text" 
                                 placeholder={question.placeholder}
                                 onBlur={(evt) => {changeAnswer(evt, question.id)}}
                             >
-                            </input>
+                            </Input>
                         </td>
                     </tr>                  
                 ))}               

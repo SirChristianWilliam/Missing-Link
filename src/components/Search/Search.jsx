@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Fuse from 'fuse.js';
 import axios from 'axios';
+import Input from '@mui/material/Input';
 
 function Search() {
     const [query, setQuery] = useState('');
@@ -61,7 +62,7 @@ function Search() {
     return (
         <>
         <div className='pageContainer'>
-            <h1>Search Page</h1>
+            <h1 className="searchPageh2 ">Search Page</h1>
             <div className="container">
                 {/* <h2>Welcome, {user.username}!</h2> */}
             </div>

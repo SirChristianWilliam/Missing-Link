@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 function ListItem(props) {
     const history = useHistory();
@@ -31,20 +32,31 @@ function ListItem(props) {
         })
         history.push('/results');
     };
-
     return (
         <>
-            <td onClick={(evt) => { backToResults(evt) }}>
-                <span>{props.item.con_name}</span>
+            <td 
+                onClick={(evt) => { backToResults(evt) }}  
+                className="tdCondition"
+                title="Click to access results page">
+                <span >{props.item.con_name}</span>
             </td>
 
             <td>
                 {props.item.verified}
             </td>
             <td className='removeTd'>
-                <button onClick={removeItem} className="removeBtn">
+                <Button 
+                variant="contained"
+                sx={{
+                    fontSize:'12px',
+                    bgcolor: '#5bc0a7',
+                    color:'white'
+                  }}
+                className='buttonHover'
+                onClick={removeItem} 
+>
                     Delete Row
-                </button>
+                </Button>
             </td>
         </>
     )

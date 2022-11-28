@@ -79,11 +79,7 @@ function* editEmail(action) {
   } catch (err) {
     console.log('error in editUser.saga(put)', err);
   }
-
-
 }
-
-
 
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);

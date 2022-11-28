@@ -7,7 +7,8 @@ import React from 'react';
 
 function AboutPage() {
   return (
-    <div className="aboutContainer">
+    <div className="aboutContainer ">
+      <div className='whitebox'>
       <h1> About </h1>
       <div>
         <p>
@@ -32,6 +33,7 @@ function AboutPage() {
           HTML, CSS, AWS. 
         </p>
       </div>
+    </div>
     </div>
   );
 };
