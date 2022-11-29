@@ -85,6 +85,8 @@ function Profile() {
 
     return (
         <>
+            <div className="aboutContainer profContainer">
+
             <div className='pageContainer'>
                 <h1 id="profileh1">Profile Page</h1>
                 {/* LEFT SIDE OF PROFILE PAGE */}
@@ -190,6 +192,7 @@ function Profile() {
                         </thead>
                     </table>
                 </div>
+            </div>
             </div>
         </>
     )

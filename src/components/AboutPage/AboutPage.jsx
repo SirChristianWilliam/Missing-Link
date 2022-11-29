@@ -30,9 +30,15 @@ function AboutPage() {
           Redux, Postico, 
           postql, Postman, 
           Figma, Vscode, 
-          HTML, CSS, AWS. 
+          HTML, CSS, AWS...and many others!
         </p>
       </div>
+      <hr></hr>
+      <br></br>
+      <a href="https://www.linkedin.com/in/christian-maki/" className='socials' target='_blank'>LinkedIn</a>
+      <a href="https://github.com/SirChristianWilliam" className='socials' target='_blank'>Github</a>
+      <a href="mailto:webmaster@example.com" className='socials' target='_blank'>Email</a>
+
     </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import Fuse from 'fuse.js';
 import axios from 'axios';
 import Input from '@mui/material/Input';
+import Button from '@mui/material/Button';
 
 function Search() {
     const [query, setQuery] = useState('');
@@ -97,12 +98,19 @@ function Search() {
                         placeholder="Search a condition"
                     >
                     </input>
-                    <button
-                        type='submit'
-                    // onClick={handleClick}
-                    >
-                        Search
-                    </button>
+                    <Button
+                            type='submit'
+                            className='buttonHover'
+                            variant="contained"
+                            sx={{
+                                bgcolor: '#5bc0a7',
+                                width: '100px',
+                                fontSize:'13px'
+                              }}
+                            
+                        >
+                            Search
+                        </Button>
                     <table className='fuseContainer'>
                         <tbody>
                             {characterResults.map(condition => {
