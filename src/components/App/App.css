@@ -6,6 +6,7 @@ body,
   background-repeat: no-repeat;
   background-attachment: fixed;
   box-shadow:0px 70px 35px rgb(183, 222, 202) inset;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -405,4 +406,10 @@ border:1px solid black !important;
   font-size:40px;
   border-left:2px solid black;
   border-right:2px solid black;
+}
+
+.centerButton {
+    text-align: center;
+   margin:auto;
+   width:100%;
 }

@@ -54,38 +54,38 @@ router.post('/logout', (req, res) => {
 
 router.put('/userkey', rejectUnauthenticated, async (req, res) => {
   try {
-    const params = [req.body.id, req.body.key];
-    console.log('user.router PUT/userkey params: ', params);
-    const selectSql = `
+  const params = [req.body.id, req.body.key];
+  console.log('user.router PUT/userkey params: ',params);
+  const selectSql = `
   SELECT * FROM "conditions"
   WHERE "conditions"."access_key" = $2 AND "conditions"."id" = $1;`
 
-    const selectRes = await pool.query(selectSql, params);
-    console.log('user.router PUT/userkey selectRes.rows is : ', selectRes.rows);
+const selectRes = await pool.query(selectSql,params);
+console.log('user.router PUT/userkey selectRes.rows is : ',selectRes.rows);
 
-    if (selectRes.rows.length < 1) {
-      res.sendStatus(400);
-      return;
-    }
+if(selectRes.rows.length < 1) {
+  res.sendStatus(400);
+  return;
+} 
 
-    const putSql = `
+  const putSql = `
     UPDATE  "user_conditions" 
     SET  "verified" = 'verified' 
     WHERE "user_id" = $1 AND "condition_id" = $2;
   `
-    const updateParams = [req.user.id, req.body.id];
-    const putRes = await pool.query(putSql, updateParams);//not sure if needed
-    res.sendStatus(200);
+  const updateParams = [req.user.id, req.body.id];
+  const putRes = await pool.query(putSql,updateParams);//not sure if needed
+  res.sendStatus(200);
   }
-  catch (error) {
-    console.log('user.router PUT/userkey error :', error);
+  catch(error) {
+    console.log('user.router PUT/userkey error :',error);
     res.sendStatus(500);
   }
 });
 
 router.put('/useredit', rejectUnauthenticated, (req, res) => {
   const params = [req.user.id, req.body.name];
-  console.log('user.router PUT/useredit params is : ', params);
+  console.log('user.router PUT/useredit params is : ',params);
   const sqlText = `
     UPDATE "user" SET "username" = $2 WHERE "user"."id" = $1;
   `
@@ -100,7 +100,7 @@ router.put('/useredit', rejectUnauthenticated, (req, res) => {
 
 router.put('/editemail', rejectUnauthenticated, (req, res) => {
   const params = [req.user.id, req.body.email];
-  console.log('user.router PUT/editemail params :', params);
+  console.log('user.router PUT/editemail params :',params);
   const sqlText = `
     UPDATE "user" SET "email" = $2 WHERE "user"."id" = $1;
   `

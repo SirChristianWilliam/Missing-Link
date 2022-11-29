@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
+import { Link, animateScroll as scroll } from "react-scroll";
 
 function Questions() {
     const dispatch = useDispatch();
@@ -42,8 +43,9 @@ function Questions() {
 
     return (
         <>    
-            <div className='pageContainer whitebox'>
+            <div className='pageContainer whitebox' >
             <Button 
+                id='top'
                 className='buttonHover'
                 variant="contained"
                 sx={{
@@ -85,8 +87,25 @@ function Questions() {
                 ))}               
                 </thead>
             </table>
-        </div>
-        </>
+            
+                   
+         </div>
+            <div className ='centerButton'>
+         <Link to="top" >
+            <Button 
+                className='buttonHover '
+                variant="contained"
+                sx={{
+                    bgcolor: '#5bc0a7',
+                    border:'3px solid black',
+                    mt:'20px'
+                  }}
+              >
+                ⬆ Back to top ⬆
+                </Button>
+             </Link>
+             </div>
+    </>
     )
 };
 

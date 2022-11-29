@@ -122,6 +122,7 @@ function Search() {
                 </form>
             </div>
             </div>
+            
         </>
     );
 };

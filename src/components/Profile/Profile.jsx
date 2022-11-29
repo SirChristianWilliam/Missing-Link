@@ -173,7 +173,7 @@ function Profile() {
                 {/* END */}
                 {/* RIGHT SIDE OF PROFILE PAGE */}
                 <div className='profileRightContainer'>
-                    <h2>Your personal condtions list:</h2>
+                    <h2>Your personal conditions list:</h2>
                     <table className='profileTableContainer'>
                         <thead>
                             <tr>

@@ -79,6 +79,8 @@ function* editEmail(action) {
   } catch (err) {
     console.log('error in editUser.saga(put)', err);
   }
+
+
 }
 
 function* userSaga() {
