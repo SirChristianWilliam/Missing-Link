@@ -28,8 +28,10 @@ function AboutPage() {
           Technologies used: 
           Javascript, React, 
           Redux, Postico, 
-          postql, Postman, 
+          postgreSQL, Postman, 
           Figma, Vscode, 
+          Fuse.js, node.js,
+          GoogleFonts,
           HTML, CSS, AWS...and many others!
         </p>
       </div>
