@@ -122,7 +122,7 @@ console.log('what is results data',resultsData);
                 result.count = toMap[[resultsData[i].question,resultsData[i].answer]] = {count:-1};
                 uniqueArray.push(result);
             }
-            toMap[[resultsData[i].question,resultsData[i].answer]].count += 16;
+            toMap[[resultsData[i].question,resultsData[i].answer]].count += 1;
         }
      }
     toFindDuplicates();
