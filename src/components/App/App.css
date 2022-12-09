@@ -14,7 +14,7 @@ body {
   margin: 0px;
   height: auto;
   /* background-image:linear-gradient(#00539CFF,white); */
-  background-image: url('/Users/mymac/PrimeFolder/AllTier1Projects/TIER2/week13/Missing-Link/public/doctor.jpeg');
+  background-image: url('../../images/doctor.jpeg');
 }
 
 img {
