@@ -63,7 +63,7 @@ function Search() {
     return (
         <>
         <div className='pageContainer'>
-            <h1 className="searchPageh2 ">Search Page</h1>
+            <h1 className="searchPageh2 ">Search </h1>
             <div className="container">
                 {/* <h2>Welcome, {user.username}!</h2> */}
             </div>

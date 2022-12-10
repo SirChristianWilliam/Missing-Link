@@ -8,7 +8,7 @@ import RegisterForm from '../RegisterForm/RegisterForm';
 // import { Button } from '@mui/material';
 
 function LandingPage() {
-  const [heading, setHeading] = useState('Welcome');
+  // const [heading, setHeading] = useState('Welcome');
   const history = useHistory();
   // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const onLogin = (event) => {
@@ -17,7 +17,7 @@ function LandingPage() {
 
   return (
     <div className="container">
-      <h2>{heading}</h2>
+      {/* <h2>{heading}</h2> */}
       {/* <Drawer
         anchor="top"
         open={isDrawerOpen}

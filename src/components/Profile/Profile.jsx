@@ -86,7 +86,7 @@ function Profile() {
     return (
         <>
             <div className='pageContainer'>
-                <h1 id="profileh1">Profile Page</h1>
+                <h1 id="profileh1">Profile</h1>
                 {/* LEFT SIDE OF PROFILE PAGE */}
                 <div className='profileLeftContainer'>
                     <form method="post" enctype="multipart/form-data" onChange={(event) => onFileSelected(event)} >
