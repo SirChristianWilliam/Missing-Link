@@ -80,6 +80,9 @@ This app is intended to be used as a tool to find personal attributes among user
 7. There are two ways to access the questions page. The first is from their profile page, there is a button/link that will take them there at the bottom left of their profile. The other way is on the results page when you click the button to add an access code. The text instructions in the pop up will have a link to be clicked that will also take the user back to the questions page. 
 8.  Users will not need to answer all the questions if they don't want to. Each answer input will automatically save so they will not have to submit it all at once. If the user made a mistake and wants to change their answer, all they have to do is enter in a different answer for that specific question. 
 
+NOTE: Condition/disease ACCESS KEYS/CODES can be found in the database.sql file, so you are able to verify the conditions you would
+like to save.
+
 ## Acknowledgement
 Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality.
 
