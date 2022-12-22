@@ -31,7 +31,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
 
     pool.query(sqlText)
         .then((dbRes) => {
-            console.log('get ALL rows /all', dbRes.rows);
+            // console.log('get ALL rows /all', dbRes.rows);
             res.send(dbRes.rows) //send the array of DB questions back to saga
         })
         .catch((err) => {

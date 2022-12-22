@@ -15,7 +15,7 @@ const conditionsRouter = require('./routes/conditions.router');
 const userlistRouter = require('./routes/userlist.router');
 //auth-shelf has a shelf router as well, shelf is a component where
 // the information is displayed
-
+const multerRouter = require('./routes/multer.router');
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,6 +33,7 @@ app.use('/api/questions',questionsRouter);
 app.use('/api/answers',answersRouter);
 app.use('/api/conditions', conditionsRouter);
 app.use('/api/userlist', userlistRouter);
+app.use('/api/upload', multerRouter)
 
 // auth-shelf has app.use('/api/shelf',shelfRouter)
 

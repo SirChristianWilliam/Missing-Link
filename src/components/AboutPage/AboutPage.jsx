@@ -40,6 +40,7 @@ function AboutPage() {
       <a href="https://www.linkedin.com/in/christian-maki/" className='socials' target='_blank'>LinkedIn</a>
       <a href="https://github.com/SirChristianWilliam" className='socials' target='_blank'>Github</a>
       <a href="mailto:webmaster@example.com" className='socials' target='_blank'>Email</a>
+      <a href="https://sirchristianwilliam.github.io/Portfolio/Server/public/" className='socials' target='_blank'>Portfolio</a>
 
     </div>
     </div>

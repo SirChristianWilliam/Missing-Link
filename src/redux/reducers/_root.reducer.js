@@ -7,6 +7,7 @@ import results from './result.reducer';
 import conditions from './conditions.reducer';
 import profilelist from './profilelist.reducer';
 import resultdataReducer from './resultdata.reducer';
+import multerReducer from './multer.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   conditions,
   profilelist,
   resultdataReducer,
+  multerReducer,
 });
 
 export default rootReducer;

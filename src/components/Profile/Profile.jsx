@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import ListItem from '../ListItem/Listitem';
 import Button from '@mui/material/Button';
-
+import Upload from '../Multer/Multer';
+import { Public } from '@mui/icons-material';
 function Profile() {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -35,11 +36,6 @@ function Profile() {
         document.getElementById('userName').classList.add('borderhere');
         document.getElementById('userName').focus();
     };
-
-    function changePic(event) {
-        console.log('in changePic');
-    }
-    //IF I WANT THE IMAGES SRC TO STORE LATER, I CAN SEE WHAT IT IS WITH THIS FUNCTION
 
     function updateUsername(evt) {
         evt.preventDefault();
@@ -72,37 +68,13 @@ function Profile() {
         })
     };
 
-    function onFileSelected(event) {
-        let selectedFile = event.target.files[0];
-        let reader = new FileReader();
-        let imgtag = document.getElementById("myimage");
-        imgtag.title = selectedFile.name;
-        reader.onload = function (event) {
-            imgtag.src = event.target.result;
-        };
-        reader.readAsDataURL(selectedFile);
-    };
-
     return (
         <>
             <div className='pageContainer'>
                 <h1 id="profileh1">Profile</h1>
                 {/* LEFT SIDE OF PROFILE PAGE */}
                 <div className='profileLeftContainer'>
-                    <form method="post" enctype="multipart/form-data" onChange={(event) => onFileSelected(event)} >
-                        <input type="file" id="imgupload" className="hideInput" />
-                        <label for='imgupload'>
-                            <img
-                                id="myimage"
-                                label for='imgupload'
-                                onClick={(evt) => { changePic(evt) }}
-                                className="ppic"
-                                src={"ppic.png"}
-                            >
-                            </img>
-                        </label>
-                    </form>
-
+                <Upload/>
                     <div>
                         <h3 id="userUsername">Username:</h3>
                         <span

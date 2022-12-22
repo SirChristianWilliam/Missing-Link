@@ -498,3 +498,10 @@ footer {
   margin-right: 20px;
 
 }
+.firstHidden {
+  visibility: hidden;
+  display: none !important;
+}
+.nowShow {
+  visibility: visible;
+}
