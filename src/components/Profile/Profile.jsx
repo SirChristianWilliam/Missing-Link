@@ -127,7 +127,7 @@ function Profile() {
 
                     <div>
                         <p>
-                            ⬇ Click button to fill out your own personal questionnaire.
+                            ⬇ Click below to fill out your own personal questionnaire.
                         </p>
                         <Button
                             id='answerQuestionsBtn'
@@ -145,7 +145,7 @@ function Profile() {
                 {/* END */}
                 {/* RIGHT SIDE OF PROFILE PAGE */}
                 <div className='profileRightContainer'>
-                    <h2>Your personal condtions list:</h2>
+                    <h2>Your Saved Conditions:</h2>
                     <table className='profileTableContainer'>
                         <thead>
                             <tr>

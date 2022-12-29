@@ -54,6 +54,26 @@
 }
 
 
+@media only screen and (max-width: 700px) {
+  .nav {
+    display: flex;
+    margin: 0 0 30px;
+    background-color: #282321;
+    overflow: hidden;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: column;
+  }
+  .nav-title {
+    padding-left:0;
+    padding-top:15px;
+  }
+   
+  body {
+    width:100%;
+    margin:"";
+  }
+}
 
 
 

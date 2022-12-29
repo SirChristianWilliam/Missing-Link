@@ -8,7 +8,7 @@ function Nav() {
   const user = useSelector((store) => store.user);
 
   return (
-    <div className="nav">
+    <div className="nav col-">
       <Link to="/home">
         <h1 className="nav-title">Missing Link</h1>
       </Link>

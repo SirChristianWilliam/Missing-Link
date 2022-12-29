@@ -1,6 +1,5 @@
 html,
-body,
-#react-root {
+body {
   height: 100%;
   margin: 0;
   background-repeat: no-repeat;
@@ -11,8 +10,6 @@ body,
 
 body {
   font-family: 'Lora', serif;
-  margin: 0px;
-  height: auto;
   /* background-image:linear-gradient(#00539CFF,white); */
   background-image: url('../../images/doctor.jpeg');
 }
@@ -33,6 +30,7 @@ Container
   line-height: 1.6;
   width: 75%;
   margin: auto;
+  margin-bottom: 300px;
 
   border: 1px solid white;
 
@@ -132,8 +130,8 @@ input {
 }
 
 .ppic {
-  width: 100px;
-  height: 100px;
+  height: 150px;
+  
   border: 1px solid black;
   border-radius: 50%;
   box-shadow: 0px 0px 5px black;
@@ -189,11 +187,16 @@ td {
 footer {
   background-color: #282321;
   color: #5bc0a7;
+
 }
 
 .pageContainer {
   padding: 0px 35px;
+  margin-bottom: 300px;
 
+}
+.pageContainer h1 {
+  text-decoration: underline;
 }
 
 #profileh1 {
@@ -206,8 +209,17 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-
+}
+.profileRightContainer table {
+  box-shadow: 18px 17px 25px black;
+}
+.profileRightContainer h2 {
+  text-shadow: 0px 0px 5px black, 0px 0px 1px black;
+  color: whitesmoke;
+  padding: 5px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  box-shadow: 0px 0px 20px inset black;
 }
 
 .profileRightContainer table {
@@ -236,7 +248,7 @@ footer {
   background-color: rgba(20, 20, 20, .8);
   color: rgb(186, 184, 184);
   word-break: break-word;
-
+  box-shadow: 18px 17px 25px black;
 }
 
 .profileLeftContainer table {
@@ -325,12 +337,12 @@ footer {
 .conditionNameStyle {
   text-decoration: underline;
   font-weight: bold;
+  text-shadow: 0px 0px 5px white, 0px 0px 1px white;
 }
 
-/* .conditionStyle {
-  font-style: italic;
-
-} */
+.conditionStyle {
+  text-shadow: 0px 0px 5px white, 0px 0px 1px white;
+}
 .resultContainer {
   width: 75%;
   margin: auto;
@@ -451,6 +463,7 @@ footer {
   font-size: 40px;
   border-left: 2px solid black;
   border-right: 2px solid black;
+  text-shadow: 0px 0px 5px white, 0px 0px 1px white;
 }
 
 .centerButton {
@@ -504,4 +517,55 @@ footer {
 }
 .nowShow {
   visibility: visible;
+}
+
+@media only screen and (max-width: 700px) {
+  .profileLeftContainer {
+    float: none;
+    width: 75%;
+    margin:auto;
+    padding: 25px;
+    outline: 1px solid black;
+    background-color: rgba(20, 20, 20, .8);
+    color: rgb(186, 184, 184);
+    word-break: break-word;
+  }
+  #profileh1 {
+    margin: auto;
+    text-align: center;
+    font-size: "";    
+    margin-top:-25px;
+  }
+  .profileLeftContainer form {
+    text-align: center;
+
+  }
+  .socials {
+    color: white;
+    text-decoration: underline;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 20% 20%;
+    margin-bottom: 10px;
+    display: inline-flex;
+    
+
+  }
+  .whitebox, .aboutContainer {
+    width:auto;
+  }
+  .profileRightContainer h2 {
+    margin-top:35px;
+  }
+
+
+
+}
+
+#profileh1, .searchPageh2  {
+  text-shadow: 0px 0px 5px white, 0px 0px 1px white;
+}
+.loginDiv {
+  margin-bottom: 300px;
+
 }

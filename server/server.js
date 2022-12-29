@@ -27,6 +27,9 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Serve static files
+app.use(express.static('build'));
+
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/questions',questionsRouter);
@@ -37,8 +40,7 @@ app.use('/api/upload', multerRouter)
 
 // auth-shelf has app.use('/api/shelf',shelfRouter)
 
-// Serve static files
-app.use(express.static('build'));
+
 
 // App Set //
 const PORT = process.env.PORT || 5000;
