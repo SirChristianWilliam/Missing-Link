@@ -548,8 +548,6 @@ footer {
     border-radius: 20% 20%;
     margin-bottom: 10px;
     display: inline-flex;
-    
-
   }
   .whitebox, .aboutContainer {
     width:auto;
@@ -557,9 +555,9 @@ footer {
   .profileRightContainer h2 {
     margin-top:35px;
   }
-
-
-
+  footer {
+    display:none;
+  }
 }
 
 #profileh1, .searchPageh2  {
@@ -567,5 +565,4 @@ footer {
 }
 .loginDiv {
   margin-bottom: 300px;
-
 }
