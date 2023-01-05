@@ -14,12 +14,7 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 //------------------------------------------- for s3
 const bucketName = process.env.AWS_BUCKET_NAME;
-// const region = process.env.AWS_DEFAULT_REGION;
-// const accessKeyId = process.env.AWS_ACCESS_KEY;
-// const secretAccessKey = process.env.AWS_SECRET_KEY;
-// console.log('WHAT IS REGION', region)
-// console.log(accessKeyId);
-// console.log(secretAccessKey);
+
 //s3 client
 const s3 = new S3Client({
   region: 'us-east-2'

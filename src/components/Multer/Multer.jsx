@@ -8,7 +8,6 @@ function Upload() {
     const [selectedFile, setSelectedFile] = useState('');
     const user = useSelector((store) => store.user);
     const multerReducer = useSelector((store) => store.multerReducer);
-
     const handleUpload = (event) => {
         event.preventDefault();
         console.log('in handleUpload Multer',selectedFile);
@@ -18,7 +17,14 @@ function Upload() {
         })
     }
 
+const myTimeout = setTimeout(holdup, 3000);
+
+function holdup() {
+    document.getElementById('submitProfilePic').classList.add('firstHidden')
+}
+
     const changeHandler = (event) => {
+
         console.log('in changeHandler Multer',event.target.files);
         setSelectedFile(event.target.files);
         document.getElementById('submitProfilePic').classList.remove('firstHidden');
@@ -50,6 +56,7 @@ function Upload() {
                 </img>
             </label>
             <Button 
+                onClick={myTimeout}
                 type="submit"
                 value="Upload Profile Pic"
                 className='buttonHover firstHidden'
