@@ -152,3 +152,28 @@ router.put('/userkey', rejectUnauthenticated, (req, res) => {
       console.log('error updating user key in put', err);
     })
 });
+
+
+Things to add for future implementations: 
+1. So for the questions list, currently users don't have to 
+    click "submit" or anything like that, all they do is type in 
+    their answer and when the input's focus leaves that text 
+    box, it saves to the database. I want to implement a feature 
+    where once it saves, that whole question is still visible 
+    UNTIL the user leaves the page. When that happens, then it 
+    will no longer be visible on that user's page. The reason for 
+    this is because the questions list is going to be absolutely 
+    massive one day. Users won't want to or be able to answer 
+    all of the questions in one sitting. Additionally, if they come 
+    back to answer more the next day and the old questions are 
+    still there, they won't know where they left off, and it will 
+    be confusing because they will think their answers weren't 
+    submitted and registered. Having them disappear will help 
+    reduce the length and progress of the answered questions. 
+    In theory, once a user answers all the questions, the page will 
+    be empty. If the visibility of the table's rows is equal to 0, 
+    a message can replace the content saying "Thank you. Please 
+    check back at a later time for additional questions" 
+    This will allow researchers to add more unique questions and give 
+    users a call to action to come back to the site, as well as 
+    giving them a better understanding and transparency. 
