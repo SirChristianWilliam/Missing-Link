@@ -15,7 +15,7 @@ function Profile() {
     const userList = useSelector((store) => store.profilelist);
     const conditions = useSelector((store) => store.conditions);
     console.log('in Profile.jsx, here are the conditions: ', conditions);
-    console.log('in Profile.jsx, here is the userList', userList);
+    // console.log('in Profile.jsx, here is the userList', userList);
 
     useEffect(() => {
         dispatch({

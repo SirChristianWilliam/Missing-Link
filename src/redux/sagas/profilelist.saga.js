@@ -9,7 +9,7 @@ function* fetchProfileConditions() {
             withCredentials: true,
         }
         const userList = yield axios.get('/api/userlist', config);
-        console.log('profilelist profillist.data is: ', userList.data);
+        // console.log('profilelist profillist.data is: ', userList.data);
         yield put({
             type: 'SET_PROFILE_LIST',
             payload: userList.data
@@ -30,7 +30,7 @@ function* addProfileCondition(action) {
         console.log('SHOW ME THE DATAAAAAAAAAAAAAA: ', userList.data); 
         
         yield put({
-            type: 'SET_PROFILE_LIST', 
+            type: 'FETCH_PROFILE_CONDITIONS', 
             payload: userList.data 
         })   
     } catch (err) {

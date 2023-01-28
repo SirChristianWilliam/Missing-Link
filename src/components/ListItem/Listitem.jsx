@@ -10,6 +10,18 @@ function ListItem(props) {
     const user = useSelector(store => store.user);
     const conditions = useSelector(store => store.conditions);
 
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_PROFILE_CONDITIONS'
+        }),
+            dispatch({
+                type: 'FETCH_CONDITIONS'
+            }),
+             dispatch({
+                type: 'FETCH_ALL_PROFILE_CONDITIONS'
+            })
+    }, []);
+    
     const removeItem = () => {
         dispatch({
             type: 'DELETE_ITEM',
