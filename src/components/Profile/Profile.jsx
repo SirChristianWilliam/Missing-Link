@@ -14,7 +14,7 @@ function Profile() {
     const user = useSelector((store) => store.user);
     const userList = useSelector((store) => store.profilelist);
     const conditions = useSelector((store) => store.conditions);
-    console.log('in Profile.jsx, here are the conditions: ', conditions);
+    // console.log('in Profile.jsx, here are the conditions: ', conditions);
     // console.log('in Profile.jsx, here is the userList', userList);
 
     useEffect(() => {
@@ -39,7 +39,7 @@ function Profile() {
 
     function updateUsername(evt) {
         evt.preventDefault();
-        console.log('in updateUsername', evt.target.innerText);
+        // console.log('in updateUsername', evt.target.innerText);
         document.getElementById('userName').setAttribute("contenteditable", 'false');
         document.getElementById('userName').classList.remove('borderhere');
 
@@ -58,7 +58,7 @@ function Profile() {
     };
     function updateEmail(event) {
         event.preventDefault();
-        console.log('updateEmail event.target.value: ', event.target.value);
+        // console.log('updateEmail event.target.value: ', event.target.value);
         document.getElementById('email').setAttribute("contenteditable", 'false');
         document.getElementById('email').classList.remove('borderhere');
 

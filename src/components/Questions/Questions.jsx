@@ -12,8 +12,8 @@ function Questions() {
     const questions = useSelector(store => store.questions); //grabs questions array from store
     const answers = useSelector(store => store.answers);
     const user = useSelector(store => store.user);
-    console.log('and the USERS IS',user);
-    console.log('The answers array is...',answers.arr); 
+    // console.log('and the USERS IS',user);
+    // console.log('The answers array is...',answers.arr); 
 
     useEffect(() => {
         dispatch({
@@ -21,16 +21,13 @@ function Questions() {
         }),
         dispatch({
             type:'FETCH_ANSWERS'
-        }),
-        dispatch({
-            type:'FETCH_USER'
         })
     }, []); 
 
     function changeAnswer(evt,id) {
         evt.preventDefault();
-        console.log('the input text is set to: ', evt.target.value); //Shows the value of the input when you lose focus of the input
-        console.log('the question ID is: ',id); // This is the question id
+        // console.log('the input text is set to: ', evt.target.value); //Shows the value of the input when you lose focus of the input
+        // console.log('the question ID is: ',id); // This is the question id
 
              dispatch({
                 type: 'UPDATE_ANSWER',

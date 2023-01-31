@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 function ListItem(props) {
     const history = useHistory();
     const dispatch = useDispatch();
-    console.log('what are {props}.condition_id in ListItem ', props.item.condition_id);
+    // console.log('what are {props}.condition_id in ListItem ', props.item.condition_id);
     const user = useSelector(store => store.user);
     const conditions = useSelector(store => store.conditions);
 
@@ -21,7 +21,7 @@ function ListItem(props) {
                 type: 'FETCH_ALL_PROFILE_CONDITIONS'
             })
     }, []);
-    
+
     const removeItem = () => {
         dispatch({
             type: 'DELETE_ITEM',
