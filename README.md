@@ -1,6 +1,8 @@
 # PROJECT NAME
 Missing Link
 
+VIEW DEPLOYED VERSION HERE: https://missinglinksolo.herokuapp.com/#/
+
 ## Description
 
 I plan to create a full-fledged version of this app in the future, and this was a great starting point to figure out what I will need to do to make that happen. I plan to add many features, not limited to:
