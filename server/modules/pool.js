@@ -1,3 +1,4 @@
+require('dotenv').config()
 const pg = require('pg');
 let pool;
 
@@ -24,5 +25,4 @@ else {
         database: 'prime_app', 
     });
 }
-
 module.exports = pool;
